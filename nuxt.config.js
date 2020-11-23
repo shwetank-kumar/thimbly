@@ -17,7 +17,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['~/plugins/firebase.js'], // '~/plugins/fireauth.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -32,24 +32,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    [
-      '@nuxtjs/firebase',
-      {
-        config: {
-          apiKey: 'AIzaSyDtskTo2SSvyzfbpA2rAFA14ZTjsD2jrBs',
-          authDomain: 'thimbly-dev.firebaseapp.com',
-          databaseURL: 'https://thimbly-dev.firebaseio.com',
-          projectId: 'thimbly-dev',
-          storageBucket: 'thimbly-dev.appspot.com',
-          messagingSenderId: '28742505791',
-          appId: '1:28742505791:web:b2172e2c33f27ec86eef8a',
-          measurementId: 'G-843BLJ4NTX',
-        },
-        services: {
-          auth: true, // Just as example. Can be any other service.
-        },
-      },
-    ],
   ],
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)

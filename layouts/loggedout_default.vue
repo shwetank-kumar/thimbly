@@ -1,10 +1,5 @@
 <template>
   <v-app dark>
-    <v-app-bar dense app>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <Header />
-    </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
@@ -15,6 +10,7 @@
 
 <script>
 export default {
+  name: 'loggedout_default',
   data() {
     return {
       title: 'Thimbly',

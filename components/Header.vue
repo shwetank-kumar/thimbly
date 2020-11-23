@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-menu class="preferences-menu" v-if="user">
+    <v-menu right class="preferences-menu">
       <template v-slot:activator="{ on, attrs }">
         <v-btn depressed v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>
@@ -25,18 +25,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import firebase from 'firebase'
 export default {
-  name: 'LoggediInMenu',
-  computed: {
-    ...mapGetters(['user']),
-  },
+  name: 'Header',
   methods: {
     loggedInMenuAction(item) {
       if (item.text == 'Preferences') {
         console.log('Go to preferences page.')
-        this.$router.push('/preference')
-      } else if (item.text == 'New Listing') {
+        this.$router.push('/preferences')
+      } else if (item.text == 'Create Listing') {
         console.log('Go to createlisting page.')
         this.$router.push('/createlisting')
       } else if (item.text == 'Share') {
@@ -46,7 +43,8 @@ export default {
         console.log('Go to store page.')
         this.$router.push('/store')
       } else if (item.text == 'Logout') {
-        console.log('Logout.')
+        this.$firebase.auth().signOut()
+        this.$router.push('/')
       }
     },
   },
@@ -54,7 +52,7 @@ export default {
     return {
       items: [
         { text: 'Preferences', icon: 'mdi-account-settings' },
-        { text: 'New Listing', icon: 'mdi-plus' },
+        { text: 'Create Listing', icon: 'mdi-plus' },
         { text: 'Share', icon: 'mdi-share-variant' },
         { text: 'Store', icon: 'mdi-home' },
         { text: 'Logout', icon: 'mdi-logout' },

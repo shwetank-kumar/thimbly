@@ -1,22 +1,15 @@
 <template>
-  <div>
-    <h4>Welcome {{ user.username }}!</h4>
-    <div class="store-container">This is the store page!</div>
-  </div>
+  <div class="createlisting-container">This is the store page!</div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
-  middleware: 'auth',
-  computed: {
-    ...mapGetters(['user']),
-  },
+  middleware: 'authenticate',
 }
 </script>
 
 <style scoped>
-.store-container {
+.createlisting-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;

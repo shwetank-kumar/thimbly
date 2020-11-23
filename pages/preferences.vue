@@ -1,13 +1,15 @@
 <template>
-  <div class="preference-container">This is the preference page!</div>
+  <div class="createlisting-container">This is the preferences page!</div>
 </template>
 
 <script>
-export default {}
+export default {
+  middleware: 'authenticate',
+}
 </script>
 
 <style scoped>
-.preference-container {
+.createlisting-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;
