@@ -34,7 +34,7 @@ export const actions = {
     // Get the token from the cookie, if available, and
     // initialise the `auth` state with it.
     let token = null
-    if (req.headers.cookie) {
+    if (req && req.headers && req.headers.cookie) {
       const parsed = cookieParser.parse(req.headers.cookie)
       token = parsed.token
     }
