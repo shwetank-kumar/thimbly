@@ -12,7 +12,7 @@
 export default {
   data() {
     return {
-      isPaypalLoaded: false,
+      // isPaypalLoaded: false,
     }
   },
   head() {
@@ -26,10 +26,10 @@ export default {
           defer: true,
           // Changed after script load
           callback: () => {
-            this.isPaypalLoaded = true
+            // this.isPaypalLoaded = true
             var FUNDING_SOURCES = [
               paypal.FUNDING.PAYPAL,
-              // paypal.FUNDING.VENMO,
+              paypal.FUNDING.VENMO,
               // paypal.FUNDING.CREDIT,
               // paypal.FUNDING.CARD,
             ]
