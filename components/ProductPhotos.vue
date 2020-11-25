@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-2">
+  <div class="px-2">
     <h4>Photos</h4>
     <v-row class="d-flex justify-space-around">
       <v-col cols="2">
