@@ -40,7 +40,6 @@
 export default {
   data() {
     return {
-      //   previewImage: null,
       urls: [],
       images: null,
       currentIndex: 0,
@@ -51,7 +50,6 @@ export default {
       if (this.urls.length <= 2) {
         this.urls.push(URL.createObjectURL(this.images))
         this.currentIndex = this.urls.length - 1
-        console.log(this.currentIndex)
       }
     },
     deleteImg() {

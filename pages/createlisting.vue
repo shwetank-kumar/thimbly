@@ -10,9 +10,8 @@
     <v-divider class="pb-1 mx-2"></v-divider>
     <payment-options />
     <v-row class="justify-space-around py-1 mx-2">
-      <v-btn depressed small color="error" @click="cancel">Cancel</v-btn>
-      <v-btn depressed small @click="save">Save Draft</v-btn>
-      <v-btn depressed small color="primary" @click="publish">Publish</v-btn>
+      <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
+      <v-btn depressed color="primary" @click="save">Preview</v-btn>
     </v-row>
   </div>
 </template>

@@ -5,6 +5,7 @@ export const state = () => {
   return {
     auth: null,
     user: null,
+    product: null,
   }
 }
 
@@ -27,6 +28,8 @@ export const mutations = {
 
 export const getters = {
   auth: (state) => state.auth,
+  user: (state) => state.user,
+  product: (state) => state.product,
 }
 
 export const actions = {
