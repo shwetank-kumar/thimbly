@@ -4,7 +4,7 @@
       <v-col class="pb-0" cols="8">
         <h4>Photos</h4>
       </v-col>
-      <v-col class="d-flex align-center pt-2 pb-0" cols="2">
+      <!-- <v-col class="d-flex align-center pt-2 pb-0" cols="2">
         <v-file-input
           class="ma-0 pa-0"
           type="file"
@@ -13,7 +13,7 @@
           hide-input
           @change="addImg"
           v-model="images"
-        >
+        > -->
         </v-file-input>
       </v-col>
       <v-col class="pt-2 pb-0" cols="2">
