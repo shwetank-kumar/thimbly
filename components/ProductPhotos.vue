@@ -1,51 +1,66 @@
 <template>
   <div class="px-2">
-    <h4>Photos</h4>
-    <v-row class="d-flex justify-space-around">
-      <!-- <v-col cols="2">
-        <v-file-input
-          class="d-flex justify-space-around py-0 my-0 ml-2"
-          type="file"
-          multiple
-          prepend-icon="mdi-panorama"
-          accept="image/*"
-          hide-input
-          @change="picChange(event)"
-        ></v-file-input>
+    <v-row>
+      <v-col class="pb-0" cols="8">
+        <h4>Photos</h4>
       </v-col>
-      <v-col class="d-flex justify-space-around" cols="2">
+      <v-col class="d-flex align-center pt-2 pb-0" cols="2">
         <v-file-input
-          class="d-flex justify-space-around py-0 my-0 ml-2"
+          class="ma-0 pa-0"
           type="file"
-          multiple
-          prepend-icon="mdi-panorama"
+          prepend-icon="mdi-plus"
           accept="image/*"
           hide-input
-          @change="picChange(event)"
-        ></v-file-input
-      ></v-col>
-      <v-col class="d-flex justify-space-around" cols="2">
-        <v-file-input
-          class="d-flex justify-space-around py-0 my-0 ml-2"
-          type="file"
-          multiple
-          prepend-icon="mdi-panorama"
-          accept="image/*"
-          hide-input
-          @change="picChange(event)"
-        ></v-file-input>
-      </v-col> -->
-      <file-preview />
+          @change="addImg"
+          v-model="images"
+        >
+        </v-file-input>
+      </v-col>
+      <v-col class="pt-2 pb-0" cols="2">
+        <v-btn icon @click="deleteImg"><v-icon>mdi-delete</v-icon></v-btn>
+      </v-col>
+    </v-row>
+    <v-row class="pb-2">
+      <v-carousel
+        light
+        v-model="currentIndex"
+        height="150px"
+        hide-delimiter-background
+        :show-arrows="false"
+      >
+        <v-carousel-item v-for="url in urls" :key="url">
+          <v-img max-height="150px" aspect-ratio="1.333" :src="url"></v-img>
+        </v-carousel-item>
+      </v-carousel>
     </v-row>
   </div>
 </template>
 
 <script>
-// import filePreview from './filePreview'
-import FilePreview from './filePreview.vue'
 export default {
-  components: {
-    FilePreview,
+  data() {
+    return {
+      //   previewImage: null,
+      urls: [],
+      images: null,
+      currentIndex: 0,
+    }
+  },
+  methods: {
+    addImg() {
+      if (this.urls.length <= 2) {
+        this.urls.push(URL.createObjectURL(this.images))
+        this.currentIndex = this.urls.length - 1
+        console.log(this.currentIndex)
+      }
+    },
+    deleteImg() {
+      if (this.urls.length > 0) {
+        this.urls.splice(this.currentIndex, 1)
+        this.currentIndex = this.currentIndex - 1
+        console.log(this.currentIndex)
+      }
+    },
   },
 }
 </script>

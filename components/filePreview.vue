@@ -1,24 +1,9 @@
 <template>
   <div>
-    <div
-      class="imagePreviewWrapper"
-      :style="{ 'background-image': `url(${previewImage})` }"
-      @click="selectImage"
-    ></div>
-
-    <input ref="fileInput" type="file" @input="pickFile" />
-    <input ref="fileInput" type="file" @input="pickFile" />
-    <input ref="fileInput" type="file" @input="pickFile" />
-    <!-- <v-file-input
-      class="d-flex justify-space-around py-0 my-0 ml-2"
-      type="file"
-      multiple
-      prepend-icon="mdi-panorama"
-      accept="image/*"
-      hide-input
-      ref="fileInput"
-      @input="pickFile"
-    ></v-file-input> -->
+    <div class="photoOne">
+      <v-file-input @change="Preview_image" v-model="image"> </v-file-input>
+      <v-img max-height="200px" max-width="200px" :src="url"></v-img>
+    </div>
   </div>
 </template>
 <script>
@@ -26,23 +11,14 @@ export default {
   data() {
     return {
       previewImage: null,
+      url: null,
+      image: null,
     }
   },
   methods: {
-    selectImage() {
-      this.$refs.fileInput.click()
-    },
-    pickFile() {
-      let input = this.$refs.fileInput
-      let file = input.files
-      if (file && file[0]) {
-        let reader = new FileReader()
-        reader.onload = (e) => {
-          this.previewImage = e.target.result
-        }
-        reader.readAsDataURL(file[0])
-        this.$emit('input', file[0])
-      }
+    Preview_image() {
+      console.log(this.image)
+      this.url = URL.createObjectURL(this.image)
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="px-2">Payment Options (Placeholder)</h4>
-    <div id="paypal-button-container" class="pt-5"></div>
+    <div id="paypal-button-container" class="pt-2"></div>
     <p class="text-center font-weight-light">
       Enables accepting "Pay with Paypal payments".
     </p>
@@ -41,7 +41,7 @@ export default {
                 style: {
                   layout: 'vertical',
                   color: 'silver',
-                  shape: 'rect',
+                  shape: 'pill',
                   label: 'paypal',
                 },
               })
@@ -59,5 +59,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>
