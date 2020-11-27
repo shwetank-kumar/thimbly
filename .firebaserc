@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "thimbly-dev"
+    "default": "thimbly-dev",
+    "dev": "thimbly-dev",
+    "prod": "thimbly-prod"
   }
 }

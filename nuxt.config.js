@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  ssr: false,
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - thimbly',
@@ -11,20 +12,13 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    // script: [
-    //   {
-    //     src:
-    //       'https://www.paypal.com/sdk/js?client-id=AR6R-6_rv5YCSR0l4Jmxwukggy8zcIjZ6owaA-Q9md4iMSFJjj2T7pmq_n3rnXdjwcS0ZbgEqsZuKx-Y',
-    //     body: true,
-    //   },
-    // ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/firebase.js'], //, '~/plugins/paypal.js'],
+  plugins: ['~/plugins/firebase.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

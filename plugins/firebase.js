@@ -1,17 +1,21 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import { settings } from '../config/settings'
 
-export default ({ env, store }, inject) => {
+export default ({ __, store }, inject) => {
+  const location = window.location.hostname
+  const env = location === 'thimbly-prod.web.app' ? 'prod' : 'dev'
   const firebaseConfig = {
-    apiKey: 'AIzaSyDtskTo2SSvyzfbpA2rAFA14ZTjsD2jrBs',
-    authDomain: 'thimbly-dev.firebaseapp.com',
-    databaseURL: 'https://thimbly-dev.firebaseio.com',
-    projectId: 'thimbly-dev',
-    storageBucket: 'thimbly-dev.appspot.com',
-    messagingSenderId: '28742505791',
-    appId: '1:28742505791:web:b2172e2c33f27ec86eef8a',
-    measurementId: 'G-843BLJ4NTX',
+    apiKey: settings[env].apiKey,
+    authDomain: settings[env].authDomain,
+    databaseURL: settings[env].databaseURL,
+    projectId: settings[env].projectId,
+    storageBucket: settings[env].storageBucket,
+    messagingSenderId: settings[env].messagingSenderId,
+    appId: settings[env].appId,
   }
+
+  console.log(firebaseConfig)
 
   if (!firebase.apps.length) {
     // Initialize Firebase
