@@ -28,7 +28,7 @@ export default {
     ShippingOptions,
     PaymentOptions,
   },
-  middleware: 'authenticate',
+  middleware: 'router-auth',
   methods: {
     cancel() {
       console.log('cancel')

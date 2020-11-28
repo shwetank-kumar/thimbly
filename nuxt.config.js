@@ -12,13 +12,26 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js',
+      },
+    ],
+    link: [
+      {
+        type: 'text/css',
+        rel: 'stylesheet',
+        href:
+          'https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css',
+      },
+    ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/firebase.js'],
+  plugins: ['~/plugins/fireauth.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

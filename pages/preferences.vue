@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  middleware: 'authenticate',
+  middleware: 'router-auth',
 }
 </script>
 

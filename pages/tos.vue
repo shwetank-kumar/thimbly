@@ -1,15 +1,11 @@
 <template>
-  <div class="createlisting-container">This is the share page!</div>
+  <div class="tos-container">This is the tos!</div>
 </template>
 
-<script>
-export default {
-  middleware: 'router-auth',
-}
-</script>
+<script></script>
 
 <style scoped>
-.createlisting-container {
+.tos-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;

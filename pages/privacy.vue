@@ -1,15 +1,11 @@
 <template>
-  <div class="createlisting-container">This is the share page!</div>
+  <div class="privacy-container">This is the privacy!</div>
 </template>
 
-<script>
-export default {
-  middleware: 'router-auth',
-}
-</script>
+<script></script>
 
 <style scoped>
-.createlisting-container {
+.privacy-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;
