@@ -15,7 +15,7 @@ export default (context) => {
       } else {
         userDisplay = null
       }
-      store.commit('setUser', userDisplay)
+      store.commit('SET_USER', userDisplay)
       resolve()
     })
   })

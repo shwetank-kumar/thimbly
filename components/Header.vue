@@ -43,8 +43,7 @@ export default {
         console.log('Go to store page.')
         this.$router.push('/store')
       } else if (item.text == 'Logout') {
-        // this.$firebase.auth().signOut()
-        this.$store.dispatch('signOut')
+        this.$store.dispatch('SIGNOUT')
         this.$router.push('/')
       }
     },

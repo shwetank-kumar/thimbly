@@ -1,7 +1,7 @@
 <template>
   <div class="px-2">
     <v-row>
-      <v-col class="pb-0" cols="8">
+      <v-col class="pt-0" cols="8">
         <h4>Photos</h4>
       </v-col>
       <v-col class="d-flex align-center pt-2 pb-0" cols="2">
@@ -20,7 +20,7 @@
         <v-btn icon @click="deleteImg"><v-icon>mdi-delete</v-icon></v-btn>
       </v-col>
     </v-row>
-    <v-row class="pb-2">
+    <v-row>
       <v-carousel
         light
         v-model="currentIndex"
@@ -56,7 +56,7 @@ export default {
       if (this.urls.length > 0) {
         this.urls.splice(this.currentIndex, 1)
         this.currentIndex = this.currentIndex - 1
-        console.log(this.currentIndex)
+        // console.log(this.currentIndex)
       }
     },
   },
