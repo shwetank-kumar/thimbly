@@ -8,7 +8,7 @@
           dense
           label="Title"
           placeholder="Beautiful red wool scarf."
-          :rules="[rules.required]"
+          :rules="rules.isRequired"
           v-model="title"
           @blur="updateProdDetails()"
         ></v-text-field>
@@ -33,10 +33,10 @@
           outlined
           dense
           label="Price"
-          :rules="[rules.required]"
           prefix="$"
           placeholder="19.99"
           v-model="pricing"
+          :rules="rules.isRequired"
           type="number"
           @blur="updateProdDetails()"
         ></v-text-field>
@@ -48,7 +48,7 @@
           label="Qty"
           placeholder="25"
           type="number"
-          :rules="[rules.required, rules.isInt]"
+          :rules="rules.isRequired.concat(rules.isInt)"
           v-model="quantity"
           @blur="updateProdDetails()"
         ></v-text-field>
@@ -59,6 +59,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import { isRequired, isInt } from '@/plugins/validation.js'
 export default {
   data() {
     return {
@@ -66,14 +67,12 @@ export default {
       description: null,
       pricing: null,
       quantity: null,
-      rules: {
-        required: (value) => !!value || 'Required field',
-        isInt: (value) => Number.isInteger(Number(value)) || 'Integer field',
-      },
+      rules: { isRequired, isInt },
     }
   },
   methods: {
     updateProdDetails() {
+      // console.log(isRequired(''))
       var payload = {
         productTitle: this.title,
         productDescription: this.description,

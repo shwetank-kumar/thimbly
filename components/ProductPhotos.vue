@@ -56,7 +56,6 @@ export default {
       if (this.urls.length > 0) {
         this.urls.splice(this.currentIndex, 1)
         this.currentIndex = this.currentIndex - 1
-        // console.log(this.currentIndex)
       }
     },
   },
