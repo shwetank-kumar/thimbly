@@ -28,6 +28,7 @@ import YouPay from '../components/YouPay.vue'
 export default {
   components: { YouPay, BuyNow },
   async fetch() {
+    // var docId = this.$store.state.productId
     var docId = 'bt0OMOOp6ZfA90gmOCWB'
     var docRef = await fireDb.collection('products').doc(docId).get()
     this.productDetails = { ...docRef.data() }
@@ -39,6 +40,13 @@ export default {
     }
   },
   methods: {
+    publish() {
+      console.log('publish')
+    },
+    cancel() {
+      this.$router.push('/store')
+    },
+
     edit() {
       this.$router.push('/editlisting')
     },
