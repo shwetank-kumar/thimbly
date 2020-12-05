@@ -7,6 +7,7 @@ export const state = () => ({
   localPhotoPaths: [],
   currentPhoto: 0,
   productDetails: {
+    ownerUid: null,
     productPhotos: [],
     productTitle: null,
     productDescription: null,

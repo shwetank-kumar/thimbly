@@ -80,6 +80,7 @@ export default {
       var productDetails = {
         ...this.$store.state.productDetails,
         productPhotos: downloadUrls,
+        ownerUid: this.$store.state.user.uid,
       }
       var message = ''
       var docId
