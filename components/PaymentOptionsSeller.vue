@@ -1,10 +1,9 @@
 <template>
   <div>
-    <h4 class="px-2">Payment Options (Placeholder)</h4>
-    <div id="paypal-button-container" class="pt-2"></div>
-    <p class="text-center font-weight-light">
-      Enables accepting "Pay with Paypal payments".
-    </p>
+    <div class="class px-4">
+      <div id="paypal-button-container" class="pt-2"></div>
+    </div>
+    <p class="text-center font-weight-light">For "Pay with Paypal" payments.</p>
   </div>
 </template>
 
@@ -29,9 +28,9 @@ export default {
             // this.isPaypalLoaded = true
             var FUNDING_SOURCES = [
               paypal.FUNDING.PAYPAL,
-              // paypal.FUNDING.VENMO,
-              // paypal.FUNDING.CREDIT,
-              // paypal.FUNDING.CARD,
+              //   paypal.FUNDING.VENMO,
+              //   paypal.FUNDING.CREDIT,
+              //   paypal.FUNDING.CARD,
             ]
             // Loop over each funding source / payment method
             FUNDING_SOURCES.forEach(function (fundingSource) {
@@ -39,10 +38,11 @@ export default {
               var button = paypal.Buttons({
                 fundingSource: fundingSource,
                 style: {
-                  layout: 'vertical',
-                  color: 'silver',
-                  shape: 'pill',
-                  label: 'paypal',
+                  // size: 'small',
+                  // layout: 'vertical',
+                  // color: 'silver',
+                  // label: 'paypal',
+                  // shape: 'pill',
                 },
               })
 

@@ -39,3 +39,4 @@ export const authProviders = {
 }
 export const fireDb = firebase.firestore()
 export const fireAuth = firebase.auth()
+export const fireStorage = firebase.storage().ref()

@@ -1,12 +1,11 @@
 <template>
   <div class="px-2">
-    <h4>Shipping Options</h4>
     <v-row class="px-2 d-flex justify-space-around">
       <v-checkbox
-        v-for="(item, key) in shippingOptions"
+        v-for="(item, key) in shipping"
         :key="key"
-        v-model="shippingOptions[key]"
-        @click="updateShippingDetails"
+        v-model="shipping[key]"
+        @change="updateShippingDetails"
         :label="key"
       ></v-checkbox>
     </v-row>
@@ -21,18 +20,15 @@ export default {
   data() {
     return {
       isValid: true,
-      shippingOptions: { pickup: true, standard: true, free: true },
+      shipping: { pickup: false, standard: false, free: false },
     }
   },
   methods: {
     updateShippingDetails() {
       this.isValid =
-        this.shippingOptions.pickup ||
-        this.shippingOptions.standard ||
-        this.shippingOptions.free
-
+        this.shipping.pickup || this.shipping.standard || this.shipping.free
       var payload = {
-        shippingOptions: { ...this.shippingOptions },
+        shippingOptions: { ...this.shipping },
       }
       this.$store.commit('SET_PRODUCT_DETAILS', payload)
     },

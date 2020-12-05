@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2 class="text-center">Add listing</h2>
+    <h2 class="text-center">Edit listing</h2>
 
-    <v-card outlined class="my-2 rounded-lg">
+    <!-- <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Photos</v-card-title>
       <product-photos :imgSources="$store.state.localPhotoPaths" />
       <v-card-actions>
@@ -34,7 +34,7 @@
         @click="preview"
         >Preview</v-btn
       >
-    </v-row>
+    </v-row> -->
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4 class="px-2 pb-2">Product Details</h4>
     <v-row class="d-flex mt-2 justify-space-around">
       <v-col class="pa-0" cols="10">
         <v-text-field
@@ -9,8 +8,8 @@
           label="Title"
           placeholder="Beautiful red wool scarf."
           :rules="rules.isRequired"
-          v-model="title"
-          @blur="updateProdDetails()"
+          v-model="productDetails.title"
+          @change="updateProdDetails()"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -22,8 +21,8 @@
           rows="2"
           label="Description"
           placeholder="Beautiful red wool scarf description."
-          v-model="description"
-          @blur="updateProdDetails()"
+          v-model="productDetails.description"
+          @change="updateProdDetails()"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -35,10 +34,10 @@
           label="Price"
           prefix="$"
           placeholder="19.99"
-          v-model="pricing"
+          v-model="productDetails.pricing"
           :rules="rules.isRequired"
           type="number"
-          @blur="updateProdDetails()"
+          @change="updateProdDetails()"
         ></v-text-field>
       </v-col>
       <v-col class="pa-0 ma-0" cols="4">
@@ -49,8 +48,8 @@
           placeholder="25"
           type="number"
           :rules="rules.isRequired.concat(rules.isInt)"
-          v-model="quantity"
-          @blur="updateProdDetails()"
+          v-model="productDetails.quantity"
+          @change="updateProdDetails()"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -63,21 +62,17 @@ import { isRequired, isInt } from '@/plugins/validation.js'
 export default {
   data() {
     return {
-      title: null,
-      description: null,
-      pricing: null,
-      quantity: null,
       rules: { isRequired, isInt },
     }
   },
+  props: ['productDetails'],
   methods: {
     updateProdDetails() {
-      // console.log(isRequired(''))
       var payload = {
-        productTitle: this.title,
-        productDescription: this.description,
-        productPricing: this.pricing,
-        productQuantity: this.quantity,
+        productTitle: this.productDetails.title,
+        productDescription: this.productDetails.description,
+        productPricing: this.productDetails.pricing,
+        productQuantity: this.productDetails.quantity,
       }
       this.$store.commit('SET_PRODUCT_DETAILS', payload)
     },
