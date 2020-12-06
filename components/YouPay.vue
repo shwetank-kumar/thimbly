@@ -48,7 +48,7 @@ export default {
       return Number(6)
     },
     total() {
-      return Number(this.subTotal + this.shipping)
+      return Number(this.subTotal + this.shipping).toFixed(2)
     },
   },
 }

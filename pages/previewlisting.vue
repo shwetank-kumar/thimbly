@@ -29,7 +29,7 @@ export default {
   components: { YouPay, BuyNow },
   async fetch() {
     // var docId = this.$store.state.productId
-    var docId = 'bt0OMOOp6ZfA90gmOCWB'
+    var docId = '3cPY0L9sIZN4oPz2Tvfd'
     var docRef = await fireDb.collection('products').doc(docId).get()
     this.productDetails = { ...docRef.data() }
     this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
@@ -42,9 +42,10 @@ export default {
   methods: {
     publish() {
       console.log('publish')
+      this.$router.push('/productstore')
     },
     cancel() {
-      this.$router.push('/store')
+      this.$router.push('/productstore')
     },
 
     edit() {

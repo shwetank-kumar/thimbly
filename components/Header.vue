@@ -41,7 +41,7 @@ export default {
         this.$router.push('/share')
       } else if (item.text == 'Store') {
         console.log('Go to store page.')
-        this.$router.push('/store')
+        this.$router.push('/productstore')
       } else if (item.text == 'Logout') {
         this.$store.dispatch('SIGNOUT')
         this.$router.push('/')

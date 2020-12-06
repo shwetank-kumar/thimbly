@@ -4,17 +4,15 @@
       <v-carousel
         light
         v-model="currentPhoto"
-        height="150px"
         hide-delimiter-background
         :show-arrows="false"
       >
-        <v-carousel-item v-for="url in imgSources" :key="url">
-          <v-img
-            class="mx-1"
-            max-height="150px"
-            aspect-ratio="1.333"
-            :src="url"
-          ></v-img>
+        <v-carousel-item
+          v-for="url in imgSources"
+          :key="url"
+          :src="url"
+          class="mx-1"
+        >
         </v-carousel-item>
       </v-carousel>
     </v-row>

@@ -15,6 +15,7 @@ export const state = () => ({
     productQuantity: null,
     shippingOptions: { pickup: false, standard: false, free: false },
   },
+  storeProducts: {},
 })
 
 export const mutations = {
@@ -39,6 +40,9 @@ export const mutations = {
   },
   SET_CURRENT_PHOTO(state, payload) {
     state.currentPhoto = payload
+  },
+  SET_STORE_PRODUCTS(state, payload) {
+    state.storeProducts = payload
   },
 }
 
