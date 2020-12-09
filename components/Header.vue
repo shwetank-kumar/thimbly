@@ -34,8 +34,8 @@ export default {
         console.log('Go to preferences page.')
         this.$router.push('/preferences')
       } else if (item.text == 'Create Listing') {
-        console.log('Go to createlisting page.')
-        this.$router.push('/createlisting')
+        console.log('Go to new product page.')
+        this.$router.push('/new-product')
       } else if (item.text == 'Share') {
         console.log('Go to share page.')
         this.$router.push('/share')
@@ -52,7 +52,7 @@ export default {
     return {
       items: [
         { text: 'Preferences', icon: 'mdi-account-settings' },
-        { text: 'Create Listing', icon: 'mdi-plus' },
+        { text: 'Create Product', icon: 'mdi-plus' },
         { text: 'Share', icon: 'mdi-share-variant' },
         { text: 'Store', icon: 'mdi-home' },
         { text: 'Logout', icon: 'mdi-logout' },

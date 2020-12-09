@@ -1,6 +1,6 @@
 export default function ({ store, redirect, route }) {
   if (store.state.user != null && route.name === 'login') {
-    redirect('/createlisting')
+    redirect('/admin/new-product')
   }
   if (store.state.user == null && isSecureRoute(route)) {
     redirect('/')
@@ -8,7 +8,7 @@ export default function ({ store, redirect, route }) {
 }
 
 function isSecureRoute(route) {
-  if (route.matched.some((record) => record.path === '/createlisting')) {
+  if (route.matched.some((record) => record.path === '/new-product')) {
     return true
   }
 }
