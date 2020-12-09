@@ -3,27 +3,6 @@ import 'firebase/auth'
 import { devconfig } from '../config/devconfig'
 import { prodconfig } from '../config/prodconfig'
 
-// export default ({ __, store }, inject) => {
-//   const location = window.location.hostname
-//   const firebaseConfig =
-//     location === 'thimbly-prod.web.app' ? prodconfig : devconfig
-
-//   console.log(firebaseConfig)
-
-//   if (!firebase.apps.length) {
-//     // Initialize Firebase
-//     firebase.initializeApp(firebaseConfig)
-//   }
-
-// if (process.client) {
-//   firebase.auth().onAuthStateChanged((user) => {
-//     store.dispatch('setAuth', user)
-//   })
-// }
-
-//   inject('firebase', firebase)
-// }
-
 const location = window.location.hostname
 const firebaseConfig =
   location === 'thimbly-prod.web.app' ? prodconfig : devconfig
