@@ -1,5 +1,5 @@
 <template>
-  <div class="createlisting-container">This is the preferences page!</div>
+  <div class="preferences-container">This is the preferences page!</div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style scoped>
-.createlisting-container {
+.preferences-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;

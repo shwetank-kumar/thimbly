@@ -1,5 +1,5 @@
 <template>
-  <div class="createlisting-container">This is the share page!</div>
+  <div class="share-container">This is the share page!</div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style scoped>
-.createlisting-container {
+.share-container {
   margin: 0 auto;
   min-height: 100vh;
   flex-direction: column;

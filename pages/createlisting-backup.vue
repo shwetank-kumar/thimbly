@@ -98,13 +98,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.createlisting-container {
-  margin: 0 auto;
-  min-height: 100vh;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+<style scoped></style>
