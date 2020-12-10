@@ -42,10 +42,10 @@ export default {
   methods: {
     publish() {
       console.log('publish')
-      this.$router.push('/productstore')
+      this.$router.push('/admin')
     },
     cancel() {
-      this.$router.push('/productstore')
+      this.$router.push('/admin')
     },
 
     edit() {
