@@ -23,16 +23,20 @@
 
 <script>
 import { fireDb, fireStorage } from '~/plugins/firebase.js'
-import BuyNow from '../components/BuyNow.vue'
-import YouPay from '../components/YouPay.vue'
+import BuyNow from '~/components/BuyNow.vue'
+import YouPay from '~/components/YouPay.vue'
 export default {
   components: { YouPay, BuyNow },
-  async fetch() {
-    // var docId = this.$store.state.productId
-    var docId = '3cPY0L9sIZN4oPz2Tvfd'
+  async created() {
+    var docId = this.$route.params.product_id
     var docRef = await fireDb.collection('products').doc(docId).get()
-    this.productDetails = { ...docRef.data() }
-    this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
+    if (docRef.data()) {
+      this.productDetails = { ...docRef.data() }
+      this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
+    } else {
+      this.$router.push('/error')
+      console.log('Does not exist.')
+    }
   },
   data() {
     return {
@@ -56,13 +60,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.privacy-container {
-  margin: 0 auto;
-  min-height: 100vh;
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+<style scoped></style>

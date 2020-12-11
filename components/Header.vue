@@ -32,16 +32,16 @@ export default {
     loggedInMenuAction(item) {
       if (item.text == 'Preferences') {
         console.log('Go to preferences page.')
-        this.$router.push('/preferences')
-      } else if (item.text == 'Create Listing') {
+        this.$router.push('/seller/preferences')
+      } else if (item.text == 'Create Product') {
         console.log('Go to new product page.')
-        this.$router.push('/new-product')
+        this.$router.push('/seller/products/create')
       } else if (item.text == 'Share') {
         console.log('Go to share page.')
-        this.$router.push('/share')
+        this.$router.push('/seller/share')
       } else if (item.text == 'Store') {
         console.log('Go to store page.')
-        this.$router.push('/productstore')
+        this.$router.push('/seller/products')
       } else if (item.text == 'Logout') {
         this.$store.dispatch('SIGNOUT')
         this.$router.push('/')

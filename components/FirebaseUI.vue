@@ -38,7 +38,7 @@ export default {
     },
     openAppPage() {
       this.$router.push({
-        path: '/admin/new-product',
+        path: '/seller/products/create',
       })
     },
   },

@@ -60,7 +60,7 @@ export default {
   middleware: 'router-auth',
   methods: {
     cancel() {
-      this.$router.push('/admin')
+      this.$router.push('/seller')
     },
     async preview() {
       var downloadUrls = []
