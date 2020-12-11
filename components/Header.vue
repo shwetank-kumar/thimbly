@@ -38,7 +38,7 @@ export default {
         this.$router.push('/seller/products/create')
       } else if (item.text == 'Share') {
         console.log('Go to share page.')
-        this.$router.push('/seller/share')
+        this.$router.push('/seller/products/share')
       } else if (item.text == 'Store') {
         console.log('Go to store page.')
         this.$router.push('/seller/products')

@@ -31,7 +31,7 @@ export default {
     var docId = this.$route.params.product_id
     var docRef = await fireDb.collection('products').doc(docId).get()
     if (docRef.data()) {
-      this.productDetails = { ...docRef.data() }
+      this.productDetails = { ...docRef.data(), productId: docId }
       this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
     } else {
       this.$router.push('/error')
@@ -49,11 +49,13 @@ export default {
       this.$router.push('/seller')
     },
     cancel() {
-      this.$router.push('/seller')
+      this.$router.push('/seller/products')
     },
 
     edit() {
-      this.$router.push('/editlisting')
+      this.$router.push(
+        '/seller/products/' + this.productDetails.productId + '/edit'
+      )
     },
   },
   middleware: 'router-auth',
