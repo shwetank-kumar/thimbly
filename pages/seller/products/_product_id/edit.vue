@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2 class="text-center">Edit listing</h2>
-    <!-- <p>{{ productDetails }}</p> -->
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Photos</v-card-title>
       <product-photos :imgSources="productDetails.productPhotos" />

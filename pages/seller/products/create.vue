@@ -89,7 +89,7 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
-      this.$router.push('/seller/products/' + docRef.id + '/preview')
+      this.$router.push('/seller/products/' + docRef.id + '/share')
     },
   },
 }
