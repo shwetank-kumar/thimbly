@@ -4,7 +4,8 @@
 
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Photos</v-card-title>
-      <product-photos :imgSources="$store.state.localPhotoPaths" />
+      <!-- <product-photos :imgSources="$store.state.localPhotoPaths" /> -->
+      <product-photos />
       <v-card-actions>
         <photo-actions />
       </v-card-actions>
@@ -12,7 +13,8 @@
 
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Product Details </v-card-title>
-      <product-details-form :productDetails="productDetails" />
+      <!-- <product-details-form :productDetails="productDetails" /> -->
+      <product-details-form />
     </v-card>
 
     <v-card outlined class="my-2 rounded-lg">
@@ -65,12 +67,16 @@ export default {
     async preview() {
       var downloadUrls = []
       // Upload images to storage after replacing their location with FireStorage location
-      for (var idx = 0; idx < this.$store.state.localPhotoPaths.length; idx++) {
+      for (
+        var idx = 0;
+        idx < this.$store.state.productDetails.productPhotos.length;
+        idx++
+      ) {
         var fname = uuidv4()
         var fileRef = fireStorage.child('images/' + fname)
 
         let blob = await fetch(
-          this.$store.state.localPhotoPaths[idx]
+          this.$store.state.productDetails.productPhotos[idx]
         ).then((r) => r.blob())
         const snapshot = await fileRef.put(blob)
         var tempvarUrl = await snapshot.ref.getDownloadURL()
@@ -92,7 +98,7 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
-      this.$router.push('/previewlisting')
+      this.$router.push('/seller/products/' + docRef.id + '/preview')
     },
   },
 }

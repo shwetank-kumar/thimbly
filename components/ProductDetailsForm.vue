@@ -8,8 +8,7 @@
           label="Title"
           placeholder="Beautiful red wool scarf."
           :rules="rules.isRequired"
-          v-model="productDetails.title"
-          @change="updateProdDetails()"
+          v-model="productTitle"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -21,8 +20,7 @@
           rows="2"
           label="Description"
           placeholder="Beautiful red wool scarf description."
-          v-model="productDetails.description"
-          @change="updateProdDetails()"
+          v-model="productDescription"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -34,10 +32,9 @@
           label="Price"
           prefix="$"
           placeholder="19.99"
-          v-model="productDetails.pricing"
+          v-model="productPricing"
           :rules="rules.isRequired"
           type="number"
-          @change="updateProdDetails()"
         ></v-text-field>
       </v-col>
       <v-col class="pa-0 ma-0" cols="4">
@@ -48,8 +45,7 @@
           placeholder="25"
           type="number"
           :rules="rules.isRequired.concat(rules.isInt)"
-          v-model="productDetails.quantity"
-          @change="updateProdDetails()"
+          v-model="productQuantity"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -57,25 +53,59 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapSetters } from 'vuex'
 import { isRequired, isInt } from '@/plugins/validation.js'
 export default {
+  computed: {
+    productTitle: {
+      get() {
+        return this.$store.state.productDetails.productTitle
+      },
+      set(value) {
+        var payload = {
+          productTitle: value,
+        }
+        this.$store.commit('SET_PRODUCT_DETAILS', payload)
+      },
+    },
+    productDescription: {
+      get() {
+        return this.$store.state.productDetails.productDescription
+      },
+      set(value) {
+        var payload = {
+          productDescription: value,
+        }
+        this.$store.commit('SET_PRODUCT_DETAILS', payload)
+      },
+    },
+    productPricing: {
+      get() {
+        return this.$store.state.productDetails.productPricing
+      },
+      set(value) {
+        var payload = {
+          productPricing: value,
+        }
+        this.$store.commit('SET_PRODUCT_DETAILS', payload)
+      },
+    },
+    productQuantity: {
+      get() {
+        return this.$store.state.productDetails.productQuantity
+      },
+      set(value) {
+        var payload = {
+          productQuantity: value,
+        }
+        this.$store.commit('SET_PRODUCT_DETAILS', payload)
+      },
+    },
+  },
   data() {
     return {
       rules: { isRequired, isInt },
     }
-  },
-  props: ['productDetails'],
-  methods: {
-    updateProdDetails() {
-      var payload = {
-        productTitle: this.productDetails.title,
-        productDescription: this.productDetails.description,
-        productPricing: this.productDetails.pricing,
-        productQuantity: this.productDetails.quantity,
-      }
-      this.$store.commit('SET_PRODUCT_DETAILS', payload)
-    },
   },
 }
 </script>

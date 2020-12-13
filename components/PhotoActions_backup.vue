@@ -28,15 +28,13 @@ export default {
   },
   methods: {
     addImg() {
-      // this.urls = this.$store.state.localPhotoPaths
-      this.urls = this.$store.state.productDetails.productPhotos
+      this.urls = this.$store.state.localPhotoPaths
       if (this.urls.length <= 2) {
         this.$store.commit('ADD_PRODUCT_PHOTOS', this.images)
       }
     },
     deleteImg() {
-      // this.urls = this.$store.state.localPhotoPaths
-      this.urls = this.$store.state.productDetails.productPhotos
+      this.urls = this.$store.state.localPhotoPaths
       if (this.urls.length > 0) {
         this.$store.commit('DELETE_PRODUCT_PHOTOS')
       }

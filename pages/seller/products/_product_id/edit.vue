@@ -1,10 +1,10 @@
 <template>
   <div>
     <h2 class="text-center">Edit listing</h2>
-
+    <!-- <p>{{ productDetails }}</p> -->
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Photos</v-card-title>
-      <product-photos :imgSources="$store.state.localPhotoPaths" />
+      <product-photos :imgSources="productDetails.productPhotos" />
       <v-card-actions>
         <photo-actions />
       </v-card-actions>
@@ -17,7 +17,7 @@
 
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Shipping Details </v-card-title>
-      <shipping-options />
+      <shipping-options :shippingOptionsProp="productDetails.shippingOptions" />
     </v-card>
 
     <v-card outlined class="my-2 rounded-lg">
@@ -49,20 +49,49 @@ export default {
   },
   data() {
     return {
-      productDetails: {
-        title: null,
-        description: null,
-        pricing: null,
-        quantity: null,
-      },
+      // productDetails: {
+      //   title: null,
+      //   description: null,
+      //   pricing: null,
+      //   quantity: null,
+      // },
     }
   },
   middleware: 'router-auth',
+  async asyncData(context) {
+    // console.log(context.params.product_id)
+    var docId = context.params.product_id
+    var docRef = await fireDb.collection('products').doc(docId).get()
+    var productDetails = {}
+    if (docRef.data()) {
+      productDetails = { ...docRef.data(), productId: docId }
+      context.store.commit('SET_PRODUCT_DETAILS', productDetails)
+    } else {
+      context.router.push('/error')
+      console.log('Does not exist.')
+    }
+    return { productDetails }
+  },
   methods: {
+    // async created() {
+    //   console.log('edit')
+    //   var docId = this.$route.params.product_id
+    //   var docRef = await fireDb.collection('products').doc(docId).get()
+    //   if (docRef.data()) {
+    //     this.productDetails = { ...docRef.data(), productId: docId }
+    //     this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
+    //   } else {
+    //     this.$router.push('/error')
+    //     console.log('Does not exist.')
+    //   }
+    // console.log(this.productDetails)
+    // },
     cancel() {
-      console.log('cancel')
+      this.$router.push('/seller/products')
     },
     async preview() {
+      // update instead of creating a document here...
+
       var downloadUrls = []
       // Upload images to storage after replacing their location with FireStorage location
       for (var idx = 0; idx < this.$store.state.localPhotoPaths.length; idx++) {
@@ -91,7 +120,7 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
-      this.$router.push('/previewlisting')
+      this.$router.push('/seller/products/' + docRef.id + '/preview')
     },
   },
 }

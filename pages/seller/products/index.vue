@@ -37,7 +37,9 @@ export default {
   },
   methods: {
     getId(idx) {
-      this.$router.push('/seller/products/' + this.storeProducts[idx].productId)
+      this.$router.push(
+        '/seller/products/' + this.storeProducts[idx].productId + '/edit'
+      )
       // console.log(this.storeProducts[idx].productId)
     },
   },

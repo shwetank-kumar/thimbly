@@ -4,7 +4,7 @@ export const strict = true
 export const state = () => ({
   productId: null,
   user: null,
-  localPhotoPaths: [],
+  // localPhotoPaths: [],
   currentPhoto: 0,
   productDetails: {
     ownerUid: null,
@@ -13,7 +13,8 @@ export const state = () => ({
     productDescription: null,
     productPricing: null,
     productQuantity: null,
-    shippingOptions: { pickup: false, standard: false, free: false },
+    published: false,
+    shippingOptions: [],
   },
   storeProducts: {},
 })
@@ -23,19 +24,17 @@ export const mutations = {
     state.user = payload
   },
   SET_PRODUCT_DETAILS(state, payload) {
-    // console.log(payload)
     state.productDetails = { ...state.productDetails, ...payload }
   },
   SET_PRODUCT_ID(state, payload) {
     state.productId = payload
   },
   ADD_PRODUCT_PHOTOS(state, payload) {
-    // console.log(payload)
-    state.localPhotoPaths.push(URL.createObjectURL(payload))
-    state.currentPhoto = state.localPhotoPaths.length - 1
+    state.productDetails.productPhotos.push(URL.createObjectURL(payload))
+    state.currentPhoto = state.productDetails.productPhotos.length - 1
   },
   DELETE_PRODUCT_PHOTOS(state) {
-    state.localPhotoPaths.splice(state.currentPhoto, 1)
+    state.productDetails.productPhotos.splice(state.currentPhoto, 1)
     state.currentPhoto = state.currentPhoto - 1
   },
   SET_CURRENT_PHOTO(state, payload) {
@@ -54,10 +53,7 @@ export const getters = {
       !!state.productDetails.productPricing &&
       !!state.productDetails.productQuantity &&
       Number.isInteger(Number(state.productDetails.productQuantity))
-    var isValidShippingInfo =
-      state.productDetails.shippingOptions.pickup ||
-      state.productDetails.shippingOptions.standard ||
-      state.productDetails.shippingOptions.free
+    var isValidShippingInfo = state.productDetails.shippingOptions.length > 0
     return isValidProductInfo && isValidShippingInfo
   },
   GET_CURRENT_PHOTO: (state) => {

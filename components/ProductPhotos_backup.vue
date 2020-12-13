@@ -22,12 +22,6 @@
 <script>
 export default {
   computed: {
-    imgSources: {
-      get() {
-        var productDetails = this.$store.state.productDetails
-        return productDetails.productPhotos
-      },
-    },
     currentPhoto: {
       get() {
         return this.$store.state.currentPhoto
@@ -37,6 +31,7 @@ export default {
       },
     },
   },
+  props: ['imgSources'],
 }
 </script>
 
