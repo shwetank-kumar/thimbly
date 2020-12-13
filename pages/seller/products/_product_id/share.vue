@@ -46,7 +46,7 @@ export default {
     },
     async getUrl() {
       var host = window.location.hostname
-      var port = ':3000'
+      var port = host === 'localhost' ? ':3000' : ''
       var route = this.$router.currentRoute.path.split('share')[0]
       var url = host + port + route
       await navigator.clipboard.writeText(url)
