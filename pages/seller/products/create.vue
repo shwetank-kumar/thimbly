@@ -4,7 +4,6 @@
 
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Photos</v-card-title>
-      <!-- <product-photos :imgSources="$store.state.localPhotoPaths" /> -->
       <product-photos />
       <v-card-actions>
         <photo-actions />
@@ -13,7 +12,6 @@
 
     <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Product Details </v-card-title>
-      <!-- <product-details-form :productDetails="productDetails" /> -->
       <product-details-form />
     </v-card>
 
@@ -33,8 +31,8 @@
         depressed
         :disabled="!previewEnabled"
         color="primary"
-        @click="preview"
-        >Preview</v-btn
+        @click="publish"
+        >Publish</v-btn
       >
     </v-row>
   </div>
@@ -49,22 +47,13 @@ export default {
     // mix the getters into computed with object spread operator
     ...mapGetters({ previewEnabled: 'PREVIEW_ENABLED' }),
   },
-  data() {
-    return {
-      productDetails: {
-        title: null,
-        description: null,
-        pricing: null,
-        quantity: null,
-      },
-    }
-  },
+
   middleware: 'router-auth',
   methods: {
     cancel() {
       this.$router.push('/seller/products')
     },
-    async preview() {
+    async publish() {
       var downloadUrls = []
       // Upload images to storage after replacing their location with FireStorage location
       for (
@@ -87,7 +76,9 @@ export default {
         ...this.$store.state.productDetails,
         productPhotos: downloadUrls,
         ownerUid: this.$store.state.user.uid,
+        published: true,
       }
+      this.$store.commit('SET_PRODUCT_DETAILS', productDetails)
       var message = ''
       var docId
       try {
