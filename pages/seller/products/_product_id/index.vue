@@ -1,65 +1,74 @@
 <template>
   <div>
-    <product-details-card />
+    <h2 class="text-center">{{ productDetails.productTitle }}</h2>
     <v-card outlined class="my-2 rounded-lg">
-      <v-card-title> Buyer Details </v-card-title>
-      <buyer-details-form />
+      <product-photos />
+      <v-card-text class="justify-center">{{
+        productDetails.productDescription
+      }}</v-card-text>
     </v-card>
-    <v-card outlined class="my-2 rounded-lg">
-      <v-card-title> You Pay </v-card-title>
-      <v-card-text><you-pay /></v-card-text>
+    <v-card>
+      <v-card-title class="justify-center">Sharing options</v-card-title>
+      <v-card-actions>
+        <v-row class="justify-space-around">
+          <v-col>
+            <v-btn depressed color="secondary" @click="getUrl" width="100%">
+              <v-icon> mdi-link</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col>
+            <ShareNetwork
+              network="facebook"
+              :url="url"
+              :title="productDetails.productTitle"
+              :description="productDetails.productDescription"
+              class="fb_button"
+            >
+              <v-btn color="primary" width="100%"
+                ><v-icon>mdi-facebook</v-icon>
+              </v-btn>
+            </ShareNetwork>
+          </v-col>
+        </v-row>
+      </v-card-actions>
     </v-card>
-    <v-card outlined class="my-2 rounded-lg">
-      <v-card-title> Buy Now </v-card-title>
-      <v-card-text><buy-now /></v-card-text>
-    </v-card>
-    <v-row class="justify-space-around mx-2 my-5">
-      <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
-      <v-btn depressed color="secondary" @click="edit">Edit</v-btn>
-      <v-btn depressed color="primary" @click="publish">Publish</v-btn>
-    </v-row>
   </div>
 </template>
 
 <script>
 import { fireDb, fireStorage } from '~/plugins/firebase.js'
-import BuyNow from '~/components/BuyNow.vue'
-import YouPay from '~/components/YouPay.vue'
 export default {
-  components: { YouPay, BuyNow },
-  async created() {
-    var docId = this.$route.params.product_id
+  middleware: 'router-auth',
+  async asyncData(context) {
+    var docId = context.params.product_id
     var docRef = await fireDb.collection('products').doc(docId).get()
+    var productDetails = {}
     if (docRef.data()) {
-      this.productDetails = { ...docRef.data(), productId: docId }
-      this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
+      productDetails = { ...docRef.data(), productId: docId }
+      context.store.commit('SET_PRODUCT_DETAILS', productDetails)
     } else {
-      this.$router.push('/error')
+      context.router.push('/error')
       console.log('Does not exist.')
     }
-  },
-  data() {
-    return {
-      productDetails: {},
-    }
+    var host = window.location.hostname
+    var port = host === 'localhost' ? ':3000' : ''
+    var route = context.route.path.split('share')[0]
+    var url = host + port + route
+    return { productDetails, url }
   },
   methods: {
-    publish() {
-      console.log('publish')
-      this.$router.push('/seller')
-    },
-    cancel() {
-      this.$router.push('/seller/products')
-    },
-
     edit() {
-      this.$router.push(
-        '/seller/products/' + this.productDetails.productId + '/edit'
-      )
+      console.log('edit')
+    },
+    async getUrl() {
+      await navigator.clipboard.writeText(this.url)
     },
   },
-  middleware: 'router-auth',
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.fb_button {
+  width: 100%;
+}
+</style>

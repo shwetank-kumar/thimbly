@@ -48,7 +48,7 @@ export default {
     ...mapGetters({ previewEnabled: 'PREVIEW_ENABLED' }),
   },
 
-  middleware: 'router-auth',
+  // middleware: 'router-auth',
   methods: {
     cancel() {
       this.$router.push('/seller/products')
@@ -89,7 +89,7 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
-      this.$router.push('/seller/products/' + docRef.id + '/share')
+      this.$router.push('/seller/products/' + docRef.id)
     },
   },
 }
