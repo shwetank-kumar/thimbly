@@ -12,7 +12,7 @@
       <v-card-actions>
         <v-row class="justify-space-around">
           <v-col>
-            <v-btn depressed color="secondary" @click="getUrl" width="100%">
+            <v-btn depressed color="primary" @click="getUrl" width="100%">
               <v-icon> mdi-link</v-icon>
             </v-btn>
           </v-col>
