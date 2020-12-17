@@ -31,13 +31,13 @@ export default {
   methods: {
     loggedInMenuAction(item) {
       if (item.text == 'Preferences') {
-        console.log('Go to preferences page.')
+        // console.log('Go to preferences page.')
         this.$router.push('/seller/preferences')
       } else if (item.text == 'Create Product') {
-        console.log('Go to new product page.')
+        // console.log('Go to new product page.')
         this.$router.push('/seller/products/create')
       } else if (item.text == 'Store') {
-        console.log('Go to store page.')
+        // console.log('Go to store page.')
         this.$router.push('/seller/products')
       } else if (item.text == 'Logout') {
         this.$store.dispatch('SIGNOUT')
@@ -50,7 +50,6 @@ export default {
       items: [
         { text: 'Preferences', icon: 'mdi-account-settings' },
         { text: 'Create Product', icon: 'mdi-plus' },
-
         { text: 'Store', icon: 'mdi-home' },
         { text: 'Logout', icon: 'mdi-logout' },
       ],
