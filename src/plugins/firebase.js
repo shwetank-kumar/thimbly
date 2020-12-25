@@ -12,9 +12,9 @@ import { localconfig } from '../config/localconfig'
 // const firebaseConfig =
 //   baseUrl === 'thimbly-prod.web.app' ? prodconfig : devconfig
 
-const config = localconfig
-// config = devconfig
-// config = prodconfig
+// const config = localconfig
+const config = devconfig
+// const config = prodconfig
 
 const firebaseConfig = config.firebaseConfig
 export const server = config.server
@@ -30,5 +30,5 @@ export const authProviders = {
 }
 export const fireDb = firebase.firestore()
 export const fireAuth = firebase.auth()
-export const fireStorage = firebase.storage().ref()
+export const fireStorage = firebase.storage()
 export default firebase

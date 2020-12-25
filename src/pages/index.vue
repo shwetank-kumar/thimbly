@@ -1,12 +1,15 @@
 <template>
   <div class="login-container">
     <div class="display-1">Thimbly</div>
-    <SocialHead :title="landing.title" :description="landing.description" />
+    <SocialHead
+      :title="landing.title"
+      :description="landing.description"
+      :image="landing.image"
+    />
     <div class="message mx-10">
       Fastest way for artists and makers to start selling their products.
     </div>
-    <div class="cta-message mx-10">Login to create your first product page</div>
-
+    <div class="cta-message mx-10">Login to create your product page</div>
     <client-only placeholder="Loading...">
       <firebase-ui ref="firebaseui" />
     </client-only>
@@ -17,15 +20,19 @@
 import FirebaseUI from '../components/FirebaseUI'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
+import { server, fireStorage } from '~/plugins/firebase.js'
 export default {
   layout: 'loggedout_default',
-  components: { FirebaseUI },
+  components: { server, FirebaseUI },
+  middleware: 'router-auth',
+  async asyncData(context) {},
   data() {
     return {
       landing: {
         title: 'Welcome to Thimbly',
         description:
           'Fastest way for artists and makers to start selling their products.',
+        image: server + '/thimbly.jpg',
       },
     }
   },

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <SocialHead
+      :title="productDetails.productTitle"
+      :description="productDetails.productDescription"
+      :image="productDetails.productPhotos[0]"
+    />
     <h2 class="text-center">{{ productDetails.productTitle }}</h2>
     <v-card outlined class="my-2 rounded-lg">
       <product-photos />
@@ -41,7 +46,7 @@ import { fireDb, fireStorage, server } from '~/plugins/firebase.js'
 export default {
   middleware: 'router-auth',
   async asyncData(context) {
-    console.log(context)
+    // console.log(context)
     var docId = context.params.product_id
     var docRef = await fireDb.collection('products').doc(docId).get()
     var productDetails = {}
@@ -52,7 +57,6 @@ export default {
       context.router.push('/error')
       console.log('Does not exist.')
     }
-    console.log(server)
     var url = server + context.route.path
     return { productDetails, url }
   },

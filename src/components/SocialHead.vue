@@ -17,7 +17,8 @@ export default {
     },
     image: {
       type: String,
-      default: 'https://nuxtjs.org/nuxt-card.png',
+      default: 'https://thimbly-dev.web.app/thimbly.jpg',
+      // default: 'https://nuxtjs.org/nuxt-card.png',
     },
   },
 
