@@ -4,18 +4,9 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [{ "source": "**", "function": "ssrapp" }]
   },
   "storage": {
     "rules": "storage.rules"
@@ -25,16 +16,19 @@
       "port": 9099
     },
     "firestore": {
-      "port": 8080
+      "port": 3003
     },
     "hosting": {
-      "port": 5000
+      "port": 3001
     },
     "pubsub": {
-      "port": 8085
+      "port": 3004
     },
     "ui": {
       "enabled": true
+    },
+    "functions": {
+      "port": 3002
     }
   },
   "remoteconfig": {

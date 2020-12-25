@@ -1,0 +1,86 @@
+{
+  "BuyNow": {
+    "description": "Auto imported from components/BuyNow.vue"
+  },
+  "LazyBuyNow": {
+    "description": "Auto imported from components/BuyNow.vue"
+  },
+  "BuyerDetailsForm": {
+    "description": "Auto imported from components/BuyerDetailsForm.vue"
+  },
+  "LazyBuyerDetailsForm": {
+    "description": "Auto imported from components/BuyerDetailsForm.vue"
+  },
+  "FirebaseUi": {
+    "description": "Auto imported from components/FirebaseUI.vue"
+  },
+  "LazyFirebaseUi": {
+    "description": "Auto imported from components/FirebaseUI.vue"
+  },
+  "Header": {
+    "description": "Auto imported from components/Header.vue"
+  },
+  "LazyHeader": {
+    "description": "Auto imported from components/Header.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "PaymentOptionsBuyer": {
+    "description": "Auto imported from components/PaymentOptionsBuyer.vue"
+  },
+  "LazyPaymentOptionsBuyer": {
+    "description": "Auto imported from components/PaymentOptionsBuyer.vue"
+  },
+  "PaymentOptionsSeller": {
+    "description": "Auto imported from components/PaymentOptionsSeller.vue"
+  },
+  "LazyPaymentOptionsSeller": {
+    "description": "Auto imported from components/PaymentOptionsSeller.vue"
+  },
+  "PhotoActions": {
+    "description": "Auto imported from components/PhotoActions.vue"
+  },
+  "LazyPhotoActions": {
+    "description": "Auto imported from components/PhotoActions.vue"
+  },
+  "ProductDetailsCard": {
+    "description": "Auto imported from components/ProductDetailsCard.vue"
+  },
+  "LazyProductDetailsCard": {
+    "description": "Auto imported from components/ProductDetailsCard.vue"
+  },
+  "ProductDetailsForm": {
+    "description": "Auto imported from components/ProductDetailsForm.vue"
+  },
+  "LazyProductDetailsForm": {
+    "description": "Auto imported from components/ProductDetailsForm.vue"
+  },
+  "ProductPhotos": {
+    "description": "Auto imported from components/ProductPhotos.vue"
+  },
+  "LazyProductPhotos": {
+    "description": "Auto imported from components/ProductPhotos.vue"
+  },
+  "ShippingOptions": {
+    "description": "Auto imported from components/ShippingOptions.vue"
+  },
+  "LazyShippingOptions": {
+    "description": "Auto imported from components/ShippingOptions.vue"
+  },
+  "SocialHead": {
+    "description": "Auto imported from components/SocialHead.vue"
+  },
+  "LazySocialHead": {
+    "description": "Auto imported from components/SocialHead.vue"
+  },
+  "YouPay": {
+    "description": "Auto imported from components/YouPay.vue"
+  },
+  "LazyYouPay": {
+    "description": "Auto imported from components/YouPay.vue"
+  }
+}

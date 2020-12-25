@@ -1,0 +1,56 @@
+[
+  {
+    "name": "privacy",
+    "path": "/privacy",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/privacy.vue",
+    "chunkName": "pages/privacy"
+  },
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/test.vue",
+    "chunkName": "pages/test"
+  },
+  {
+    "name": "tos",
+    "path": "/tos",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/tos.vue",
+    "chunkName": "pages/tos"
+  },
+  {
+    "name": "seller-preferences",
+    "path": "/seller/preferences",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/seller/preferences/index.vue",
+    "chunkName": "pages/seller/preferences/index"
+  },
+  {
+    "name": "seller-products",
+    "path": "/seller/products",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/seller/products/index.vue",
+    "chunkName": "pages/seller/products/index"
+  },
+  {
+    "name": "seller-products-create",
+    "path": "/seller/products/create",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/seller/products/create.vue",
+    "chunkName": "pages/seller/products/create"
+  },
+  {
+    "name": "seller-products-product_id",
+    "path": "/seller/products/:product_id",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/seller/products/_product_id/index.vue",
+    "chunkName": "pages/seller/products/_product_id/index"
+  },
+  {
+    "name": "seller-products-product_id-edit",
+    "path": "/seller/products/:product_id/edit",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/seller/products/_product_id/edit.vue",
+    "chunkName": "pages/seller/products/_product_id/edit"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Volumes/Macintosh HD - Data/computing/code/personal/thimbly/src/pages/index.vue",
+    "chunkName": "pages/index"
+  }
+]
