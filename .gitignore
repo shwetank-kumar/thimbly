@@ -66,5 +66,5 @@ build/Release
 .env
 node_modules
 .nuxt
-functions/nuxt/*
+functions/nuxt/
 public/_nuxt
