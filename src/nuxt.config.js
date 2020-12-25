@@ -73,7 +73,8 @@ export default {
       },
     },
   },
-
+  // Source directory location
+  // srcDir: 'src/',
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   // buildDir: '../functions/nuxt',
   build: {

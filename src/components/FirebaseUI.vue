@@ -1,7 +1,6 @@
 <template>
   <div>
     <div id="firebaseui-auth-container"></div>
-    I am here
   </div>
 </template>
 <script>

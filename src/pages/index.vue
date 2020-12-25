@@ -37,7 +37,6 @@ export default {
       this.$nextTick(() => {
         if (this.$refs.firebaseui) {
           //...
-          console.log('here')
         } else if (count > 0) {
           this.initClientOnlyComp(count - 1)
         }
