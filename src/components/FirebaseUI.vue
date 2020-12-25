@@ -24,13 +24,11 @@ export default {
         },
       }
       ui.disableAutoSignIn()
-      // console.log(this)
-      // if (this.store.state.user) {
-      //   this.openAppPage()
-      // } else {
-      //   ui.start('#firebaseui-auth-container', config)
-      // }
-      ui.start('#firebaseui-auth-container', config)
+      if (this.$store.state.user) {
+        this.openAppPage()
+      } else {
+        ui.start('#firebaseui-auth-container', config)
+      }
     }
   },
   methods: {
