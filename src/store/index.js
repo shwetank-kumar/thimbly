@@ -4,7 +4,6 @@ export const strict = true
 export const state = () => ({
   productId: null,
   user: null,
-  // localPhotoPaths: [],
   currentPhoto: 0,
   productDetails: {
     ownerUid: null,

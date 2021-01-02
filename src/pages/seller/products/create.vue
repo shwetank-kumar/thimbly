@@ -20,10 +20,10 @@
       <shipping-options />
     </v-card>
 
-    <v-card outlined class="my-2 rounded-lg">
-      <v-card-title> Payment Options (Placeholder)</v-card-title>
-      <payment-options-seller />
-    </v-card>
+    <!-- <v-card outlined class="my-2 rounded-lg">
+      <v-card-title> Payment Options</v-card-title>
+      <stripe-seller />
+    </v-card> -->
 
     <v-row class="justify-space-around mx-2 my-5">
       <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
@@ -47,8 +47,28 @@ export default {
     // mix the getters into computed with object spread operator
     ...mapGetters({ previewEnabled: 'PREVIEW_ENABLED' }),
   },
-
-  // middleware: 'router-auth',
+  async mounted() {
+      var querySnapshot = await fireDb
+        .collection('users')
+        .where('uid', '==', this.$store.state.user.uid)
+        .get()
+      var message = ""
+      if (!querySnapshot.empty) {
+        this.$store.commit('SET_USER', querySnapshot.docs[0].data())
+      } else {
+        console.log('new user')
+        try {
+        var docRef = fireDb.collection('users').doc()
+        var user = {...this.$store.state.user, "stripeId": null}
+        await docRef.set(user)
+        this.$store.commit('SET_USER', user)
+        message = 'User generated!'
+      } catch (error) {
+        message = 'User generation failed: ' + error
+      }
+      }
+  },
+  middleware: 'router-auth',
   methods: {
     cancel() {
       this.$router.push('/seller/products')
@@ -89,7 +109,9 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
+      // console.log(message)
       this.$router.push('/seller/products/' + docRef.id)
+      // this.$router.push('/seller/preferences/')
     },
   },
 }

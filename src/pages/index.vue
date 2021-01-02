@@ -20,10 +20,10 @@
 import FirebaseUI from '../components/FirebaseUI'
 import firebase from 'firebase'
 import { mapGetters } from 'vuex'
-import { server, fireStorage } from '~/plugins/firebase.js'
+import { hostServer, fireStorage } from '~/plugins/firebase.js'
 export default {
   layout: 'loggedout_default',
-  components: { server, FirebaseUI },
+  components: { FirebaseUI },
   middleware: 'router-auth',
   async asyncData(context) {},
   data() {
@@ -32,7 +32,7 @@ export default {
         title: 'Welcome to Thimbly',
         description:
           'Fastest way for artists and makers to start selling their products.',
-        image: server + '/thimbly.jpg',
+        image: hostServer + '/thimbly.jpg',
       },
     }
   },

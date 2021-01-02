@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { fireDb, fireStorage, server } from '~/plugins/firebase.js'
+import { fireDb, fireStorage, hostServer } from '~/plugins/firebase.js'
 import axios from 'axios'
 export default {
   middleware: 'router-auth',
@@ -53,7 +53,7 @@ export default {
 
       querySnapshot.forEach((doc) => {
         var route = '/seller/products/' + doc.id
-        var productUrl = server + route
+        var productUrl = hostServer + route
         storeProducts.push({
           ...doc.data(),
           productId: doc.id,
@@ -65,15 +65,6 @@ export default {
     } else {
       return context.redirect('/')
     }
-
-    // const userId = context.store.state.user.uid
-    // console.log(userId)
-    // const apiUrl = server + '/seller/products/'
-    // const res = await axios.get(apiUrl, { params: { userId } })
-    // var storeProducts = []
-    // storeProducts = res.data
-
-    // return { storeProducts }
   },
   data() {
     return {
@@ -84,7 +75,7 @@ export default {
   methods: {
     edit(index) {
       this.$router.push(
-        '/seller/products/' + this.storeProducts[index].productId
+        '/seller/products/' + this.storeProducts[index].productId + '/edit'
       )
     },
     async getUrl(index) {
