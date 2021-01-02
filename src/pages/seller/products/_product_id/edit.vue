@@ -19,19 +19,14 @@
       <shipping-options :shippingOptionsProp="productDetails.shippingOptions" />
     </v-card>
 
-    <v-card outlined class="my-2 rounded-lg">
-      <v-card-title> Payment Options (Placeholder)</v-card-title>
-      <payment-options-seller />
-    </v-card>
-
     <v-row class="justify-space-around mx-2 my-5">
       <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
       <v-btn
         depressed
         :disabled="!previewEnabled"
         color="primary"
-        @click="preview"
-        >Preview</v-btn
+        @click="publish"
+        >Publish</v-btn
       >
     </v-row>
   </div>
@@ -88,7 +83,8 @@ export default {
     cancel() {
       this.$router.push('/seller/products')
     },
-    async preview() {
+    //TODO:Fix this function as the first step
+    async publish() {
       // update instead of creating a document here...
 
       var downloadUrls = []
@@ -119,7 +115,7 @@ export default {
       } catch (error) {
         message = 'Listing generation failed: ' + error
       }
-      this.$router.push('/seller/products/' + docRef.id + '/preview')
+      this.$router.push('/seller/products/' + docRef.id) // + '/preview')
     },
   },
 }

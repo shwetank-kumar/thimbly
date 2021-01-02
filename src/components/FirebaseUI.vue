@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import { fireAuth, authProviders } from '~/plugins/firebase'
+import { fireAuth, authProviders, fireDb } from '~/plugins/firebase'
 export default {
   name: 'FirebaseUI',
   mounted() {
@@ -36,7 +36,7 @@ export default {
       this.openAppPage()
       return false
     },
-    openAppPage() {
+    async openAppPage() {
       this.$router.push({
         path: '/seller/products/create',
       })

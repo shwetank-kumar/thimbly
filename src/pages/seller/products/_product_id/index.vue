@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { fireDb, fireStorage, server } from '~/plugins/firebase.js'
+import { fireDb, fireStorage, hostServer } from '~/plugins/firebase.js'
 
 export default {
   middleware: 'router-auth',
@@ -57,7 +57,7 @@ export default {
       context.router.push('/error')
       console.log('Does not exist.')
     }
-    var url = server + context.route.path
+    var url = hostServer + context.route.path
     return { productDetails, url }
   },
   methods: {

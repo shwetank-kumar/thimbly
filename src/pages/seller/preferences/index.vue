@@ -1,5 +1,11 @@
 <template>
-  <div class="preferences-container">This is the preferences page!</div>
+  <div>
+    <h2 class="text-center">Preferences</h2>
+    <v-card outlined class="my-2 rounded-lg">
+      <v-card-title>Payment Details</v-card-title>
+      <stripe-seller></stripe-seller>
+    </v-card>
+  </div>
 </template>
 
 <script>
