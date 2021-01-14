@@ -15,12 +15,10 @@ export default {
   name: 'StripeSeller',
   methods: {
     async stripeConnect() {
-      console.log(this.$store.state.user)
-      console.log(config.apiUrl + '/thimbly-dev/us-central1/app/stripe')
-      var res = await axios.get(
-        config.apiUrl + '/thimbly-dev/us-central1/app/stripe'
-      )
-      console.log(res.data.url)
+      // console.log(this.$store.state.user)
+      // console.log(config.apiUrl + '/stripe')
+      var res = await axios.get(config.apiUrl + '/stripe')
+      // console.log(res.data.url)
       window.location.href = res.data.url
     },
   },

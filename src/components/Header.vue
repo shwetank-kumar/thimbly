@@ -30,9 +30,9 @@ export default {
   name: 'Header',
   methods: {
     loggedInMenuAction(item) {
-      if (item.text == 'Preferences') {
+      if (item.text == 'Setup Payments') {
         // console.log('Go to preferences page.')
-        this.$router.push('/seller/preferences')
+        this.$router.push('/seller/setuppayment')
       } else if (item.text == 'Create Product') {
         // console.log('Go to new product page.')
         this.$router.push('/seller/products/create')
@@ -48,9 +48,9 @@ export default {
   data() {
     return {
       items: [
-        { text: 'Preferences', icon: 'mdi-account-settings' },
         { text: 'Create Product', icon: 'mdi-plus' },
         { text: 'Store', icon: 'mdi-home' },
+        { text: 'Setup Payments', icon: 'mdi-currency-usd' },
         { text: 'Logout', icon: 'mdi-logout' },
       ],
       closeOnClick: true,

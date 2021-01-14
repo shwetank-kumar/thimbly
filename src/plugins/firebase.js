@@ -7,11 +7,6 @@ import { devconfig } from '../config/devconfig'
 import { prodconfig } from '../config/prodconfig'
 import { localconfig } from '../config/localconfig'
 
-// const location = window.location.hostname
-// export const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
-// const firebaseConfig =
-//   baseUrl === 'thimbly-prod.web.app' ? prodconfig : devconfig
-
 export const config = localconfig
 // export const config = devconfig
 // export const config = prodconfig

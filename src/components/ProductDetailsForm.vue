@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row class="d-flex mt-2 justify-space-around">
-      <v-col class="pa-0" cols="10">
+      <v-col cols="10">
         <v-text-field
           outlined
           dense
@@ -13,7 +13,7 @@
       </v-col>
     </v-row>
     <v-row class="d-flex justify-space-around">
-      <v-col class="pa-0" cols="10">
+      <v-col cols="10">
         <v-textarea
           outlined
           dense
@@ -25,7 +25,7 @@
       </v-col>
     </v-row>
     <v-row class="d-flex justify-space-around">
-      <v-col class="pa-0" cols="4">
+      <v-col cols="4">
         <v-text-field
           outlined
           dense
@@ -37,7 +37,7 @@
           type="number"
         ></v-text-field>
       </v-col>
-      <v-col class="pa-0 ma-0" cols="4">
+      <v-col class="ma-0" cols="4">
         <v-text-field
           outlined
           dense

@@ -15,6 +15,7 @@ export default {
       {
         src: 'https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js',
       },
+      { src: "https://js.stripe.com/v3/"}
     ],
     link: [
       {

@@ -3,7 +3,12 @@ import { fireAuth } from '~/plugins/firebase.js'
 export const strict = true
 export const state = () => ({
   productId: null,
-  user: null,
+  user: {
+    display_name: null,
+    email: null,
+    uid: null,
+    stripe_id: null
+  },
   currentPhoto: 0,
   productDetails: {
     ownerUid: null,
@@ -16,6 +21,15 @@ export const state = () => ({
     shippingOptions: [],
   },
   storeProducts: {},
+  stripeSetup: {
+    capabilities: {
+      transfers: {
+        requested: true,
+      },
+    },
+    individual: { first_name: null, last_name: null },
+    external_account: null,
+  },
 })
 
 export const mutations = {
@@ -41,6 +55,12 @@ export const mutations = {
   },
   SET_STORE_PRODUCTS(state, payload) {
     state.storeProducts = payload
+  },
+  SET_INDIVIDUAL_FIRST_NAME(state, payload) {
+    state.stripeSetup.individual.first_name = payload
+  },
+  SET_INDIVIDUAL_LAST_NAME(state, payload) {
+    state.stripeSetup.individual.last_name = payload
   },
 }
 
