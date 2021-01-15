@@ -59,6 +59,9 @@
           <p>Bank name: {{bank_account_info.bank_name}}</p>
           <p>Account number (last 4 digits): {{bank_account_info.bank_account_last4}}</p>
       </v-card-text>
+      <v-card-actions>
+        <v-btn icon @click="delete_account"><v-icon>mdi-delete</v-icon></v-btn>
+      </v-card-actions>
     </v-card>
     </div>
   </div>
@@ -81,11 +84,11 @@ export default {
   async asyncData(context) {
     if (context.store.state.user) {
       const stripe_id = context.store.state.user.stripe_id
-      console.log(stripe_id)
+      // console.log(stripe_id)
       let bank_account_info
       if (stripe_id) {
         const stripe_get_account_url = config.apiUrl + '/stripe'
-        console.log(stripe_get_account_url)
+        // console.log(stripe_get_account_url)
         const res = await axios.get(stripe_get_account_url,  { params: { stripe_id } })
         bank_account_info = res.data
       } else {
@@ -100,7 +103,6 @@ export default {
   },
   methods: {
     async setup() {
-
       // Generate IP and date for TOS acceptance
       var date = Math.floor(Date.now() / 1000)
       // console.log(date)
@@ -141,18 +143,33 @@ export default {
         capabilities, external_account, individual, tos_acceptance })
       
       const user = {...this.$store.state.user, stripe_id: stripe_account.data.id}
-      console.log(stripe_account.data.id)
+      // console.log(stripe_account.data.id)
       this.$store.commit('SET_USER', user)
 
       // Update the value of stripe_id for the user
       var query_snapshot = await fireDb.collection('users').where('uid', '==', user.uid).get()
       var uid = query_snapshot.docs[0].id
-      await fireDb.collection('users').doc(uid).set(user)
-      
+      await fireDb.collection('users').doc(uid).set(user)  
+      this.$nuxt.refresh()
     },
     cancel() {
-      console.log('cancel')
+      this.$router.push("/")
     },
+    async delete_account() {
+      const stripe_id = this.$store.state.user.stripe_id
+      const stripe_delete_url = config.apiUrl + '/stripe'
+      await axios.delete(stripe_delete_url,  { params: { stripe_id } })
+      const user = {...this.$store.state.user, stripe_id: null}
+      // console.log(stripe_account.data.id)
+      this.$store.commit('SET_USER', user)
+      // Update the value of stripe_id for the user
+      var query_snapshot = await fireDb.collection('users').where('uid', '==', user.uid).get()
+      var uid = query_snapshot.docs[0].id
+      await fireDb.collection('users').doc(uid).set(user)  
+      this.routing_number = null
+      this.account_number = null,
+      this.$nuxt.refresh()
+    }
   },
 }
 </script>
