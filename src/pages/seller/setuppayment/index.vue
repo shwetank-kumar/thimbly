@@ -82,11 +82,16 @@ export default {
     if (context.store.state.user) {
       const stripe_id = context.store.state.user.stripe_id
       console.log(stripe_id)
-      const stripe_get_account_url = config.apiUrl + '/stripe'
-      console.log(stripe_get_account_url)
-      const res = await axios.get(stripe_get_account_url)
-      const bank_account_info = res.data
-      // console.log(bank_account_info)
+      let bank_account_info
+      if (stripe_id) {
+        const stripe_get_account_url = config.apiUrl + '/stripe'
+        console.log(stripe_get_account_url)
+        const res = await axios.get(stripe_get_account_url,  { params: { stripe_id } })
+        bank_account_info = res.data
+      } else {
+        bank_account_info = null
+      }
+        // console.log(bank_account_info)
       return { stripe_id, bank_account_info }
     } else {
       return context.redirect('/')
