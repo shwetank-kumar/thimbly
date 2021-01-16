@@ -7,8 +7,8 @@ import { devconfig } from '../config/devconfig'
 import { prodconfig } from '../config/prodconfig'
 import { localconfig } from '../config/localconfig'
 
-export const config = localconfig
-// export const config = devconfig
+// export const config = localconfig
+export const config = devconfig
 // export const config = prodconfig
 
 const firebaseConfig = config.firebaseConfig

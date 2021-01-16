@@ -123,9 +123,10 @@ export default {
       const currency = config.stripeConfig.currency
       const bank_account_params = {type, country, currency, account_holder_name, account_holder_type, routing_number, account_number}
       // console.log(bank_account_params)
-      const stripe = await Stripe(config.stripeConfig.testPublicKey)
+      // const stripe = await Stripe(config.stripeConfig.testPublicKey)
+      const stripe = await Stripe(config.stripeConfig.livePublicKey)
       const account_result = await stripe.createToken('bank_account', bank_account_params)
-      // console.log(account_result)
+      console.log(account_result)
 
       // Create a Stripe account
       const type = config.stripeConfig.type
