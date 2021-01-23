@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "yarn nuxt",
-    "build": "nuxt build && rm -rf ../functions/nuxt/* && rm -rf ../public/* && cp -r ./.nuxt/ ../functions/nuxt/  && cp -r ./.nuxt/dist/client/ ../public/_nuxt &&  cp -r static/. ../public/",
+    "build:dev": "NUXT_ENV_BUILD=dev nuxt build --mode test && rm -rf ../functions/nuxt/* && rm -rf ../public/* && cp -r ./.nuxt/ ../functions/nuxt/  && cp -r ./.nuxt/dist/client/ ../public/_nuxt &&  cp -r static/. ../public/",
+    "build:staging": "NUXT_ENV_BUILD=staging nuxt build --mode test && rm -rf ../functions/nuxt/* && rm -rf ../public/* && cp -r ./.nuxt/ ../functions/nuxt/  && cp -r ./.nuxt/dist/client/ ../public/_nuxt &&  cp -r static/. ../public/",
+    "build:prod": "NUXT_ENV_BUILD=prod nuxt build --mode test && rm -rf ../functions/nuxt/* && rm -rf ../public/* && cp -r ./.nuxt/ ../functions/nuxt/  && cp -r ./.nuxt/dist/client/ ../public/_nuxt &&  cp -r static/. ../public/",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
@@ -16,7 +18,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "cookieparser": "^0.1.0",
     "core-js": "^3.6.5",
-    "env-cmd": "^10.1.0",
     "firebase": "^8.1.1",
     "firebase-functions": "^3.13.0",
     "firebase-tools": "^8.17.0",

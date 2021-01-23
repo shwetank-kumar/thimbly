@@ -7,7 +7,7 @@
           dense
           label="Title"
           placeholder="Beautiful red wool scarf."
-          :rules="rules.isRequired"
+          :rules="rules.isRequired.concat(rules.is40OrLess)"
           v-model="productTitle"
         ></v-text-field>
       </v-col>
@@ -17,9 +17,10 @@
         <v-textarea
           outlined
           dense
-          rows="2"
+          rows="9"
           label="Description"
           placeholder="Beautiful red wool scarf description."
+          :rules="rules.isRequired.concat(rules.is400OrLess)"
           v-model="productDescription"
         ></v-textarea>
       </v-col>
@@ -54,7 +55,7 @@
 
 <script>
 import { mapMutations, mapSetters } from 'vuex'
-import { isRequired, isInt } from '@/plugins/validation.js'
+import { isRequired, isInt, is40OrLess, is400OrLess } from '@/plugins/validation.js'
 export default {
   computed: {
     productTitle: {
@@ -104,7 +105,7 @@ export default {
   },
   data() {
     return {
-      rules: { isRequired, isInt },
+      rules: { isRequired, isInt, is40OrLess, is400OrLess},
     }
   },
 }

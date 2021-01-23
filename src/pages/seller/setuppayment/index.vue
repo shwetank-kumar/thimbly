@@ -119,17 +119,16 @@ export default {
       // const account_number = this.$store.state.paymentSetup.account_number
       const routing_number = this.routing_number
       const account_number = this.account_number
-      const country = config.stripeConfig.country
-      const currency = config.stripeConfig.currency
+      const country = "US"
+      const currency = "usd"
       const bank_account_params = {type, country, currency, account_holder_name, account_holder_type, routing_number, account_number}
       // console.log(bank_account_params)
-      // const stripe = await Stripe(config.stripeConfig.testPublicKey)
-      const stripe = await Stripe(config.stripeConfig.livePublicKey)
+      const stripe = await Stripe(config.stripeConfig.publicKey)
       const account_result = await stripe.createToken('bank_account', bank_account_params)
       console.log(account_result)
 
       // Create a Stripe account
-      const type = config.stripeConfig.type
+      const type = "custom"
       const business_profile = {product_description: 'Artists Supply and Craft Shops.'}
       const business_type = 'individual'
       const capabilities = {transfers: {requested: true}}

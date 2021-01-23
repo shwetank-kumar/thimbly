@@ -7,9 +7,19 @@ import { devconfig } from '../config/devconfig'
 import { prodconfig } from '../config/prodconfig'
 import { localconfig } from '../config/localconfig'
 
-// export const config = localconfig
-export const config = devconfig
-// export const config = prodconfig
+let config
+if (process.env.NUXT_ENV_BUILD === "prod") {
+  config = prodconfig
+  console.log("prod")
+} else if (process.env.NUXT_ENV_BUILD === "staging") {
+  config = devconfig
+  console.log("staging")
+} else {
+  config = localconfig
+}
+// console.log(config)
+export {config}
+// console.log("NUXT_ENV_BUILD", process.env.NUXT_ENV_BUILD)
 
 const firebaseConfig = config.firebaseConfig
 export const hostServer = config.hostServer

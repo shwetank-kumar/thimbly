@@ -9,7 +9,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "10"
+    "node": "14"
   },
   "main": "index.js",
   "dependencies": {
@@ -26,7 +26,10 @@
     "firebase-functions": "^3.13.0",
     "firebase-tools": "^8.17.0",
     "firebaseui": "^4.7.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "nuxt": "2.14.12",
+    "stripe": "^8.129.0",
     "uuid": "^8.3.1",
     "vue-social-sharing": "^3.0.4",
     "vuetify-loader": "^1.6.0"
