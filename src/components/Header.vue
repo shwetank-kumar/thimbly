@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> 
     <v-menu right class="preferences-menu">
       <template v-slot:activator="{ on, attrs }">
         <v-btn depressed v-bind="attrs" v-on="on">
@@ -47,6 +47,7 @@ export default {
   },
   data() {
     return {
+      loggedIn: false,
       items: [
         { text: 'Create Product', icon: 'mdi-plus' },
         { text: 'Store', icon: 'mdi-home' },

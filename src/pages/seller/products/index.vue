@@ -9,10 +9,15 @@
       >
         <v-card-title>{{ product.productTitle }}</v-card-title>
         <v-card-text>{{ product.productDescription }}</v-card-text>
-        <v-card-actions>
+        <v-card-actions class="px-0">
           <v-col>
             <v-btn depressed color="primary" @click="edit(index)" width="100%"
               ><v-icon>mdi-pencil</v-icon></v-btn
+            >
+          </v-col>
+          <v-col>
+            <v-btn depressed color="primary" @click="view(index)" width="100%"
+              ><v-icon>mdi-subdirectory-arrow-right</v-icon></v-btn
             >
           </v-col>
           <v-col>
@@ -91,6 +96,11 @@ export default {
       } catch (err) {
         window.open(url)
       }
+    },
+    view(index) {
+      this.$router.push(
+        '/seller/products/' + this.storeProducts[index].productId
+      )
     },
   },
 }
