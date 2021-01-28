@@ -69,6 +69,9 @@ export default {
   //     }
   // },
   middleware: 'router-auth',
+  mounted(){
+      this.$store.commit('RESET_PRODUCT_DETAILS')
+  },
   methods: {
     cancel() {
       this.$router.push('/seller/products')

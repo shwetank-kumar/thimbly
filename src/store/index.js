@@ -36,6 +36,13 @@ export const mutations = {
   SET_USER(state, payload) {
     state.user = payload
   },
+  RESET_PRODUCT_DETAILS(state) {
+    for (var key in state.productDetails ) {
+      state.productDetails[key] = null;
+    }
+    state.productDetails.productPhotos = []
+    state.productDetails.shippingOptions = []  
+  },
   SET_PRODUCT_DETAILS(state, payload) {
     state.productDetails = { ...state.productDetails, ...payload }
   },
