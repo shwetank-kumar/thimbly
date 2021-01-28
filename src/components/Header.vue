@@ -2,7 +2,7 @@
   <div> 
     <v-menu right class="preferences-menu">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn depressed v-bind="attrs" v-on="on">
+        <v-btn v-if="loggedIn" depressed v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
@@ -28,6 +28,17 @@
 import firebase from 'firebase'
 export default {
   name: 'Header',
+  // computed: {
+  //   loggedIn () {
+  //     return Boolean(this.$store.state.user)
+  //   }
+  // },
+  // Should ideally be done through a computed property but thats causing an error in DOM mismatching
+  // between server and client in SSR
+  mounted() {
+    this.loggedIn = Boolean(this.$store.state.user)
+    console.log(this.loggedIn)
+  },
   methods: {
     loggedInMenuAction(item) {
       if (item.text == 'Setup Payments') {
@@ -47,7 +58,7 @@ export default {
   },
   data() {
     return {
-      loggedIn: false,
+      loggedIn: true,
       items: [
         { text: 'Create Product', icon: 'mdi-plus' },
         { text: 'Store', icon: 'mdi-home' },

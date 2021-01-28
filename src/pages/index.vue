@@ -22,7 +22,6 @@ import firebase from 'firebase'
 import { mapGetters } from 'vuex'
 import { hostServer, fireStorage } from '~/plugins/firebase.js'
 export default {
-  layout: 'loggedout_default',
   components: { FirebaseUI },
   middleware: 'router-auth',
   async asyncData(context) {},
