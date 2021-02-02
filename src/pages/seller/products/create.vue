@@ -47,27 +47,6 @@
       // mix the getters into computed with object spread operator
       ...mapGetters({previewEnabled: "PREVIEW_ENABLED"}),
     },
-    // async mounted() {
-    //     var querySnapshot = await fireDb
-    //       .collection('users')
-    //       .where('uid', '==', this.$store.state.user.uid)
-    //       .get()
-    //     var message = ""
-    //     if (!querySnapshot.empty) {
-    //       this.$store.commit('SET_USER', querySnapshot.docs[0].data())
-    //     } else {
-    //       console.log('new user')
-    //       try {
-    //       var docRef = fireDb.collection('users').doc()
-    //       var user = {...this.$store.state.user, "stripeId": null}
-    //       await docRef.set(user)
-    //       this.$store.commit('SET_USER', user)
-    //       message = 'User generated!'
-    //     } catch (error) {
-    //       message = 'User generation failed: ' + error
-    //     }
-    //     }
-    // },
     middleware: "router-auth",
     mounted() {
       this.$store.commit("RESET_PRODUCT_DETAILS")
