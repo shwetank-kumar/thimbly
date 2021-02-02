@@ -37,7 +37,6 @@ export default {
   // between server and client in SSR
   mounted() {
     this.loggedIn = Boolean(this.$store.state.user)
-    console.log(this.loggedIn)
   },
   methods: {
     loggedInMenuAction(item) {

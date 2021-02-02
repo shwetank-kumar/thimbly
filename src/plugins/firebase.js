@@ -1,11 +1,11 @@
 // import { config, firebaseConfig } from 'firebase-functions'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/storage'
-import { devconfig } from '../config/devconfig'
-import { prodconfig } from '../config/prodconfig'
-import { localconfig } from '../config/localconfig'
+import firebase from "firebase/app"
+import "firebase/auth"
+import "firebase/firestore"
+import "firebase/storage"
+import {devconfig} from "../config/devconfig"
+import {prodconfig} from "../config/prodconfig"
+import {localconfig} from "../config/localconfig"
 
 let config
 if (process.env.NUXT_ENV_BUILD === "prod") {
@@ -35,5 +35,6 @@ export const authProviders = {
 }
 export const fireDb = firebase.firestore()
 export const fireAuth = firebase.auth()
-export const fireStorage = firebase.storage().ref()
+// export const fireStorage = firebase.storage().ref()
+export const fireStorage = firebase.storage()
 export default firebase
