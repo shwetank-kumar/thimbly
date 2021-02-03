@@ -4,18 +4,10 @@
       ><v-card-title primary-title class="d-flex justify-center">
         Payment
       </v-card-title>
-      <!-- <div class="pa-5" ref="card"></div> -->
       <form id="payment-form">
         <div id="card-element"><!--Stripe.js injects the Card Element--></div>
         <v-card-actions class="mt-5">
-          <v-row class="d-flex justify-space-around">
-            <v-col>
-              <v-btn color="error" width="100%" @click="cancel">Cancel</v-btn>
-            </v-col>
-            <v-col>
-              <v-btn color="primary" width="100%" @click="buy">Buy</v-btn>
-            </v-col>
-          </v-row>
+          <v-btn color="primary" width="100%" @click="buy">Buy</v-btn>
         </v-card-actions>
       </form>
     </v-card>

@@ -1,4 +1,4 @@
-import { fireAuth } from '~/plugins/firebase.js'
+import {fireAuth} from "~/plugins/firebase.js"
 
 export const strict = true
 export const state = () => ({
@@ -7,7 +7,20 @@ export const state = () => ({
     display_name: null,
     email: null,
     uid: null,
-    stripe_id: null
+    stripe_id: null,
+  },
+  buyerDetails: {
+    first_name: null,
+    last_name: null,
+    email: null,
+    phone: null,
+    address: {
+      address_one: null,
+      address_two: null,
+      city: null,
+      state: null,
+      zip: null,
+    },
   },
   currentPhoto: 0,
   productDetails: {
@@ -27,7 +40,7 @@ export const state = () => ({
         requested: true,
       },
     },
-    individual: { first_name: null, last_name: null },
+    individual: {first_name: null, last_name: null},
     external_account: null,
   },
 })
@@ -37,14 +50,14 @@ export const mutations = {
     state.user = payload
   },
   RESET_PRODUCT_DETAILS(state) {
-    for (var key in state.productDetails ) {
-      state.productDetails[key] = null;
+    for (var key in state.productDetails) {
+      state.productDetails[key] = null
     }
     state.productDetails.productPhotos = []
-    state.productDetails.shippingOptions = []  
+    state.productDetails.shippingOptions = []
   },
   SET_PRODUCT_DETAILS(state, payload) {
-    state.productDetails = { ...state.productDetails, ...payload }
+    state.productDetails = {...state.productDetails, ...payload}
   },
   SET_PRODUCT_ID(state, payload) {
     state.productId = payload
@@ -91,11 +104,11 @@ export const getters = {
 }
 
 export const actions = {
-  SIGNOUT({ commit }) {
+  SIGNOUT({commit}) {
     fireAuth
       .signOut()
       .then(() => {
-        commit('SET_USER', null)
+        commit("SET_USER", null)
       })
       .catch((err) => alert(err))
   },
