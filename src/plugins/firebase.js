@@ -10,10 +10,10 @@ import {localconfig} from "../config/localconfig"
 let config
 if (process.env.NUXT_ENV_BUILD === "prod") {
   config = prodconfig
-  console.log("prod")
+  // console.log("prod")
 } else if (process.env.NUXT_ENV_BUILD === "staging") {
   config = devconfig
-  console.log("staging")
+  // console.log("staging")
 } else {
   config = localconfig
 }
