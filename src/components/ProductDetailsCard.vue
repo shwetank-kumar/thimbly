@@ -13,7 +13,12 @@
           <p class="pt-2 font-weight-medium">Quantity</p>
         </v-col>
         <v-col cols="4">
-          <v-select :items="quantityList" dense outlined></v-select>
+          <v-select
+            :items="quantityList"
+            dense
+            outlined
+            v-model="quantity"
+          ></v-select>
         </v-col>
       </v-row>
     </v-card>
@@ -21,21 +26,29 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { isRequired, isInt } from '@/plugins/validation.js'
-export default {
-  computed: {
-    // mix the getters into computed with object spread operator
-    ...mapGetters({ productDetails: 'GET_PRODUCT_DETAILS' }),
-    quantityList() {
-      var list = []
-      for (var i = 1; i <= this.productDetails.productQuantity; i++) {
-        list.push(i)
-      }
-      return list
+  import {mapGetters, mapMutations} from "vuex"
+  import {isRequired, isInt} from "@/plugins/validation.js"
+  export default {
+    computed: {
+      // mix the getters into computed with object spread operator
+      ...mapGetters({productDetails: "GET_PRODUCT_DETAILS"}),
+      quantityList() {
+        var list = []
+        for (var i = 1; i <= this.productDetails.productQuantity; i++) {
+          list.push(i)
+        }
+        return list
+      },
+      quantity: {
+        get() {
+          return this.$store.state.order.quantity
+        },
+        set(value) {
+          this.$store.commit("SET_ORDER_QUANTITY", value)
+        },
+      },
     },
-  },
-}
+  }
 </script>
 
 <style scoped></style>

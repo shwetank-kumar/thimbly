@@ -45,9 +45,15 @@
     },
     computed: {
       // mix the getters into computed with object spread operator
-      ...mapGetters({productDetails: "GET_PRODUCT_DETAILS"}),
+      ...mapGetters({
+        productDetails: "GET_PRODUCT_DETAILS",
+        order: "GET_ORDER",
+      }),
       subTotal() {
-        return Number(this.productDetails.productPricing)
+        return (
+          Number(this.productDetails.productPricing) *
+          Number(this.order.quantity)
+        )
       },
       shipping() {
         return Number(6)

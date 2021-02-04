@@ -6,79 +6,60 @@
       </v-card-title>
       <v-row class="d-flex mt-2 justify-space-around">
         <v-col class="pa-0" cols="10">
-          <p class="h4">Contact Information</p>
+          <!-- <p class="h4">Contact Information</p> -->
           <v-text-field
             outlined
             dense
-            label="First Name"
-            placeholder="Jill"
+            label="Name"
+            placeholder="Jill Dane"
             :rules="rules.isRequired"
-            @change="updateBuyerDetails()"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            dense
-            label="Last Name"
-            placeholder="Dane"
-            :rules="rules.isRequired"
-            @change="updateBuyerDetails()"
+            v-model="name"
           ></v-text-field>
           <v-text-field
             outlined
             dense
             label="Email"
-            placeholder="xyz@abc.com"
+            placeholder="buyer@thimbly.io"
             :rules="rules.isRequired"
-            @change="updateBuyerDetails()"
+            v-model="email"
           ></v-text-field>
-          <v-text-field
-            outlined
-            dense
-            label="Phone"
-            placeholder="000-000-0000"
-            :rules="rules.isRequired"
-            @change="updateBuyerDetails()"
-          ></v-text-field>
-          <p class="h4">Address</p>
+          <!-- <p class="h4">Shipping Address</p> -->
           <v-text-field
             outlined
             dense
             label="Address Line 1"
             placeholder="123 Home St. "
             :rules="rules.isRequired"
-            @change="updateBuyerDetails()"
+            v-model="address_one"
           ></v-text-field>
           <v-text-field
             outlined
             dense
             label="Address Line 2"
             placeholder="Apt. No. 456"
-            @change="updateBuyerDetails()"
+            v-model="address_two"
           ></v-text-field>
           <v-text-field
             outlined
             dense
             label="City"
             placeholder="San Francisco"
-            @change="updateBuyerDetails()"
+            v-model="city"
           ></v-text-field>
-        </v-col>
-        <v-col cols="6">
           <v-select
             label="State"
             placeholder=" "
             :items="states"
             dense
             outlined
+            v-model="state"
           ></v-select>
-        </v-col>
-        <v-col cols="4">
           <v-text-field
             outlined
             dense
             label="Zip Code"
             placeholder="00000"
-            @change="updateBuyerDetails()"
+            v-model="postal_code"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -87,9 +68,77 @@
 </template>
 
 <script>
-  import {mapMutations} from "vuex"
+  import {mapGetters, mapMutations} from "vuex"
   import {isRequired, isInt} from "@/plugins/validation.js"
   export default {
+    computed: {
+      name: {
+        get() {
+          return this.$store.state.order.shipping_details.name
+        },
+        set(value) {
+          this.$store.commit("SET_ORDER_SHIPPING_DETAILS_NAME", value)
+        },
+      },
+      email: {
+        get() {
+          return this.$store.state.order.shipping_details.email
+        },
+        set(value) {
+          this.$store.commit("SET_ORDER_SHIPPING_DETAILS_EMAIL", value)
+        },
+      },
+      address_one: {
+        get() {
+          // console.log(this.$store.state)
+          return this.$store.state.order.shipping_details.address.line1
+        },
+        set(value) {
+          this.$store.commit(
+            "SET_ORDER_SHIPPING_DETAILS_ADDRESS_LINE_ONE",
+            value
+          )
+        },
+      },
+      address_two: {
+        get() {
+          return this.$store.state.order.shipping_details.address.line2
+        },
+        set(value) {
+          this.$store.commit(
+            "SET_ORDER_SHIPPING_DETAILS_ADDRESS_LINE_TWO",
+            value
+          )
+        },
+      },
+      city: {
+        get() {
+          return this.$store.state.order.shipping_details.address.city
+        },
+        set(value) {
+          this.$store.commit("SET_ORDER_SHIPPING_DETAILS_ADDRESS_CITY", value)
+        },
+      },
+      state: {
+        get() {
+          return this.$store.state.order.shipping_details.address.city
+        },
+        set(value) {
+          this.$store.commit("SET_ORDER_SHIPPING_DETAILS_ADDRESS_STATE", value)
+        },
+      },
+      postal_code: {
+        get() {
+          return this.$store.state.order.shipping_details.address.postal_code
+        },
+        set(value) {
+          this.$store.commit(
+            "SET_ORDER_SHIPPING_DETAILS_ADDRESS_POSTAL_CODE",
+            value
+          )
+        },
+      },
+    },
     data() {
       return {
         rules: {isRequired, isInt},

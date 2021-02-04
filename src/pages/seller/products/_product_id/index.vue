@@ -32,7 +32,7 @@
         </v-row>
       </v-card-actions>
     </v-card>
-    <buyer-details-form />
+    <shipping-information-form />
     <you-pay />
     <checkout-payment />
   </div>

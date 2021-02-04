@@ -28,32 +28,32 @@
 </template>
 
 <script>
-import { isRequired, isInt } from '@/plugins/validation.js'
-export default {
-  data() {
-    return {
-    rules: { isRequired, isInt },
-    }
-  },
-  computed: {
-    fname: {
-      get() {
-        return this.$store.state.stripeSetup.firstName
-      },
-      set(value) {
-        this.$store.commit('SET_INDIVIDUAL_FIRST_NAME', value)
+  import {isRequired, isInt} from "@/plugins/validation.js"
+  export default {
+    data() {
+      return {
+        rules: {isRequired, isInt},
       }
     },
-    lname: {
-      get() {
-        return this.$store.state.stripeSetup.lastName
+    computed: {
+      fname: {
+        get() {
+          return this.$store.state.stripeSetup.individual.first_name
+        },
+        set(value) {
+          this.$store.commit("SET_STRIPE_FIRST_NAME", value)
+        },
       },
-      set(value) {
-        this.$store.commit('SET_INDIVIDUAL_LAST_NAME', value)
-      }
-    }
+      lname: {
+        get() {
+          return this.$store.state.stripeSetup.individual.last_name
+        },
+        set(value) {
+          this.$store.commit("SET_STRIPE_LAST_NAME", value)
+        },
+      },
+    },
   }
-}
 </script>
 
 <style lang="scss" scoped></style>

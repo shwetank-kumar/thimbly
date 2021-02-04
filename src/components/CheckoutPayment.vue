@@ -7,7 +7,9 @@
       <form id="payment-form">
         <div id="card-element"><!--Stripe.js injects the Card Element--></div>
         <v-card-actions class="mt-5">
-          <v-btn color="primary" width="100%" @click="buy">Buy</v-btn>
+          <v-btn color="primary" width="100%" @click="buy" :disabled="disabled"
+            >Buy</v-btn
+          >
         </v-card-actions>
       </form>
     </v-card>
@@ -48,6 +50,10 @@
       // card = undefined
       this.card = elements.create("card", {style: style})
       this.card.mount("#card-element")
+      // check if quantity available is > 0 else disable buy button
+      if (this.$store.state.productDetails.productQuantity > 0) {
+        this.disabled = false
+      }
     },
     data() {
       return {
@@ -55,6 +61,7 @@
         card: null,
         payment_token: null,
         stripe: null,
+        disabled: true,
       }
     },
     methods: {
@@ -68,9 +75,7 @@
           .confirmCardPayment(this.payment_token, {
             payment_method: {
               card: this.card,
-              billing_details: {
-                name: "Jenny Rosen",
-              },
+              shipping_details: this.$store.state.order.shipping_details,
             },
           })
           .then(function (result) {
@@ -86,6 +91,9 @@
                 // execution. Set up a webhook or plugin to listen for the
                 // payment_intent.succeeded event that handles any business critical
                 // post-payment actions.
+                // 1. Create an order
+                // 2. Reduce qty of product remaining in product catalog
+                // 3. Send an email connecting the seller and buyer
               }
             }
           })
