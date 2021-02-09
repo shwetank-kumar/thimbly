@@ -77,7 +77,7 @@
         var productDetails = {
           ...this.$store.state.productDetails,
           productPhotos: downloadUrls,
-          ownerUid: this.$store.state.user.uid,
+          seller_id: this.$store.state.user.uid,
           published: true,
         }
         this.$store.commit("SET_PRODUCT_DETAILS", productDetails)

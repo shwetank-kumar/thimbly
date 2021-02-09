@@ -54,12 +54,13 @@
     middleware: "router-auth",
     async asyncData(context) {
       // console.log(context.params.product_id)
-      var docId = context.params.product_id
-      var docRef = await fireDb.collection("products").doc(docId).get()
+      var doc_id = context.params.product_id
+      var docRef = await fireDb.collection("products").doc(doc_id).get()
       var productDetails = {}
       if (docRef.data()) {
-        productDetails = {...docRef.data(), productId: docId}
+        productDetails = {...docRef.data()} //, productId: docId}
         context.store.commit("SET_PRODUCT_DETAILS", productDetails)
+        context.store.commit("SET_PRODUCT_ID", doc_id)
       } else {
         context.router.push("/error")
         console.log("Does not exist.")
@@ -67,19 +68,6 @@
       return {productDetails}
     },
     methods: {
-      // async created() {
-      //   console.log('edit')
-      //   var docId = this.$route.params.product_id
-      //   var docRef = await fireDb.collection('products').doc(docId).get()
-      //   if (docRef.data()) {
-      //     this.productDetails = { ...docRef.data(), productId: docId }
-      //     this.$store.commit('SET_PRODUCT_DETAILS', this.productDetails)
-      //   } else {
-      //     this.$router.push('/error')
-      //     console.log('Does not exist.')
-      //   }
-      // console.log(this.productDetails)
-      // },
       cancel() {
         this.$router.push("/seller/products")
       },
@@ -105,12 +93,11 @@
           ...this.$store.state.productDetails,
           productPhotos: downloadUrls,
         }
-        var product_id = this.$store.state.productDetails.productId
+        var product_id = this.$store.state.product_id
         var message = ""
         try {
           var docRef = fireDb.collection("products").doc(product_id)
           await docRef.set(productDetails)
-          this.$store.commit("SET_PRODUCT_ID", docRef.id)
           message = "Listing updated!"
         } catch (error) {
           message = "Listing update failed: " + error

@@ -45,20 +45,21 @@
     middleware: "router-auth",
     async asyncData(context) {
       if (context.store.state.user) {
-        var userId = context.store.state.user.uid
+        var user_id = context.store.state.user.uid
         var querySnapshot = await fireDb
           .collection("products")
-          .where("ownerUid", "==", userId)
+          .where("seller_id", "==", user_id)
           .get()
 
         var storeProducts = []
 
         querySnapshot.forEach((doc) => {
+          console.log(doc.id)
           var route = "/seller/products/" + doc.id
           var productUrl = hostServer + route
           storeProducts.push({
             ...doc.data(),
-            productId: doc.id,
+            product_id: doc.id,
             productUrl: productUrl,
           })
         })
@@ -77,7 +78,7 @@
     methods: {
       edit(index) {
         this.$router.push(
-          "/seller/products/" + this.storeProducts[index].productId + "/edit"
+          "/seller/products/" + this.storeProducts[index].product_id + "/edit"
         )
       },
       async getUrl(index) {
@@ -98,7 +99,7 @@
       },
       view(index) {
         this.$router.push(
-          "/seller/products/" + this.storeProducts[index].productId
+          "/seller/products/" + this.storeProducts[index].product_id
         )
       },
     },

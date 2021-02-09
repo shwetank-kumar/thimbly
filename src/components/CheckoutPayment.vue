@@ -19,6 +19,7 @@
 <script>
   import {config, fireDb} from "~/plugins/firebase.js"
   import axios from "axios"
+  import _ from "lodash"
   export default {
     async mounted() {
       var style = {
@@ -44,7 +45,7 @@
         params: {stripe_id, amount},
       })
       this.payment_token = res.data
-      // console.log(res.data)
+      console.log(res.data)
       this.stripe = await Stripe(config.stripeConfig.publicKey)
       let elements = this.stripe.elements()
       // card = undefined
@@ -65,42 +66,67 @@
       }
     },
     methods: {
-      buy() {
-        console.log("buy")
-        // var form = document.getElementById("payment-form")
+      async buy() {
+        // console.log("buy")
+        var form = document.getElementById("payment-form")
 
         // form.addEventListener("submit", function (ev) {
         // ev.preventDefault()
-        this.stripe
-          .confirmCardPayment(this.payment_token, {
-            payment_method: {
-              card: this.card,
-              shipping_details: this.$store.state.order.shipping_details,
-            },
-          })
-          .then(function (result) {
-            if (result.error) {
-              // Show error to your customer (e.g., insufficient funds)
-              console.log(result.error.message)
-            } else {
-              // The payment has been processed!
-              if (result.paymentIntent.status === "succeeded") {
-                console.log("succeeded")
-                // Show a success message to your customer
-                // There's a risk of the customer closing the window before callback
-                // execution. Set up a webhook or plugin to listen for the
-                // payment_intent.succeeded event that handles any business critical
-                // post-payment actions.
-                // 1. Create an order
-                // 2. Reduce qty of product remaining in product catalog
-                // 3. Send an email connecting the seller and buyer
-              }
+        const order = this.$store.state.order
+        var product_id = this.$store.state.product_id
+        var seller_id = this.$store.state.productDetails.seller_id
+        const order_details = {product_id, seller_id, ...order}
+        let result = await this.stripe.confirmCardPayment(this.payment_token, {
+          payment_method: {
+            card: this.card,
+          },
+        })
+        const result_intent = {paymentIntent: {status: "succeeded"}}
+        if (result_intent.error) {
+          // Show error to your customer (e.g., insufficient funds)
+          // console.log(result.error.message)
+        } else {
+          if (result_intent.paymentIntent.status === "succeeded") {
+            console.log("succeeded")
+            // Show a success message to your customer
+            // There's a risk of the customer closing the window before callback
+            // execution. Set up a webhook or plugin to listen for the
+            // payment_intent.succeeded event that handles any business critical
+            // post-payment actions.
+            // 1. Create an order
+
+            // console.log(order_details)
+            var message = ""
+            try {
+              var order_ref = fireDb.collection("orders").doc()
+              await order_ref.set(order_details)
+              this.$store.commit("SET_ORDER_ID", order_ref.id)
+              message = "Order generated!"
+            } catch (error) {
+              message = "Order generation failed: " + error
             }
-          })
-        // })
-      },
-      cancel() {
-        console.log("cancel")
+            // 2. Reduce qty of product remaining in product catalog
+            var updated_product_quantity =
+              this.$store.state.productDetails.productQuantity -
+              order_details.quantity
+
+            this.$store.commit("SET_PRODUCT_DETAILS", {
+              ...this.$store.state.productDetails,
+              productQuantity: updated_product_quantity,
+            })
+            // console.log(updated_product_quantity)
+            try {
+              var product_details = this.$store.state.productDetails
+              var doc_ref = fireDb.collection("products").doc(product_id)
+              console.log(product_id)
+              await doc_ref.set(product_details)
+              message = "Listing updated!"
+            } catch (error) {
+              message = "Listing update failed: " + error
+            }
+            // 3. Send an email connecting the seller and buyer
+          }
+        }
       },
     },
   }

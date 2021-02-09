@@ -2,7 +2,7 @@ import {fireAuth} from "~/plugins/firebase.js"
 
 export const strict = true
 export const state = () => ({
-  productId: null,
+  product_id: null,
   user: {
     display_name: null,
     email: null,
@@ -11,7 +11,7 @@ export const state = () => ({
   },
   currentPhoto: 0,
   productDetails: {
-    ownerUid: null,
+    seller_id: null,
     productPhotos: [],
     productTitle: null,
     productDescription: null,
@@ -20,7 +20,7 @@ export const state = () => ({
     published: false,
     shippingOptions: [],
   },
-  storeProducts: {},
+  // storeProducts: {},
   stripeSetup: {
     capabilities: {
       transfers: {
@@ -48,6 +48,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_ORDER_ID(state, payload) {
+    state.order_id = payload
+  },
   SET_ORDER_QUANTITY(state, payload) {
     state.order.quantity = payload
   },
@@ -86,7 +89,7 @@ export const mutations = {
     state.productDetails = {...state.productDetails, ...payload}
   },
   SET_PRODUCT_ID(state, payload) {
-    state.productId = payload
+    state.product_id = payload
   },
   ADD_PRODUCT_PHOTOS(state, payload) {
     state.productDetails.productPhotos.push(URL.createObjectURL(payload))
@@ -98,9 +101,6 @@ export const mutations = {
   },
   SET_CURRENT_PHOTO(state, payload) {
     state.currentPhoto = payload
-  },
-  SET_STORE_PRODUCTS(state, payload) {
-    state.storeProducts = payload
   },
   SET_STRIPE_FIRST_NAME(state, payload) {
     state.stripeSetup.individual.first_name = payload
