@@ -45,19 +45,20 @@
     middleware: "router-auth",
     async asyncData(context) {
       // console.log(context)
-      var doc_id = context.params.product_id
-      var docRef = await fireDb.collection("products").doc(doc_id).get()
+      var product_id = context.params.product_id
+      var doc_ref = await fireDb.collection("products").doc(product_id).get()
+
       var productDetails = {}
-      if (docRef.data()) {
-        productDetails = {...docRef.data()} //, productId: docId}
+      if (doc_ref.data()) {
+        productDetails = {...doc_ref.data()} //, productId: docId}
         context.store.commit("SET_PRODUCT_DETAILS", productDetails)
-        context.store.commit("SET_PRODUCT_ID", doc_id)
+        context.store.commit("SET_PRODUCT_ID", product_id)
       } else {
         context.router.push("/error")
         console.log("Does not exist.")
       }
       var url = hostServer + context.route.path
-      return {productDetails, url}
+      return {product_id, productDetails, url}
     },
     methods: {
       async getUrl() {

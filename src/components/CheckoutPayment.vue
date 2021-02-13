@@ -45,7 +45,7 @@
         params: {stripe_id, amount},
       })
       this.payment_token = res.data
-      console.log(res.data)
+      // console.log(res.data)
       this.stripe = await Stripe(config.stripeConfig.publicKey)
       let elements = this.stripe.elements()
       // card = undefined
@@ -87,7 +87,7 @@
           // console.log(result.error.message)
         } else {
           if (result_intent.paymentIntent.status === "succeeded") {
-            console.log("succeeded")
+            // console.log("succeeded")
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
             // execution. Set up a webhook or plugin to listen for the
@@ -118,13 +118,15 @@
             try {
               var product_details = this.$store.state.productDetails
               var doc_ref = fireDb.collection("products").doc(product_id)
-              console.log(product_id)
+              // console.log(product_id)
               await doc_ref.set(product_details)
               message = "Listing updated!"
             } catch (error) {
               message = "Listing update failed: " + error
             }
-            // 3. Send an email connecting the seller and buyer
+
+            // 3. Route to thank you page
+            this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
           }
         }
       },
