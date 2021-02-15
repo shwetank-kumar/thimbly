@@ -45,6 +45,12 @@ export const state = () => ({
     },
     quantity: null,
   },
+  seller: {
+    display_name: null,
+    email: null,
+    uid: null,
+    stripe_id: null,
+  },
 })
 
 export const mutations = {
@@ -77,6 +83,9 @@ export const mutations = {
   },
   SET_USER(state, payload) {
     state.user = payload
+  },
+  SET_SELLER(state, payload) {
+    state.seller = payload
   },
   RESET_PRODUCT_DETAILS(state) {
     for (var key in state.productDetails) {

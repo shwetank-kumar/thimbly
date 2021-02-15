@@ -39,12 +39,15 @@
         },
       }
       // console.log(config.stripeConfig.publicKey)
-      const amount = this.$store.state.productDetails.productPricing
-      const stripe_id = this.$store.state.user.stripe_id
-      var res = await axios.get(config.apiUrl + "/payment", {
-        params: {stripe_id, amount},
-      })
-      this.payment_token = res.data
+      // const amount =
+      //   this.$store.state.productDetails.productPricing *
+      //   this.$store.state.order.quantity
+      // console.log(amount)
+      // const stripe_id = this.$store.state.seller.stripe_id
+      // var res = await axios.get(config.apiUrl + "/payment", {
+      //   params: {stripe_id, amount},
+      // })
+      // this.payment_token = res.data
       // console.log(res.data)
       this.stripe = await Stripe(config.stripeConfig.publicKey)
       let elements = this.stripe.elements()
@@ -69,6 +72,16 @@
       async buy() {
         // console.log("buy")
         var form = document.getElementById("payment-form")
+
+        const amount =
+          this.$store.state.productDetails.productPricing *
+          this.$store.state.order.quantity
+
+        const stripe_id = this.$store.state.seller.stripe_id
+        var res = await axios.get(config.apiUrl + "/payment", {
+          params: {stripe_id, amount},
+        })
+        this.payment_token = res.data
 
         // form.addEventListener("submit", function (ev) {
         // ev.preventDefault()
@@ -114,11 +127,11 @@
               ...this.$store.state.productDetails,
               productQuantity: updated_product_quantity,
             })
-            // console.log(updated_product_quantity)
+
             try {
               var product_details = this.$store.state.productDetails
               var doc_ref = fireDb.collection("products").doc(product_id)
-              // console.log(product_id)
+
               await doc_ref.set(product_details)
               message = "Listing updated!"
             } catch (error) {

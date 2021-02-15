@@ -46,18 +46,36 @@
     async asyncData(context) {
       // console.log(context)
       var product_id = context.params.product_id
-      var doc_ref = await fireDb.collection("products").doc(product_id).get()
+      var product_ref = await fireDb
+        .collection("products")
+        .doc(product_id)
+        .get()
 
       var productDetails = {}
-      if (doc_ref.data()) {
-        productDetails = {...doc_ref.data()} //, productId: docId}
+      if (product_ref.data()) {
+        productDetails = {...product_ref.data()} //, productId: docId}
         context.store.commit("SET_PRODUCT_DETAILS", productDetails)
         context.store.commit("SET_PRODUCT_ID", product_id)
       } else {
         context.router.push("/error")
         console.log("Does not exist.")
       }
+
+      var seller_ref = await fireDb
+        .collection("users")
+        .where("uid", "==", productDetails.seller_id)
+        .get()
+
+      var seller
+      seller_ref.forEach((doc) => {
+        seller = {...doc.data()}
+      })
+      //This code should be refactored to set seller (will require changing user to seller everywhere)
+      context.store.commit("SET_SELLER", seller)
+      // console.log(seller)
+
       var url = hostServer + context.route.path
+
       return {product_id, productDetails, url}
     },
     methods: {

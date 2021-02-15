@@ -39,7 +39,7 @@
         // this.urls = this.$store.state.localPhotoPaths
         this.urls = this.$store.state.productDetails.productPhotos
         if (this.urls.length > 0) {
-          console.log(this.$store.state.currentPhoto)
+          // console.log(this.$store.state.currentPhoto)
           var fname = this.urls[this.$store.state.currentPhoto]
           if (fname.startsWith("https")) {
             // console.log("delete remote")
