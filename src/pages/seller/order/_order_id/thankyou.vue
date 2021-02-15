@@ -87,12 +87,7 @@
         .doc(order.product_id)
         .get()
       var product = product_ref.data()
-      // console.log(product)
-      // product_ref.forEach((doc) => {
-      //   product = {...doc.data()}
-      //   console.log(product)
-      // })
-      // console.log(product)
+      
       return {buyer, seller, order_id, order, product}
     },
     computed: {

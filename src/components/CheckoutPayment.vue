@@ -38,20 +38,8 @@
           iconColor: "#fa755a",
         },
       }
-      // console.log(config.stripeConfig.publicKey)
-      // const amount =
-      //   this.$store.state.productDetails.productPricing *
-      //   this.$store.state.order.quantity
-      // console.log(amount)
-      // const stripe_id = this.$store.state.seller.stripe_id
-      // var res = await axios.get(config.apiUrl + "/payment", {
-      //   params: {stripe_id, amount},
-      // })
-      // this.payment_token = res.data
-      // console.log(res.data)
       this.stripe = await Stripe(config.stripeConfig.publicKey)
       let elements = this.stripe.elements()
-      // card = undefined
       this.card = elements.create("card", {style: style})
       this.card.mount("#card-element")
       // check if quantity available is > 0 else disable buy button
@@ -70,77 +58,91 @@
     },
     methods: {
       async buy() {
-        // console.log("buy")
-        var form = document.getElementById("payment-form")
-
-        const amount =
-          this.$store.state.productDetails.productPricing *
-          this.$store.state.order.quantity
-
-        const stripe_id = this.$store.state.seller.stripe_id
-        var res = await axios.get(config.apiUrl + "/payment", {
-          params: {stripe_id, amount},
-        })
-        this.payment_token = res.data
-
-        // form.addEventListener("submit", function (ev) {
-        // ev.preventDefault()
-        const order = this.$store.state.order
         var product_id = this.$store.state.product_id
-        var seller_id = this.$store.state.productDetails.seller_id
-        const order_details = {product_id, seller_id, ...order}
-        let result = await this.stripe.confirmCardPayment(this.payment_token, {
-          payment_method: {
-            card: this.card,
-          },
-        })
-        const result_intent = {paymentIntent: {status: "succeeded"}}
-        if (result_intent.error) {
-          // Show error to your customer (e.g., insufficient funds)
-          // console.log(result.error.message)
+
+        var product_ref = await fireDb
+          .collection("products")
+          .doc(product_id)
+          .get()
+
+        var productDetails = {}
+        if (product_ref.data()) {
+          productDetails = {...product_ref.data()} //, productId: docId}
+          // context.store.commit("SET_PRODUCT_DETAILS", productDetails)
+          // context.store.commit("SET_PRODUCT_ID", product_id)
+          this.$store.commit("SET_PRODUCT_DETAILS", productDetails)
+          this.$store.commit("SET_PRODUCT_ID", product_id)
         } else {
-          if (result_intent.paymentIntent.status === "succeeded") {
-            // console.log("succeeded")
-            // Show a success message to your customer
-            // There's a risk of the customer closing the window before callback
-            // execution. Set up a webhook or plugin to listen for the
-            // payment_intent.succeeded event that handles any business critical
-            // post-payment actions.
-            // 1. Create an order
+          // context.router.push("/error")
+          this.$router.push("/error")
+          console.log("Does not exist.")
+        }
+        if (productDetails.productQuantity > 0) {
+          console.log("success")
+          var form = document.getElementById("payment-form")
+          const amount =
+            this.$store.state.productDetails.productPricing *
+            this.$store.state.order.quantity
+          const stripe_id = this.$store.state.seller.stripe_id
+          var res = await axios.get(config.apiUrl + "/payment", {
+            params: {stripe_id, amount},
+          })
+          this.payment_token = res.data
+          const order = this.$store.state.order
 
-            // console.log(order_details)
-            var message = ""
-            try {
-              var order_ref = fireDb.collection("orders").doc()
-              await order_ref.set(order_details)
-              this.$store.commit("SET_ORDER_ID", order_ref.id)
-              message = "Order generated!"
-            } catch (error) {
-              message = "Order generation failed: " + error
+          var seller_id = this.$store.state.productDetails.seller_id
+          const order_details = {product_id, seller_id, ...order}
+          let result = await this.stripe.confirmCardPayment(
+            this.payment_token,
+            {
+              payment_method: {
+                card: this.card,
+              },
             }
-            // 2. Reduce qty of product remaining in product catalog
-            var updated_product_quantity =
-              this.$store.state.productDetails.productQuantity -
-              order_details.quantity
-
-            this.$store.commit("SET_PRODUCT_DETAILS", {
-              ...this.$store.state.productDetails,
-              productQuantity: updated_product_quantity,
-            })
-
-            try {
-              var product_details = this.$store.state.productDetails
-              var doc_ref = fireDb.collection("products").doc(product_id)
-
-              await doc_ref.set(product_details)
-              message = "Listing updated!"
-            } catch (error) {
-              message = "Listing update failed: " + error
+          )
+          const result_intent = {paymentIntent: {status: "succeeded"}}
+          if (result_intent.error) {
+            // Show error to your customer (e.g., insufficient funds)
+          } else {
+            if (result_intent.paymentIntent.status === "succeeded") {
+              // Show a success message to your customer
+              // There's a risk of the customer closing the window before callback
+              // execution. Set up a webhook or plugin to listen for the
+              // payment_intent.succeeded event that handles any business critical
+              // post-payment actions.
+              // 1. Create an order
+              // console.log(order_details)
+              var message = ""
+              try {
+                var order_ref = fireDb.collection("orders").doc()
+                await order_ref.set(order_details)
+                this.$store.commit("SET_ORDER_ID", order_ref.id)
+                message = "Order generated!"
+              } catch (error) {
+                message = "Order generation failed: " + error
+              }
+              // 2. Reduce qty of product remaining in product catalog
+              var updated_product_quantity =
+                this.$store.state.productDetails.productQuantity -
+                order_details.quantity
+              this.$store.commit("SET_PRODUCT_DETAILS", {
+                ...this.$store.state.productDetails,
+                productQuantity: updated_product_quantity,
+              })
+              try {
+                var product_details = this.$store.state.productDetails
+                var doc_ref = fireDb.collection("products").doc(product_id)
+                await doc_ref.set(product_details)
+                message = "Listing updated!"
+              } catch (error) {
+                message = "Listing update failed: " + error
+              }
+              // 3. Route to thank you page
+              this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
             }
-
-            // 3. Route to thank you page
-            this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
           }
+        } else {
+          this.$router.push("/seller/order/unsuccessful")
         }
       },
     },
@@ -149,8 +151,6 @@
 
 <style scoped>
   form {
-    /* width: 30vw;
-    min-width: 500px; */
     align-self: center;
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
       0px 2px 5px 0px rgba(50, 50, 93, 0.1),
