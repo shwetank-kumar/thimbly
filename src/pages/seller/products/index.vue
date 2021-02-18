@@ -54,7 +54,7 @@
         var storeProducts = []
 
         querySnapshot.forEach((doc) => {
-          console.log(doc.id)
+          // console.log(doc.id)
           var route = "/seller/products/" + doc.id
           var productUrl = hostServer + route
           storeProducts.push({

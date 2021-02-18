@@ -14,10 +14,10 @@
       <product-details-form :productDetails="productDetails" />
     </v-card>
 
-    <v-card outlined class="my-2 rounded-lg">
+    <!-- <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Shipping Details </v-card-title>
       <shipping-options :shippingOptionsProp="productDetails.shippingOptions" />
-    </v-card>
+    </v-card> -->
 
     <v-row class="justify-space-around mx-2 my-5">
       <v-btn depressed color="error" @click="cancel">Cancel</v-btn>

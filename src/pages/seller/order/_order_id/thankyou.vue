@@ -14,8 +14,8 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text class="pb-0">
-        Thanks for ordering from my store! Your order summary is below. If you
-        have any questions please email me at:
+        Thanks for ordering from my store! Your order summary is below. Please save a copy of this page for your records.
+        If you have any questions please email me at:
         <p class="mt-3 d-flex justify-center">{{ seller.email }}</p>
         Your order details are:
         <v-row dense class="d-flex justify-left mt-2">

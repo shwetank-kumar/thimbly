@@ -18,7 +18,7 @@ export const state = () => ({
     productPricing: null,
     productQuantity: null,
     published: false,
-    shippingOptions: [],
+    shipping: null,
   },
   // storeProducts: {},
   stripeSetup: {
@@ -92,7 +92,7 @@ export const mutations = {
       state.productDetails[key] = null
     }
     state.productDetails.productPhotos = []
-    state.productDetails.shippingOptions = []
+    // state.productDetails.shippingOptions = []
   },
   SET_PRODUCT_DETAILS(state, payload) {
     state.productDetails = {...state.productDetails, ...payload}
@@ -127,8 +127,8 @@ export const getters = {
       !!state.productDetails.productPricing &&
       !!state.productDetails.productQuantity &&
       Number.isInteger(Number(state.productDetails.productQuantity))
-    var isValidShippingInfo = state.productDetails.shippingOptions.length > 0
-    return isValidProductInfo && isValidShippingInfo
+    // var isValidShippingInfo = state.productDetails.shippingOptions.length > 0
+    return isValidProductInfo //&& isValidShippingInfo
   },
   GET_CURRENT_PHOTO: (state) => {
     return state.currentPhoto

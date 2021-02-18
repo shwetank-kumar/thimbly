@@ -15,10 +15,10 @@
       <product-details-form />
     </v-card>
 
-    <v-card outlined class="my-2 rounded-lg">
+    <!-- <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Shipping Details </v-card-title>
       <shipping-options />
-    </v-card>
+    </v-card> -->
 
     <!-- <v-card outlined class="my-2 rounded-lg">
       <v-card-title> Payment Options</v-card-title>

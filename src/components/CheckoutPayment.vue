@@ -78,12 +78,17 @@
           console.log("Does not exist.")
         }
         if (productDetails.productQuantity > 0) {
-          console.log("success")
+          // console.log("success")
           var form = document.getElementById("payment-form")
+          const shipping = 6
           const amount =
             this.$store.state.productDetails.productPricing *
-            this.$store.state.order.quantity
+              this.$store.state.order.quantity +
+            shipping
+
           const stripe_id = this.$store.state.seller.stripe_id
+          // console.log(config.apiUrl)
+          // console.log(stripe_id)
           var res = await axios.get(config.apiUrl + "/payment", {
             params: {stripe_id, amount},
           })
