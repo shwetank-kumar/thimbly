@@ -142,7 +142,33 @@
               } catch (error) {
                 message = "Listing update failed: " + error
               }
-              // 3. Route to thank you page
+              // 3. Send email out to buyer and seller - just involves writing to mail datastore
+              var seller_ref = await fireDb
+                .collection("users")
+                .where("uid", "==", seller_id)
+                .get()
+              var seller
+              seller_ref.forEach((doc) => {
+                seller = {...doc.data()}
+              })
+              var to = [order.shipping_details.email, seller.email]
+              var subject =
+                "Order Confirmation from Thimbly: Order # " + order_ref.id
+              var html = `<p>Thanks for ordering from ${seller.display_name}'s store! Your order details are as follows:<br>
+              Product Title: ${product_details.productTitle},<br>
+              Order Quantity: ${order.quantity},<br>
+              Order Total: $ ${order.total},<br>
+              Here are your special instructions we have received:<br>
+              '${order.special_instructions}'<br>
+              If you have any questions you can reach me at: ${seller.email}.<br>
+              Thanks,<br>
+              </p>`
+              var message = {subject, html}
+              var mail = {to, message}
+              var mail_ref = fireDb.collection("mail").doc()
+              await mail_ref.set(mail)
+
+              // 4. Route to thank you page
               this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
             }
           }

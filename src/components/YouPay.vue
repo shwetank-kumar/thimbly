@@ -58,8 +58,10 @@
       shipping() {
         return Number(6)
       },
-      total() {
-        return Number(this.subTotal + this.shipping).toFixed(2)
+      total: {
+        get() {
+          return Number(this.subTotal + this.shipping).toFixed(2)
+        },
       },
     },
   }

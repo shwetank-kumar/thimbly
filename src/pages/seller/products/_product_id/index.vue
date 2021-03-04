@@ -8,7 +8,7 @@
     <h2 class="text-center">{{ productDetails.productTitle }}</h2>
     <product-details-card />
     <v-card outlined class="my-2 rounded-lg">
-      <v-card-title class="justify-center">Sharing options</v-card-title>
+      <v-card-title class="justify-center">Sharing Options</v-card-title>
       <v-card-actions>
         <v-row class="justify-space-around">
           <v-col>
@@ -33,6 +33,7 @@
       </v-card-actions>
     </v-card>
     <shipping-information-form />
+    <seller-special-instructions />
     <you-pay />
     <checkout-payment />
   </div>

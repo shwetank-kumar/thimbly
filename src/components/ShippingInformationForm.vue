@@ -43,6 +43,7 @@
             outlined
             dense
             label="City"
+            :rules="rules.isRequired"
             placeholder="San Francisco"
             v-model="city"
           ></v-text-field>
@@ -50,6 +51,7 @@
             label="State"
             placeholder=" "
             :items="states"
+            :rules="rules.isRequired"
             dense
             outlined
             v-model="state"
@@ -59,6 +61,7 @@
             dense
             label="Zip Code"
             placeholder="00000"
+            :rules="rules.isRequired"
             v-model="postal_code"
           ></v-text-field>
         </v-col>

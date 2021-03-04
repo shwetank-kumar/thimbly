@@ -43,7 +43,9 @@ export const state = () => ({
         country: "US",
       },
     },
-    quantity: null,
+    quantity: 0,
+    total: null,
+    special_instructions: null,
   },
   seller: {
     display_name: null,
@@ -59,6 +61,12 @@ export const mutations = {
   },
   SET_ORDER_QUANTITY(state, payload) {
     state.order.quantity = payload
+  },
+  SET_ORDER_TOTAL(state, payload) {
+    state.order.total = payload
+  },
+  SET_ORDER_SPECIAL_INSTRUCTIONS(state, payload) {
+    state.order.special_instructions = payload
   },
   SET_ORDER_SHIPPING_DETAILS_NAME(state, payload) {
     state.order.shipping_details.name = payload

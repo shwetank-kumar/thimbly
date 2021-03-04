@@ -34,7 +34,7 @@
       ...mapGetters({productDetails: "GET_PRODUCT_DETAILS"}),
       quantityList() {
         var list = []
-        for (var i = 1; i <= this.productDetails.productQuantity; i++) {
+        for (var i = 0; i <= this.productDetails.productQuantity; i++) {
           list.push(i)
         }
         return list
@@ -44,7 +44,13 @@
           return this.$store.state.order.quantity
         },
         set(value) {
+          // console.log(value)
           this.$store.commit("SET_ORDER_QUANTITY", value)
+          var shipping = 6
+          var payload =
+            Number(this.productDetails.productPricing) * Number(this.quantity) +
+            shipping
+          this.$store.commit("SET_ORDER_TOTAL", payload)
         },
       },
     },

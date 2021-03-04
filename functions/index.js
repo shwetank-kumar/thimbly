@@ -29,16 +29,12 @@ app.get("/ip", async (req, res) => {
   )
 })
 
-// Send email
-app.post("/email", async (req, res) => {
-  const email_info = req.body
-})
-
 // Get card payment intent
 app.get("/payment", async (req, res) => {
   const payment_intent = await stripe.paymentIntents.create({
     payment_method_types: ["card"],
-    amount: req.query.amount * 100,
+    amount: Math.round(req.query.amount * 100 * 0.95),
+    application_fee_amount: Math.round(req.query.amount * 100 * 0.05),
     currency: "usd",
     transfer_data: {
       destination: req.query.stripe_id,

@@ -13,5 +13,8 @@ service cloud.firestore {
     match /users/{user} {
  		 	allow read;
   	}
+    match /mail/{mail} {
+ 		 	allow read, write;
+  	}
 	}
 }

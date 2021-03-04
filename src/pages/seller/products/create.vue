@@ -56,6 +56,7 @@
         this.$router.push("/seller/products")
       },
       async publish() {
+        //TODO: Dont let it publish twice - grey out the publish button
         var downloadUrls = []
         // Upload images to storage after replacing their location with FireStorage location
         for (
