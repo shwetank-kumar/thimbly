@@ -43,7 +43,6 @@
   import {fireDb} from "~/plugins/firebase.js"
   export default {
     components: {FirebaseUI},
-    middleware: "router-auth",
     async asyncData(context) {},
     data() {
       return {

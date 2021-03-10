@@ -14,26 +14,18 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      title: 'Thimbly',
-    }
-  },
-  // computed: {
-  //   loggedIn() { 
-  //     if (this.$store.state.user) {
-  //       return true
-  //     } else {
-  //       return false
-  //     }
-  //   }
-  // } 
-}
+  export default {
+    name: "default",
+    data() {
+      return {
+        title: "Thimbly",
+      }
+    },
+  }
 </script>
 
 <style scoped>
-.preferences-menu {
-  justify-content: right;
-}
+  .preferences-menu {
+    justify-content: right;
+  }
 </style>

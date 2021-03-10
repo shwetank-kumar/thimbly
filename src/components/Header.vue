@@ -1,23 +1,21 @@
 <template>
   <div>
-    <v-menu right class="preferences-menu">
+    <v-menu offset-y>
       <template v-slot:activator="{on, attrs}">
-        <v-btn v-if="loggedIn" depressed v-bind="attrs" v-on="on">
+        <v-btn v-show="loggedIn" depressed v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
+          v-for="(item, index) in items"
+          :key="index"
           @click="loggedInMenuAction(item)"
         >
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
-          </v-list-item-content>
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -28,17 +26,12 @@
   import firebase from "firebase"
   export default {
     name: "Header",
-    // computed: {
-    //   loggedIn () {
-    //     return Boolean(this.$store.state.user)
-    //   }
-    // },
-    // Should ideally be done through a computed property but thats causing an error in DOM mismatching
-    // between server and client in SSR
-    mounted() {
-      this.loggedIn = Boolean(this.$store.state.user)
-      // console.log(this.loggedIn)
+    computed: {
+      loggedIn() {
+        return Boolean(this.$store.state.user)
+      },
     },
+
     methods: {
       loggedInMenuAction(item) {
         if (item.text == "Setup Payments") {
@@ -58,14 +51,14 @@
     },
     data() {
       return {
-        loggedIn: true,
+        // loggedIn: true,
         items: [
           {text: "Create Product", icon: "mdi-plus"},
           {text: "Store", icon: "mdi-home"},
           {text: "Setup Payments", icon: "mdi-currency-usd"},
           {text: "Logout", icon: "mdi-logout"},
         ],
-        closeOnClick: true,
+        // closeOnClick: true,
       }
     },
   }
