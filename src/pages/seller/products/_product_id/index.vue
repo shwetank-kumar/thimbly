@@ -35,7 +35,7 @@
     <shipping-information-form />
     <seller-special-instructions />
     <you-pay />
-    <checkout-payment />
+    <checkout-payment-stripe />
   </div>
 </template>
 

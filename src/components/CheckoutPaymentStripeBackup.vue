@@ -5,7 +5,9 @@
         Payment
       </v-card-title>
       <form id="payment-form">
-        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+        <div @change="card_state" id="card-element">
+          <!--Stripe.js injects the Card Element-->
+        </div>
         <v-card-actions class="mt-5">
           <v-btn color="primary" width="100%" @click="buy" :disabled="disabled"
             >Buy</v-btn
@@ -21,6 +23,20 @@
   import axios from "axios"
   import _ from "lodash"
   export default {
+    computed: {
+      disabled: {
+        get() {
+          var has_inventory = false
+          if (this.$store.state.productDetails.productQuantity > 0) {
+            has_inventory = true
+          }
+          var shipping_validation = this.$store.state.order_validation
+            .shipping_validation
+          return !(has_inventory && shipping_validation)
+        },
+        set() {},
+      },
+    },
     async mounted() {
       var style = {
         base: {
@@ -49,14 +65,16 @@
     },
     data() {
       return {
-        buyEnabled: true,
         card: null,
         payment_token: null,
         stripe: null,
-        disabled: true,
+        // disabled: true,
       }
     },
     methods: {
+      card_state() {
+        console.log("card changed")
+      },
       async buy() {
         var product_id = this.$store.state.product_id
 
@@ -80,15 +98,15 @@
         if (productDetails.productQuantity > 0) {
           // console.log("success")
           var form = document.getElementById("payment-form")
-          const shipping = 6
+          // const shipping = this.$store.state.productDetails.shipping
           const amount =
             this.$store.state.productDetails.productPricing *
               this.$store.state.order.quantity +
-            shipping
+            this.$store.state.productDetails.shipping
 
           const stripe_id = this.$store.state.seller.stripe_id
           // console.log(config.apiUrl)
-          // console.log(stripe_id)
+          console.log(amount)
           var res = await axios.get(config.apiUrl + "/payment", {
             params: {stripe_id, amount},
           })

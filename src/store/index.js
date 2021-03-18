@@ -53,6 +53,10 @@ export const state = () => ({
     uid: null,
     stripe_id: null,
   },
+  order_validation: {
+    shipping_validation: false,
+    card_validation: false,
+  },
 })
 
 export const mutations = {
@@ -88,6 +92,9 @@ export const mutations = {
   },
   SET_ORDER_SHIPPING_DETAILS_ADDRESS_POSTAL_CODE(state, payload) {
     state.order.shipping_details.address.postal_code = payload
+  },
+  SET_SHIPPING_VALIDATION(state, payload) {
+    state.order_validation.shipping_validation = payload
   },
   SET_USER(state, payload) {
     state.user = payload

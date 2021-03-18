@@ -30,6 +30,9 @@
           return this.$store.state.order.special_instructions
         },
         set(value) {
+          if (!value) {
+            value = "No special instructions."
+          }
           this.$store.commit("SET_ORDER_SPECIAL_INSTRUCTIONS", value)
         },
       },

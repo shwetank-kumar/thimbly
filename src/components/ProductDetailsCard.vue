@@ -46,10 +46,11 @@
         set(value) {
           // console.log(value)
           this.$store.commit("SET_ORDER_QUANTITY", value)
-          var shipping = 6
+          var shipping = this.$store.state.productDetails.shipping
           var payload =
             Number(this.productDetails.productPricing) * Number(this.quantity) +
-            shipping
+            Number(shipping)
+
           this.$store.commit("SET_ORDER_TOTAL", payload)
         },
       },

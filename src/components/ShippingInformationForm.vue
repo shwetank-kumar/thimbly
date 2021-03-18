@@ -4,68 +4,69 @@
       <v-card-title primary-title class="d-flex justify-center">
         Shipping Information
       </v-card-title>
-      <v-row class="d-flex mt-2 justify-space-around">
-        <v-col class="pa-0" cols="10">
-          <!-- <p class="h4">Contact Information</p> -->
-          <v-text-field
-            outlined
-            dense
-            label="Name"
-            placeholder="Jill Dane"
-            :rules="rules.isRequired"
-            v-model="name"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            dense
-            label="Email"
-            placeholder="buyer@thimbly.io"
-            :rules="rules.isRequired"
-            v-model="email"
-          ></v-text-field>
-          <!-- <p class="h4">Shipping Address</p> -->
-          <v-text-field
-            outlined
-            dense
-            label="Address Line 1"
-            placeholder="123 Home St. "
-            :rules="rules.isRequired"
-            v-model="address_one"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            dense
-            label="Address Line 2"
-            placeholder="Apt. No. 456"
-            v-model="address_two"
-          ></v-text-field>
-          <v-text-field
-            outlined
-            dense
-            label="City"
-            :rules="rules.isRequired"
-            placeholder="San Francisco"
-            v-model="city"
-          ></v-text-field>
-          <v-select
-            label="State"
-            placeholder=" "
-            :items="states"
-            :rules="rules.isRequired"
-            dense
-            outlined
-            v-model="state"
-          ></v-select>
-          <v-text-field
-            outlined
-            dense
-            label="Zip Code"
-            placeholder="00000"
-            :rules="rules.isRequired"
-            v-model="postal_code"
-          ></v-text-field>
-        </v-col>
-      </v-row>
+      <v-form v-model="shipping_validation">
+        <v-row class="d-flex mt-2 justify-space-around">
+          <v-col class="pa-0" cols="10">
+            <!-- <p class="h4">Contact Information</p> -->
+            <v-text-field
+              outlined
+              dense
+              label="Name"
+              placeholder="Jill Dane"
+              :rules="rules.isRequired"
+              v-model="name"
+            ></v-text-field>
+            <v-text-field
+              outlined
+              dense
+              label="Email"
+              placeholder="buyer@thimbly.io"
+              :rules="rules.isRequired"
+              v-model="email"
+            ></v-text-field>
+            <!-- <p class="h4">Shipping Address</p> -->
+            <v-text-field
+              outlined
+              dense
+              label="Address Line 1"
+              placeholder="123 Home St. "
+              :rules="rules.isRequired"
+              v-model="address_one"
+            ></v-text-field>
+            <v-text-field
+              outlined
+              dense
+              label="Address Line 2"
+              placeholder="Apt. No. 456"
+              v-model="address_two"
+            ></v-text-field>
+            <v-text-field
+              outlined
+              dense
+              label="City"
+              :rules="rules.isRequired"
+              placeholder="San Francisco"
+              v-model="city"
+            ></v-text-field>
+            <v-select
+              label="State"
+              placeholder=""
+              :items="states"
+              :rules="rules.isRequired"
+              dense
+              outlined
+              v-model="state"
+            ></v-select>
+            <v-text-field
+              outlined
+              dense
+              label="Zip Code"
+              placeholder="00000"
+              v-model="postal_code"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-form>
     </v-card>
   </div>
 </template>
@@ -124,7 +125,7 @@
       },
       state: {
         get() {
-          return this.$store.state.order.shipping_details.address.city
+          return this.$store.state.order.shipping_details.address.state
         },
         set(value) {
           this.$store.commit("SET_ORDER_SHIPPING_DETAILS_ADDRESS_STATE", value)
@@ -139,6 +140,14 @@
             "SET_ORDER_SHIPPING_DETAILS_ADDRESS_POSTAL_CODE",
             value
           )
+        },
+      },
+      shipping_validation: {
+        get() {
+          return this.$store.state.order_validation.shipping_validation
+        },
+        set(value) {
+          this.$store.commit("SET_SHIPPING_VALIDATION", value)
         },
       },
     },

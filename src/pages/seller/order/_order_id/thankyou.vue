@@ -94,11 +94,11 @@
       subTotal() {
         return Number(this.product.productPricing) * Number(this.order.quantity)
       },
-      shipping() {
-        return Number(6)
-      },
+      // shipping() {
+      //   return Number(6)
+      // },
       total() {
-        return Number(this.subTotal + this.shipping).toFixed(2)
+        return (Number(this.subTotal) + Number(this.product.shipping)).toFixed(2)
       },
     },
     data() {

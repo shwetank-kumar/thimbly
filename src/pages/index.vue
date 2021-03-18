@@ -43,6 +43,7 @@
   import {fireDb} from "~/plugins/firebase.js"
   export default {
     components: {FirebaseUI},
+    // ## Set user to null
     async asyncData(context) {},
     data() {
       return {

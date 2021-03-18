@@ -56,7 +56,7 @@
         )
       },
       shipping() {
-        return Number(6)
+        return Number(this.productDetails.shipping)
       },
       total: {
         get() {
