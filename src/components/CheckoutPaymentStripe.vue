@@ -193,7 +193,6 @@
                 seller = {...doc.data()}
               })
               var to = [order.shipping_details.email, seller.email]
-              console.log(order)
               var subject =
                 "Order Confirmation from Thimbly: Order # " + order_ref.id
               var html = `<p>Thanks for ordering from ${seller.display_name}'s store! Your order details are as follows:<br>
