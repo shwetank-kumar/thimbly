@@ -18,7 +18,7 @@ export const state = () => ({
     productPricing: null,
     productQuantity: null,
     published: false,
-    shipping: null,
+    shipping: "5",
   },
   // storeProducts: {},
   stripeSetup: {

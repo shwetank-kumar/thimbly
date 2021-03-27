@@ -13,6 +13,10 @@
             >Buy</v-btn
           >
         </v-card-actions>
+
+        <p class="red--text">
+          {{ message }}
+        </p>
       </form>
     </v-card>
   </div>
@@ -79,6 +83,7 @@
         stripe: null,
         stripe_error: null,
         card_complete: false,
+        message: "",
         // disabled: true,
       }
     },
@@ -147,10 +152,13 @@
             }
           )
           const result_intent = {paymentIntent: {status: "succeeded"}}
-          if (result_intent.error) {
+          console.log(result)
+          // var message = ""
+          if (result.error) {
             // Show error to your customer (e.g., insufficient funds)
+            this.message = result.error.message
           } else {
-            if (result_intent.paymentIntent.status === "succeeded") {
+            if (result.paymentIntent.status === "succeeded") {
               // Show a success message to your customer
               // There's a risk of the customer closing the window before callback
               // execution. Set up a webhook or plugin to listen for the
@@ -158,14 +166,15 @@
               // post-payment actions.
               // 1. Create an order
               // console.log(order_details)
-              var message = ""
+
               try {
                 var order_ref = fireDb.collection("orders").doc()
                 await order_ref.set(order_details)
                 this.$store.commit("SET_ORDER_ID", order_ref.id)
-                message = "Order generated!"
+                this.message = "Order generated!"
               } catch (error) {
-                message = "Order generation failed: " + error
+                this.message = "Order generation failed: " + error
+                // if order generation fails you should revert the funds back here
               }
               // 2. Reduce qty of product remaining in product catalog
               var updated_product_quantity =
@@ -179,9 +188,9 @@
                 var product_details = this.$store.state.productDetails
                 var doc_ref = fireDb.collection("products").doc(product_id)
                 await doc_ref.set(product_details)
-                message = "Listing updated!"
+                // this.message = "Listing updated!"
               } catch (error) {
-                message = "Listing update failed: " + error
+                // this.message = "Listing update failed: " + error
               }
               // 3. Send email out to buyer and seller - just involves writing to mail datastore
               var seller_ref = await fireDb

@@ -12,3 +12,6 @@ export const isEmail = [
     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
     "E-mail must be valid",
 ]
+export const isZip = [
+  (v) => (v || "").length <= 5 || `Zip code must be 5 integers`,
+]

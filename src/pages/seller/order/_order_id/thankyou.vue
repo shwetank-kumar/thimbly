@@ -61,6 +61,31 @@
         </p>
       </v-card-text>
     </v-card>
+    <v-card outlined class="my-2 rounded-lg">
+      <v-card-title class="justify-center">Sharing Options</v-card-title>
+      <v-card-actions>
+        <v-row class="justify-space-around">
+          <v-col>
+            <v-btn depressed color="primary" @click="getUrl" width="100%">
+              <v-icon> mdi-link</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col>
+            <ShareNetwork
+              network="facebook"
+              :url="url"
+              :title="product.productTitle"
+              :description="product.productDescription"
+              class="fb_button"
+            >
+              <v-btn color="primary" width="100%"
+                ><v-icon>mdi-facebook</v-icon>
+              </v-btn>
+            </ShareNetwork>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -87,8 +112,13 @@
         .doc(order.product_id)
         .get()
       var product = product_ref.data()
-      
-      return {buyer, seller, order_id, order, product}
+      var url = hostServer + "/seller/products/" + order.product_id
+      return {buyer, seller, order_id, order, product, url}
+    },
+    methods: {
+      async getUrl() {
+        await navigator.clipboard.writeText(this.url)
+      },
     },
     computed: {
       subTotal() {

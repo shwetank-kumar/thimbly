@@ -62,7 +62,9 @@
               dense
               label="Zip Code"
               placeholder="00000"
+              :rules="rules.isZip"
               v-model="postal_code"
+              type="number"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -73,7 +75,7 @@
 
 <script>
   import {mapGetters, mapMutations} from "vuex"
-  import {isRequired, isInt} from "@/plugins/validation.js"
+  import {isRequired, isInt, isZip} from "@/plugins/validation.js"
   export default {
     computed: {
       name: {
@@ -153,7 +155,7 @@
     },
     data() {
       return {
-        rules: {isRequired, isInt},
+        rules: {isRequired, isInt, isZip},
         states: [
           "Alabama",
           "Alaska",

@@ -10,6 +10,14 @@
       }}</v-card-text>
       <v-row class="d-flex justify-center">
         <v-col cols="3">
+          <p class="pt-2 font-weight-medium">Price</p>
+        </v-col>
+        <v-col cols="4">
+          <p class="pt-2 font-weight-medium">$ {{ price }}</p>
+        </v-col>
+      </v-row>
+      <v-row class="d-flex justify-center">
+        <v-col cols="3">
           <p class="pt-2 font-weight-medium">Quantity</p>
         </v-col>
         <v-col cols="4">
@@ -52,6 +60,14 @@
             Number(shipping)
 
           this.$store.commit("SET_ORDER_TOTAL", payload)
+        },
+      },
+      price: {
+        get() {
+          return this.$store.state.productDetails.productPricing
+        },
+        set(value) {
+          // console.log(value)
         },
       },
     },

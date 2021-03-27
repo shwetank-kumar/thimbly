@@ -128,8 +128,7 @@
       },
       shipping: {
         get() {
-          var shipping = "5"
-          return shipping
+          return this.$store.state.productDetails.shipping
         },
         set(value) {
           var payload = {
