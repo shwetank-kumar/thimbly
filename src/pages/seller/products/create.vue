@@ -93,7 +93,8 @@
           message = "Listing generation failed: " + error
         }
         // console.log(message)
-        this.$router.push("/seller/products/" + docRef.id)
+        this.$router.push("/seller/products")
+        // this.$router.push("/seller/products/" + docRef.id)
         // this.$router.push('/seller/preferences/')
       },
     },
