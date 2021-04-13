@@ -13,7 +13,11 @@
             >Buy</v-btn
           >
         </v-card-actions>
-
+        <v-row class="mx-auto pt-4">
+            <v-icon class="pr-2">mdi-lock</v-icon>
+            <span class="caption pt-1">All Payments are processed and secured by Strip</span>
+        </v-row>
+      
         <p class="red--text">
           {{ message }}
         </p>

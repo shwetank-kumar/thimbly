@@ -11,6 +11,8 @@
           v-for="url in imgSources"
           :key="url"
           :src="url"
+          contain
+          aspect-ratio="1.6"
           class="mx-1"
         >
         </v-carousel-item>
