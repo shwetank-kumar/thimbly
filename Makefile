@@ -1,11 +1,17 @@
-dev_build:
+local_build:
 	cd ./src && yarn build:dev
 
-dev_run: 
+local_run: 
 	firebase emulators:start
 
-staging_build:
+dev_build:
 	cd ./src && yarn build:staging
 
-staging_run:
-	source /Users/skumar/thimbly/staging.sh && firebase deploy
+dev_run:
+	source /Users/vishu/Code/thimbly.sh && firebase deploy
+
+prod_build:
+	cd ./src && git checkout main -f && yarn build:prod
+
+prod_run:
+	source /Users/vishu/Code/thimbly.sh && firebase use thimbly-prod && firebase deploy
