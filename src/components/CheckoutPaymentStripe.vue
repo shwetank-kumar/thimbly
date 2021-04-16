@@ -13,7 +13,11 @@
             >Buy</v-btn
           >
         </v-card-actions>
-
+        <v-row class="mx-auto pt-4">
+            <v-icon class="pr-2">mdi-lock</v-icon>
+            <span class="caption pt-1">All Payments are processed and secured by Stripe</span>
+        </v-row>
+      
         <p class="red--text">
           {{ message }}
         </p>
@@ -204,14 +208,17 @@
               var to = [order.shipping_details.email, seller.email]
               var subject =
                 "Order Confirmation from Thimbly: Order # " + order_ref.id
-              var html = `<p>Thanks for ordering from ${seller.display_name}'s store! Your order details are as follows:<br>
-              Product Title: ${product_details.productTitle},<br>
-              Order Quantity: ${order.quantity},<br>
-              Order Total: $ ${order.total},<br>
-              Here are your special instructions we have received:<br>
-              '${order.special_instructions}'<br>
+              var html = `
+              <p>Hi ${order.shipping_details.name}</p>
+              
+              <p>Thanks for ordering from ${seller.display_name}'s store! Your order details are as follows:<br><br>
+              <b>Product Title:</b> ${product_details.productTitle},<br>
+              <b>Order Quantity:</b> ${order.quantity},<br>
+              <b>Order Total:</b> $ ${order.total},<br>
+              <b>Note to the seller:</b> '${order.special_instructions}'<br>
               If you have any questions you can reach me at: ${seller.email}.<br>
               Thanks,<br>
+              ${seller.display_name}
               </p>`
               var message = {subject, html}
               var mail = {to, message}

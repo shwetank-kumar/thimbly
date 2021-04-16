@@ -64,7 +64,7 @@
               placeholder="00000"
               :rules="rules.isZip"
               v-model="postal_code"
-              type="number"
+              type="text"
             ></v-text-field>
           </v-col>
         </v-row>
