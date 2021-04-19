@@ -13,7 +13,7 @@
             >Buy</v-btn
           >
         </v-card-actions>
-        <v-row class="mx-auto pt-4">
+        <v-row class="mx-auto pt-4 d-flex justify-center">
             <v-icon class="pr-2">mdi-lock</v-icon>
             <span class="caption pt-1">All Payments are processed and secured by Stripe</span>
         </v-row>
