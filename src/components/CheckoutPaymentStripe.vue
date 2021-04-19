@@ -217,7 +217,7 @@
               <b>Order Total:</b> $ ${order.total},<br>
               <b>Note to the seller:</b> '${order.special_instructions}'<br>
               If you have any questions you can reach me at: ${seller.email}.<br>
-              Thanks,<br>
+              Thanks<br>
               ${seller.display_name}
               </p>`
               var message = {subject, html}
