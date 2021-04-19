@@ -13,7 +13,7 @@
           :src="url"
           contain
           aspect-ratio="1.6"
-          class="mx-1"
+          class="mx-1 mt-3"
         >
         </v-carousel-item>
       </v-carousel>
