@@ -212,9 +212,9 @@
               <p>Hi ${order.shipping_details.name}</p>
               
               <p>Thanks for ordering from ${seller.display_name}'s store! Your order details are as follows:<br><br>
-              <b>Product Title:</b> ${product_details.productTitle},<br>
-              <b>Order Quantity:</b> ${order.quantity},<br>
-              <b>Order Total:</b> $ ${order.total},<br>
+              <b>Product Title:</b> ${product_details.productTitle}<br>
+              <b>Order Quantity:</b> ${order.quantity}<br>
+              <b>Order Total:</b> $ ${order.total}<br>
               <b>Note to the seller:</b> '${order.special_instructions}'<br>
               If you have any questions you can reach me at: ${seller.email}.<br>
               Thanks<br>
