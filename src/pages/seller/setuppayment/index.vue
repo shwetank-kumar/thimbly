@@ -114,7 +114,7 @@
         // console.log(date)
         const getIpUrl = config.apiUrl + "/ip"
         var res = await axios.get(getIpUrl)
-        var ip = res.data
+        var ip = res.data.split(",")[0]
         var tos_acceptance = {date, ip}
 
         // Generate a token for bank account
@@ -172,11 +172,11 @@
           tos_acceptance,
         })
 
-        const user = {
+          const user = {
           ...this.$store.state.user,
           stripe_id: stripe_account.data.id,
         }
-        // console.log(stripe_account.data.id)
+        // console.log("response",stripe_account)
         this.$store.commit("SET_USER", user)
 
         // Update the value of stripe_id for the user

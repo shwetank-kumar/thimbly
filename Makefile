@@ -14,4 +14,4 @@ prod_build:
 	cd ./src && yarn build:prod
 
 prod_run:
-	source /Users/vishu/Code/thimbly-prod.sh && firebase use thimbly-prod && firebase deploy
+	firebase use thimbly-prod && source /Users/vishu/Code/thimbly-prod.sh &&  firebase deploy
