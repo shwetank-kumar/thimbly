@@ -28,7 +28,7 @@
     name: "Header",
     computed: {
       loggedIn() {
-        return Boolean(this.$store.state.user)
+        return (this.isHome) ? false : Boolean(this.$store.state.user)
       },
     },
 
@@ -49,6 +49,9 @@
         }
       },
     },
+    mounted(){
+      this.isHome = ($nuxt.$route.name == 'index')
+    },
     data() {
       return {
         // loggedIn: true,
@@ -58,6 +61,7 @@
           {text: "Setup Payments", icon: "mdi-currency-usd"},
           {text: "Logout", icon: "mdi-logout"},
         ],
+        isHome: true
         // closeOnClick: true,
       }
     },
