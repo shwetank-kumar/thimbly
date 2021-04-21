@@ -18,7 +18,7 @@
             <span class="caption pt-1">All Payments are processed and secured by Stripe</span>
         </v-row>
       
-        <p class="red--text">
+        <p class="d-flex justify-center pt-6 red--text">
           {{ message }}
         </p>
       </form>
