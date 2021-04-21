@@ -11,7 +11,7 @@ dev_run:
 	source /Users/vishu/Code/thimbly.sh && firebase deploy
 
 prod_build:
-	cd ./src && git checkout main -f && yarn build:prod
+	cd ./src && yarn build:prod
 
 prod_run:
-	source /Users/vishu/Code/thimbly.sh && firebase use thimbly-prod && firebase deploy
+	source /Users/vishu/Code/thimbly-prod.sh && firebase use thimbly-prod && firebase deploy
