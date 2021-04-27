@@ -31,6 +31,55 @@
     </v-col>
     <p class="text-center">{{ this.message }}</p>
     <v-img class="mt-3" :src="landing.image"></v-img>
+
+    <v-row
+      justify="center"
+    >
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+        <v-card tile>
+          <v-flex>
+          <v-toolbar
+            grow="unset"
+            flat
+            dark
+            color="primary"
+          >
+            <v-btn
+              icon
+              dark
+              @click="dialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Thimbly</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+        </v-flex>
+          <v-card-text>
+            
+            <v-list>
+               <v-list-item>
+                <v-list-item-content>
+                  <v-flex>
+                  <v-list-item-title class="text-h5 d-flex justify-center">Thanks for your interest in Thimbly!</v-list-item-title>
+                    <v-list-item-title class="text-h5 d-flex justify-center">We are currently in beta and will reach out to you soon.</v-list-item-title>
+                    </v-flex>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            
+          </v-card-text>
+
+          <div style="flex: 1 1 auto;"></div>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
@@ -57,6 +106,7 @@
         enabled: false,
         rules: {isRequired, isEmail},
         message: null,
+        dialog: false
       }
     },
     methods: {
@@ -77,6 +127,7 @@
           }
         }
         this.beta_request_email = null
+        this.dialog = true
         this.$refs.form.resetValidation()
       },
     },
