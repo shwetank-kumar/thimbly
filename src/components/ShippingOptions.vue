@@ -1,5 +1,5 @@
 <template>
-  <div class="px-2">
+  <!-- <div class="px-2">
     <v-row class="px-2 d-flex justify-space-around">
       <v-checkbox v-model="selected" label="pickup" value="pickup"></v-checkbox>
       <v-checkbox
@@ -13,44 +13,31 @@
     <p class="text-center error--text" v-if="!isValid">
       Please select atleast one option.
     </p>
-  </div>
+  </div> -->
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isValid: true,
-      options: ['free', 'standard', 'pickup'],
-    }
-  },
-  computed: {
-    selected: {
-      get() {
-        return this.$store.state.productDetails.shippingOptions
-      },
-      set(value) {
-        this.$store.commit('SET_PRODUCT_DETAILS', {
-          shippingOptions: value,
-        })
-      },
-    },
-  },
-  // methods: {
-  //   updateShippingDetails() {
-  //     this.isValid =
-  //       this.shipping.pickup || this.shipping.standard || this.shipping.free
-  // var payload = {
-  //   shippingOptions: { ...this.shipping },
-  // }
-  // this.$store.commit('SET_PRODUCT_DETAILS', payload)
-  //     this.$store.commit('SET_PRODUCT_DETAILS', {
-  //       shippingOptions: { ...this.shipping },
-  //     })
+  // export default {
+  //   data() {
+  //     return {
+  //       isValid: true,
+  //       options: ["free", "standard", "pickup"],
+  //     }
   //   },
-  // },
-  props: ['shippingOptionsProp'],
-}
+  //   computed: {
+  //     selected: {
+  //       get() {
+  //         return this.$store.state.productDetails.shippingOptions
+  //       },
+  //       set(value) {
+  //         this.$store.commit("SET_PRODUCT_DETAILS", {
+  //           shippingOptions: value,
+  //         })
+  //       },
+  //     },
+  //   },
+  //   props: ["shippingOptionsProp"],
+  // }
 </script>
 
 <style scoped></style>

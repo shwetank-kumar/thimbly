@@ -6,14 +6,9 @@
       :image="productDetails.productPhotos[0]"
     />
     <h2 class="text-center">{{ productDetails.productTitle }}</h2>
-    <v-card outlined class="my-2 rounded-lg">
-      <product-photos />
-      <v-card-text class="justify-center">{{
-        productDetails.productDescription
-      }}</v-card-text>
-    </v-card>
-    <v-card>
-      <v-card-title class="justify-center">Sharing options</v-card-title>
+    <product-details-card />
+    <!-- <v-card outlined class="my-2 rounded-lg">
+      <v-card-title class="justify-center">Sharing Options</v-card-title>
       <v-card-actions>
         <v-row class="justify-space-around">
           <v-col>
@@ -36,48 +31,69 @@
           </v-col>
         </v-row>
       </v-card-actions>
-    </v-card>
+    </v-card> -->
+    <shipping-information-form />
+    <seller-special-instructions />
+    <you-pay />
+    <checkout-payment-stripe />
   </div>
 </template>
 
 <script>
-import { fireDb, fireStorage, hostServer } from '~/plugins/firebase.js'
+  import {fireDb, fireStorage, hostServer} from "~/plugins/firebase.js"
 
-export default {
-  middleware: 'router-auth',
-  async asyncData(context) {
-    // console.log(context)
-    var docId = context.params.product_id
-    var docRef = await fireDb.collection('products').doc(docId).get()
-    var productDetails = {}
-    if (docRef.data()) {
-      productDetails = { ...docRef.data(), productId: docId }
-      context.store.commit('SET_PRODUCT_DETAILS', productDetails)
-    } else {
-      context.router.push('/error')
-      console.log('Does not exist.')
-    }
-    var url = hostServer + context.route.path
-    return { productDetails, url }
-  },
-  methods: {
-    edit() {
-      console.log('edit')
+  export default {
+    middleware: "router-auth",
+    async asyncData(context) {
+      // console.log(context)
+      var product_id = context.params.product_id
+      var product_ref = await fireDb
+        .collection("products")
+        .doc(product_id)
+        .get()
+
+      var productDetails = {}
+      if (product_ref.data()) {
+        productDetails = {...product_ref.data()} //, productId: docId}
+        context.store.commit("SET_PRODUCT_DETAILS", productDetails)
+        context.store.commit("SET_PRODUCT_ID", product_id)
+      } else {
+        context.router.push("/error")
+        console.log("Does not exist.")
+      }
+
+      var seller_ref = await fireDb
+        .collection("users")
+        .where("uid", "==", productDetails.seller_id)
+        .get()
+
+      var seller
+      seller_ref.forEach((doc) => {
+        seller = {...doc.data()}
+      })
+      //This code should be refactored to set seller (will require changing user to seller everywhere)
+      context.store.commit("SET_SELLER", seller)
+      // console.log(seller)
+
+      var url = hostServer + context.route.path
+
+      return {product_id, productDetails, url}
     },
-    async getUrl() {
-      await navigator.clipboard.writeText(this.url)
+    methods: {
+      async getUrl() {
+        await navigator.clipboard.writeText(this.url)
+      },
     },
-  },
-  data() {
-    return {
-      title: 'Home page',
-    }
-  },
-}
+    data() {
+      return {
+        title: "Home page",
+      }
+    },
+  }
 </script>
 
 <style scoped>
-.fb_button {
-  width: 100%;
-}
+  .fb_button {
+    width: 100%;
+  }
 </style>

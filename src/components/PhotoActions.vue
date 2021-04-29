@@ -19,30 +19,46 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      images: null,
-      urls: [],
-    }
-  },
-  methods: {
-    addImg() {
-      // this.urls = this.$store.state.localPhotoPaths
-      this.urls = this.$store.state.productDetails.productPhotos
-      if (this.urls.length <= 2) {
-        this.$store.commit('ADD_PRODUCT_PHOTOS', this.images)
+  import {fireDb, fireStorage} from "~/plugins/firebase.js"
+  export default {
+    data() {
+      return {
+        images: null,
+        urls: [],
       }
     },
-    deleteImg() {
-      // this.urls = this.$store.state.localPhotoPaths
-      this.urls = this.$store.state.productDetails.productPhotos
-      if (this.urls.length > 0) {
-        this.$store.commit('DELETE_PRODUCT_PHOTOS')
-      }
+    methods: {
+      addImg() {
+        // this.urls = this.$store.state.localPhotoPaths
+        this.urls = this.$store.state.productDetails.productPhotos
+        if (this.urls.length <= 2) {
+          this.$store.commit("ADD_PRODUCT_PHOTOS", this.images)
+        }
+      },
+      deleteImg() {
+        // this.urls = this.$store.state.localPhotoPaths
+        this.urls = this.$store.state.productDetails.productPhotos
+        if (this.urls.length > 0) {
+          // console.log(this.$store.state.currentPhoto)
+          var fname = this.urls[this.$store.state.currentPhoto]
+          if (fname.startsWith("https")) {
+            // console.log("delete remote")
+            var fileRef = fireStorage.refFromURL(fname)
+            // Delete the file
+            fileRef
+              .delete()
+              .then(() => {
+                // console.log("File was deleted")
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          }
+          this.$store.commit("DELETE_PRODUCT_PHOTOS")
+        }
+      },
     },
-  },
-}
+  }
 </script>
 
 <style scoped></style>

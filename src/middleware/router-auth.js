@@ -1,14 +1,16 @@
-export default function ({ store, redirect, route }) {
-  if (store.state.user != null && route.name === 'login') {
-    redirect('/seller/products/create')
+export default function ({store, redirect, route}) {
+  if (store.state.user != null && route.name === "login") {
+    redirect("/seller/products/create")
   }
   if (store.state.user == null && isSecureRoute(route)) {
-    redirect('/')
+    redirect("/")
   }
 }
 
 function isSecureRoute(route) {
-  if (route.matched.some((record) => record.path === '/create')) {
+  if (route.matched.some((record) => record.path === "/create")) {
     return true
+  } else {
+    return false
   }
 }

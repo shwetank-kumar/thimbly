@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-app-bar v-if="loggedIn" dense app>
+    <v-app-bar dense app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <Header />
@@ -14,27 +14,18 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      title: 'Thimbly',
-      loggedIn: true
-    }
-  },
-  // computed: {
-  //   loggedIn() { 
-  //     if (this.$store.state.user) {
-  //       return true
-  //     } else {
-  //       return false
-  //     }
-  //   }
-  // } 
-}
+  export default {
+    name: "default",
+    data() {
+      return {
+        title: "Thimbly",
+      }
+    },
+  }
 </script>
 
 <style scoped>
-.preferences-menu {
-  justify-content: right;
-}
+  .preferences-menu {
+    justify-content: right;
+  }
 </style>

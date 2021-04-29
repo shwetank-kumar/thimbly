@@ -8,10 +8,10 @@ dev_build:
 	cd ./src && yarn build:staging
 
 dev_run:
-	source /Users/vishu/Code/thimbly.sh && firebase deploy
+	firebase use thimbly-dev &&  source /Users/vishu/Code/thimbly.sh && firebase deploy
 
 prod_build:
-	cd ./src && git checkout main -f && yarn build:prod
+	cd ./src && yarn build:prod
 
 prod_run:
-	source /Users/vishu/Code/thimbly.sh && firebase use thimbly-prod && firebase deploy
+	firebase use thimbly-prod && source /Users/vishu/Code/thimbly-prod.sh &&  firebase deploy
