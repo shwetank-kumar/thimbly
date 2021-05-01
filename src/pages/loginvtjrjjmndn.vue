@@ -20,7 +20,7 @@
   import FirebaseUI from "../components/FirebaseUI"
   import firebase from "firebase"
   import {mapGetters} from "vuex"
-  import {hostServer, fireStorage} from "~/plugins/firebase.js"
+  import {hostServer, fireStorage, analytics} from "~/plugins/firebase.js"
   export default {
     components: {FirebaseUI},
     middleware: "router-auth",
@@ -37,6 +37,7 @@
     },
     mounted() {
       this.initClientOnlyComp()
+      analytics()
     },
     methods: {
       initClientOnlyComp(count = 20) {

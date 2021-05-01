@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  import {fireDb, fireStorage} from "~/plugins/firebase.js"
+  import {fireDb, fireStorage, analytics} from "~/plugins/firebase.js"
   import {mapGetters, mapMutations} from "vuex"
   import {v4 as uuidv4} from "uuid"
   export default {
@@ -66,6 +66,9 @@
         console.log("Does not exist.")
       }
       return {productDetails}
+    },
+    mounted(){
+      analytics()
     },
     methods: {
       cancel() {

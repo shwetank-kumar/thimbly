@@ -14,7 +14,12 @@
 </template>
 
 <script>
-  export default {}
+  import {analytics} from "~/plugins/firebase.js"
+  export default {
+    mounted(){
+      analytics()
+    }
+  }
 </script>
 
 <style lang="scss" scoped></style>

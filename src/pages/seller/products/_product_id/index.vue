@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import {fireDb, fireStorage, hostServer} from "~/plugins/firebase.js"
+  import {fireDb, fireStorage, hostServer, analytics} from "~/plugins/firebase.js"
 
   export default {
     middleware: "router-auth",
@@ -78,6 +78,9 @@
       var url = hostServer + context.route.path
 
       return {product_id, productDetails, url}
+    },
+    mounted(){
+      analytics()
     },
     methods: {
       async getUrl() {

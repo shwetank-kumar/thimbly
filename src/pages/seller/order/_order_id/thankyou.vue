@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import {fireDb, hostServer} from "~/plugins/firebase.js"
+  import {fireDb, hostServer, analytics} from "~/plugins/firebase.js"
   export default {
     middleware: "router-auth",
     async asyncData(context) {
@@ -114,6 +114,9 @@
       var product = product_ref.data()
       var url = hostServer + "/seller/products/" + order.product_id
       return {buyer, seller, order_id, order, product, url}
+    },
+    mounted(){
+      analytics()
     },
     methods: {
       async getUrl() {

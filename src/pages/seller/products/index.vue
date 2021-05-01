@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import {fireDb, fireStorage, hostServer} from "~/plugins/firebase.js"
+  import {fireDb, fireStorage, hostServer, analytics} from "~/plugins/firebase.js"
   import axios from "axios"
   export default {
     middleware: "router-auth",
@@ -74,6 +74,9 @@
         url: "",
         product: {productDescription: "This is the description."},
       }
+    },
+    mounted(){
+      analytics()
     },
     methods: {
       edit(index) {

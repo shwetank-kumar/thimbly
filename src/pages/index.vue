@@ -87,7 +87,7 @@
   import FirebaseUI from "../components/FirebaseUI"
   import firebase from "firebase"
   import {mapGetters} from "vuex"
-  import {hostServer, fireStorage} from "~/plugins/firebase.js"
+  import {hostServer, fireStorage, analytics} from "~/plugins/firebase.js"
   import {isRequired, isEmail} from "@/plugins/validation.js"
   import {fireDb} from "~/plugins/firebase.js"
   export default {
@@ -108,6 +108,9 @@
         message: null,
         dialog: false
       }
+    },
+    mounted() {
+      analytics()
     },
     methods: {
       async submit() {

@@ -74,7 +74,7 @@
 
 <script>
   import axios from "axios"
-  import {config, fireDb} from "~/plugins/firebase.js"
+  import {config, fireDb, analytics} from "~/plugins/firebase.js"
   import {isRequired, isInt} from "~/plugins/validation.js"
   import moment from "moment"
   export default {
@@ -106,6 +106,9 @@
       } else {
         return context.redirect("/")
       }
+    },
+    mounted(){
+      analytics()
     },
     methods: {
       async setup() {
