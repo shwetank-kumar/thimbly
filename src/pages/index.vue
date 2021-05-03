@@ -66,10 +66,10 @@
             <v-list>
                <v-list-item>
                 <v-list-item-content>
-                  <v-flex>
-                  <v-list-item-title class="text-h5 d-flex justify-center">Thanks for your interest in Thimbly!</v-list-item-title>
-                    <v-list-item-title class="text-h5 d-flex justify-center">We are currently in beta and will reach out to you soon.</v-list-item-title>
-                    </v-flex>
+                  
+                  <div class="text-h5 text-center">Thanks for your interest in Thimbly!</div>
+                    <div class="text-h5 text-center">We are currently in beta and will reach out to you soon.</div>
+                  
                 </v-list-item-content>
               </v-list-item>
             </v-list>

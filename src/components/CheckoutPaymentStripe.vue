@@ -9,7 +9,10 @@
           <!--Stripe.js injects the Card Element-->
         </div>
         <v-card-actions class="mt-5">
-          <v-btn color="primary" width="100%" @click="buy" :disabled="disabled"
+          <v-btn color="primary" width="100%" 
+          @click="buy" 
+          :disabled="disabled"
+          elevation="5"
             >Buy</v-btn
           >
         </v-card-actions>
