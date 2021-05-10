@@ -114,7 +114,7 @@
       analytics().logEvent('page_view', {
         location: window.location,
         referrer: document.referrer,
-        page_title: 'hom2',
+        page_title: 'home',
         title: 'home',
         path: location.pathname,
       })
