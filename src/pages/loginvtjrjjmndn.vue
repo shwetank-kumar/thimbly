@@ -37,7 +37,12 @@
     },
     mounted() {
       this.initClientOnlyComp()
-      analytics()
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'seller_login',
+        title: 'seller_login',
+        path: location.pathname,
+      })
     },
     methods: {
       initClientOnlyComp(count = 20) {

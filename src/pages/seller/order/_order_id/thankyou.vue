@@ -113,16 +113,16 @@
         .get()
       var product = product_ref.data()
       var url = hostServer + "/seller/products/" + order.product_id
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'thank_you',
+        title: 'thank_you',
+        path: location.pathname,
+      })
       return {buyer, seller, order_id, order, product, url}
     },
     mounted(){
-      analytics().logEvent('page_view', {
-        location: window.location,
-        referrer: document.referrer,
-        page_title: location.pathname,
-        title: location.pathname,
-        path: location.pathname
-      })
+      
     },
     methods: {
       async getUrl() {

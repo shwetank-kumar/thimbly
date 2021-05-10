@@ -77,12 +77,15 @@
 
       var url = hostServer + context.route.path
 
+      analytics().logEvent('seller_view', {
+        seller_id : productDetails.seller_id,
+        product_id,
+      })
       return {product_id, productDetails, url}
     },
     mounted(){
 
       analytics().logEvent('page_view', {
-        location: window.location,
         referrer: document.referrer,
         page_title: location.pathname,
         title: location.pathname,

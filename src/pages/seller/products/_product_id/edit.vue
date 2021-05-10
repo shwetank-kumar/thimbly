@@ -68,7 +68,12 @@
       return {productDetails}
     },
     mounted(){
-      analytics()
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'product_edit',
+        title: 'product_edit',
+        path: location.pathname,
+      })
     },
     methods: {
       cancel() {

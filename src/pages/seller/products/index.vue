@@ -76,7 +76,12 @@
       }
     },
     mounted(){
-      analytics()
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'product_listing',
+        title: 'product_listing',
+        path: location.pathname,
+      })
     },
     methods: {
       edit(index) {

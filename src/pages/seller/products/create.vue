@@ -49,7 +49,12 @@
     },
     middleware: "router-auth",
     mounted() {
-      analytics()
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'product_create',
+        title: 'product_create',
+        path: location.pathname,
+      })
       this.$store.commit("RESET_PRODUCT_DETAILS")
     },
     methods: {

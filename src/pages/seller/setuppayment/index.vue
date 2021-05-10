@@ -108,7 +108,12 @@
       }
     },
     mounted(){
-      analytics()
+      analytics().logEvent('page_view', {
+        referrer: document.referrer,
+        page_title: 'payment_setup',
+        title: 'payment_setup',
+        path: location.pathname,
+      })
     },
     methods: {
       async setup() {

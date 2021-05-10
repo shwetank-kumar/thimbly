@@ -112,7 +112,6 @@
     mounted() {
       
       analytics().logEvent('page_view', {
-        location: window.location,
         referrer: document.referrer,
         page_title: 'home',
         title: 'home',
