@@ -110,7 +110,14 @@
       }
     },
     mounted() {
-      analytics()
+      
+      analytics().logEvent('page_view', {
+        location: window.location,
+        referrer: document.referrer,
+        page_title: 'hom2',
+        title: 'home',
+        path: location.pathname,
+      })
     },
     methods: {
       async submit() {

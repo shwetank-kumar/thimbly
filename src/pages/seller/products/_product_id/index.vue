@@ -80,7 +80,14 @@
       return {product_id, productDetails, url}
     },
     mounted(){
-      analytics()
+
+      analytics().logEvent('page_view', {
+        location: window.location,
+        referrer: document.referrer,
+        page_title: location.pathname,
+        title: location.pathname,
+        path: location.pathname,
+      })
     },
     methods: {
       async getUrl() {

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import {config, fireDb} from "~/plugins/firebase.js"
+  import {config, fireDb, analytics} from "~/plugins/firebase.js"
   import axios from "axios"
   import _ from "lodash"
   export default {
@@ -227,12 +227,30 @@
               var mail = {to, message}
               var mail_ref = fireDb.collection("mail").doc()
               await mail_ref.set(mail)
-
+              analytics().logEvent('purchase_success', {
+                location: window.location,
+                referrer: document.referrer,
+                page_title: location.pathname,
+                title: location.pathname,
+                path: location.pathname,
+                order_total: order.total ,
+                order_quantity: order.quantity ,
+                product_details: product_id,
+                seller_id: product_details.seller_id
+              })
               // 4. Route to thank you page
               this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
             }
           }
         } else {
+          analytics().logEvent('purchase_failed', {
+            location: window.location,
+            referrer: document.referrer,
+            page_title: location.pathname,
+            title: location.pathname,
+            path: location.pathname,
+            product_details: product_id,
+          })
           this.$router.push("/seller/order/unsuccessful")
         }
       },
