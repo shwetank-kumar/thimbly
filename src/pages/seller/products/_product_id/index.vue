@@ -76,14 +76,13 @@
       // console.log(seller)
 
       var url = hostServer + context.route.path
-
-      analytics().logEvent('seller_view', {
-        seller_id : productDetails.seller_id,
-        product_id,
-      })
       return {product_id, productDetails, url}
     },
     mounted(){
+      analytics().logEvent('seller_view', {
+        seller_id: this.$store.state.productDetails.seller_id,
+        product_id: this.$store.state.product_id
+      })
 
       analytics().logEvent('page_view', {
         referrer: document.referrer,
@@ -100,6 +99,8 @@
     data() {
       return {
         title: "Home page",
+        seller_id: "",
+        product_id:""
       }
     },
   }
