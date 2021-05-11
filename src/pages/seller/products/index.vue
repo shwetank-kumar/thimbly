@@ -51,7 +51,8 @@
       <div class="mt-5 mb-5" >
         <v-btn 
         color="primary"
-        elevation="2" 
+        elevation="2"
+        to="/seller/products/create"
         >Create Product Listing </v-btn>
       </div>
     </div>
