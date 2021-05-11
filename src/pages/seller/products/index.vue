@@ -1,7 +1,12 @@
 <template>
+<div>
+  <h2
+  class="text-center"
+  >My Products</h2>
   <div class="sellercontainer">
     <v-row no-gutters>
       <v-card
+        v-if="storeProducts.length"
         v-for="(product, index) in storeProducts"
         :key="index"
         width="100%"
@@ -36,6 +41,21 @@
       </v-card>
     </v-row>
   </div>
+    <div class="d-flex row justify-center align-center full-height">
+      <div v-if="storeProducts.length == 0" class="text-center text-color" >
+        Hey there, glad you found us!
+        <br/><br/>
+        Now let's get you on your way.<br/>
+        Go ahead and create your first product listing.
+      </div>
+      <div class="mt-5 mb-5" >
+        <v-btn 
+        color="primary"
+        elevation="2" 
+        >Create Product Listing </v-btn>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -64,7 +84,7 @@
           })
         })
 
-        return {storeProducts}
+        return {storeProducts : []}
       } else {
         return context.redirect("/")
       }
@@ -117,5 +137,11 @@
 <style scoped>
   .fb_button {
     text-decoration: none;
+  }
+  .full-height {
+    height: clac(100vh - 10rem)
+  }
+  .text-color {
+    color:#b9b9b9
   }
 </style>
