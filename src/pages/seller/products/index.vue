@@ -1,7 +1,7 @@
 <template>
 <div>
   <h2
-  class="text-center"
+  class="text-center pb-5"
   >My Products</h2>
   <div class="sellercontainer">
     <v-row no-gutters>
@@ -41,8 +41,8 @@
       </v-card>
     </v-row>
   </div>
-    <div class="d-flex row justify-center align-center full-height">
-      <div v-if="storeProducts.length == 0" class="text-center text-color" >
+    <div class="d-flex flex-column justify-center align-center full-height">
+      <div v-if="storeProducts.length == 0" class="text-center text-color mt-16 mb-16" >
         Hey there, glad you found us!
         <br/><br/>
         Now let's get you on your way.<br/>
@@ -84,7 +84,7 @@
           })
         })
 
-        return {storeProducts : []}
+        return {storeProducts}
       } else {
         return context.redirect("/")
       }
@@ -139,7 +139,7 @@
     text-decoration: none;
   }
   .full-height {
-    height: clac(100vh - 10rem)
+    
   }
   .text-color {
     color:#b9b9b9
