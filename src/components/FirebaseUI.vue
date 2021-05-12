@@ -37,9 +37,12 @@ export default {
       return false
     },
     async openAppPage() {
+      setTimeout(() => {
       this.$router.push({
-        path: '/seller/products/create',
+        path: '/seller/products',
       })
+        
+      }, 1500);
     },
   },
 }
