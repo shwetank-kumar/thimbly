@@ -2,6 +2,7 @@
   <div>
     <h2 class="text-center">Payments Setup</h2>
     <div v-if="!stripe_id">
+      <v-form ref="form">
       <v-card outlined class="my-2 rounded-lg">
         <v-card-title>Name on Bank Account</v-card-title>
         <name-form></name-form>
@@ -42,13 +43,14 @@
           </v-col>
         </v-row>
       </v-card>
+      </v-form> 
       <!-- <v-card outlined class="my-2 rounded-lg">
       <v-card-title>Business Description</v-card-title>
       <business-description-form></business-description-form>
     </v-card> -->
-      <v-row class="justify-space-around mx-2 my-5">
+    <v-row class="justify-space-around mx-2 my-5">
         <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
-        <v-btn depressed color="primary" @click="setup">Setup</v-btn>
+        <v-btn depressed color="primary" @click="setup" :loading="isLoading">Setup</v-btn>
       </v-row>
     </div>
     <div v-else>
@@ -69,6 +71,7 @@
         </v-card-actions>
       </v-card>
     </div>
+    <Toast />
   </div>
 </template>
 
@@ -83,6 +86,7 @@
         rules: {isRequired, isInt},
         routing_number: null,
         account_number: null,
+        isLoading:false
       }
     },
     middleware: "router-auth",
@@ -117,84 +121,99 @@
     },
     methods: {
       async setup() {
-        // Generate IP and date for TOS acceptance
-        var date = Math.floor(Date.now() / 1000)
-        // console.log(date)
-        const getIpUrl = config.apiUrl + "/ip"
-        var res = await axios.get(getIpUrl)
-        var ip = res.data.split(",")[0]
-        var tos_acceptance = {date, ip}
+        try {
+          if(!this.$refs.form.validate()){
+            return
+          }
+          this.isLoading =true
+          // Generate IP and date for TOS acceptance
+          var date = Math.floor(Date.now() / 1000)
+          // console.log(date)
+          const getIpUrl = config.apiUrl + "/ip"
+          var res = await axios.get(getIpUrl)
+          var ip = res.data.split(",")[0]
+          var tos_acceptance = {date, ip}
 
-        // Generate a token for bank account
-        const account_holder_type = "individual"
-        const account_holder_name =
-          this.$store.state.stripeSetup.individual.first_name +
-          " " +
-          this.$store.state.stripeSetup.individual.last_name
-        // const routing_number = this.$store.state.paymentSetup.routing_number
-        // const account_number = this.$store.state.paymentSetup.account_number
-        const routing_number = this.routing_number
-        const account_number = this.account_number
-        const country = "US"
-        const currency = "usd"
-        const bank_account_params = {
-          type,
-          country,
-          currency,
-          account_holder_name,
-          account_holder_type,
-          routing_number,
-          account_number,
+          // Generate a token for bank account
+          const account_holder_type = "individual"
+          const account_holder_name =
+            this.$store.state.stripeSetup.individual.first_name +
+            " " +
+            this.$store.state.stripeSetup.individual.last_name
+          // const routing_number = this.$store.state.paymentSetup.routing_number
+          // const account_number = this.$store.state.paymentSetup.account_number
+          const routing_number = this.routing_number
+          const account_number = this.account_number
+          const country = "US"
+          const currency = "usd"
+          const bank_account_params = {
+            type,
+            country,
+            currency,
+            account_holder_name,
+            account_holder_type,
+            routing_number,
+            account_number,
+          }
+          // console.log(bank_account_params)
+          const stripe = await Stripe(config.stripeConfig.publicKey)
+          const account_result = await stripe.createToken(
+            "bank_account",
+            bank_account_params
+          )
+          if(account_result.error){
+            throw Error(account_result.error.message)
+          }
+
+          // Create a Stripe account
+          const type = "custom"
+          const business_profile = {
+            product_description: "Artists Supply and Craft Shops.",
+          }
+          const business_type = "individual"
+          const capabilities = {transfers: {requested: true}}
+
+          const external_account = account_result.token.id
+          const individual = {
+            first_name: this.$store.state.stripeSetup.individual.first_name,
+            last_name: this.$store.state.stripeSetup.individual.last_name,
+          }
+          // const tos_acceptance = {date:1547923073, ip:"172.18.80.19"}
+          const stripe_setup_url = config.apiUrl + "/stripe"
+          const stripe_account = await axios.post(stripe_setup_url, {
+            type,
+            country,
+            business_profile,
+            business_type,
+            capabilities,
+            external_account,
+            individual,
+            tos_acceptance,
+          })
+            const user = {
+            ...this.$store.state.user,
+            stripe_id: stripe_account.data.id,
+          }
+          // console.log("response",stripe_account)
+          this.$store.commit("SET_USER", user)
+
+          // Update the value of stripe_id for the user
+          var query_snapshot = await fireDb
+            .collection("users")
+            .where("uid", "==", user.uid)
+            .get()
+          var uid = query_snapshot.docs[0].id
+          await fireDb.collection("users").doc(uid).set(user)
+          this.isLoading = false
+          if(this.$store.state.firstTime){
+            this.$router.push("/seller/products/create")
+            return
+          }
+          this.$nuxt.refresh()
+        } catch (err) {
+          this.isLoading = false
+          this.$store.commit("SET_TOAST", err)
         }
-        // console.log(bank_account_params)
-        const stripe = await Stripe(config.stripeConfig.publicKey)
-        const account_result = await stripe.createToken(
-          "bank_account",
-          bank_account_params
-        )
-        // console.log(account_result)
-
-        // Create a Stripe account
-        const type = "custom"
-        const business_profile = {
-          product_description: "Artists Supply and Craft Shops.",
-        }
-        const business_type = "individual"
-        const capabilities = {transfers: {requested: true}}
-
-        const external_account = account_result.token.id
-        const individual = {
-          first_name: this.$store.state.stripeSetup.individual.first_name,
-          last_name: this.$store.state.stripeSetup.individual.last_name,
-        }
-        // const tos_acceptance = {date:1547923073, ip:"172.18.80.19"}
-        const stripe_setup_url = config.apiUrl + "/stripe"
-        const stripe_account = await axios.post(stripe_setup_url, {
-          type,
-          country,
-          business_profile,
-          business_type,
-          capabilities,
-          external_account,
-          individual,
-          tos_acceptance,
-        })
-
-          const user = {
-          ...this.$store.state.user,
-          stripe_id: stripe_account.data.id,
-        }
-        // console.log("response",stripe_account)
-        this.$store.commit("SET_USER", user)
-
-        // Update the value of stripe_id for the user
-        var query_snapshot = await fireDb
-          .collection("users")
-          .where("uid", "==", user.uid)
-          .get()
-        var uid = query_snapshot.docs[0].id
-        await fireDb.collection("users").doc(uid).set(user)
-        this.$nuxt.refresh()
       },
       cancel() {
         this.$router.push("/")

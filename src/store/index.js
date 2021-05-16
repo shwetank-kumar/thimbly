@@ -3,6 +3,7 @@ import {fireAuth} from "~/plugins/firebase.js"
 export const strict = true
 export const state = () => ({
   product_id: null,
+  firstTime: false,
   user: {
     display_name: null,
     email: null,
@@ -57,6 +58,11 @@ export const state = () => ({
     shipping_validation: false,
     card_validation: false,
   },
+  toast: {
+    message:'',
+    timeout: 2000,
+    show: false
+  }
 })
 
 export const mutations = {
@@ -132,6 +138,14 @@ export const mutations = {
   SET_STRIPE_LAST_NAME(state, payload) {
     state.stripeSetup.individual.last_name = payload
   },
+  SET_FIRST_TIME_USER(state, payload) {
+    state.firstTime = payload
+  },
+  SET_TOAST(state, payload) {
+    state.toast.show = true
+    state.toast.message = payload.message ||  ''
+    state.toast.timeout = payload.timeout ||  2000
+  }
 }
 
 export const getters = {
@@ -154,6 +168,12 @@ export const getters = {
   GET_ORDER: (state) => {
     return state.order
   },
+  GET_USER: (state) => {
+    return state.user
+  },
+  GET_TOAST: (state) => {
+    return state.toast
+  }
 }
 
 export const actions = {
