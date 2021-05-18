@@ -3,55 +3,56 @@
     <h2 class="text-center">Payments Setup</h2>
     <div v-if="!stripe_id">
       <v-form ref="form">
-      <v-card outlined class="my-2 rounded-lg">
-        <v-card-title>Name on Bank Account</v-card-title>
-        <name-form></name-form>
-      </v-card>
+        <v-container>
+          <v-row>
+            <h4 class="text-center pt-5 pb-5">Bank Account Information</h4>
+          </v-row>
+          <v-row class="pb-2">
+            <v-text-field outlined dense label="Full Name of Account Holder" placeholder="" :rules="rules.isRequired"
+              v-model="account_holder_name"></v-text-field>
+          </v-row>
 
-      <v-card outlined class="my-2 rounded-lg">
-        <v-card-title>Contact Information</v-card-title>
-        <contact-information-form></contact-information-form>
-      </v-card>
-      <!-- <v-card outlined class="my-2 rounded-lg">
-      <v-card-title>Identity Verification</v-card-title>
-      <id-verification-form></id-verification-form>
-    </v-card> -->
-      <v-card outlined class="my-2 rounded-lg">
-        <v-card-title>Banking Information</v-card-title>
-        <v-row class="d-flex mt-2 justify-space-around">
-          <v-col cols="10">
-            <v-text-field
-              outlined
-              dense
-              label="Routing number"
-              placeholder="000000000"
-              :rules="rules.isRequired.concat(rules.isInt)"
-              v-model="routing_number"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row class="d-flex mt-2 justify-space-around">
-          <v-col cols="10">
-            <v-text-field
-              outlined
-              dense
-              label="Account number"
-              placeholder="000000000000"
-              :rules="rules.isRequired.concat(rules.isInt)"
-              v-model="account_number"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-      </v-card>
-      </v-form> 
-      <!-- <v-card outlined class="my-2 rounded-lg">
-      <v-card-title>Business Description</v-card-title>
-      <business-description-form></business-description-form>
-    </v-card> -->
-    <v-row class="justify-space-around mx-2 my-5">
-        <v-btn depressed color="error" @click="cancel">Cancel</v-btn>
-        <v-btn depressed color="primary" @click="setup" :loading="isLoading">Setup</v-btn>
-      </v-row>
+          <v-row class="pb-2">
+            <v-text-field outlined dense label="Routing number" placeholder="000000000"
+              :rules="rules.isRequired.concat(rules.isInt)" v-model="routing_number"></v-text-field>
+          </v-row>
+          <v-row class="pb-2">
+            <v-text-field outlined dense label="Account number" placeholder="000000000000"
+              :rules="rules.isRequired.concat(rules.isInt)" v-model="account_number"></v-text-field>
+          </v-row>
+          <v-row class="pb-2">
+            <v-text-field outlined dense label="Confirm Account number" placeholder="000000000000"
+              :rules="rules.isRequired.concat(rules.isInt).concat((v) => v == this.account_number || 'Account Number Mis-matched' )"
+              v-model="confirm_account_number"></v-text-field>
+          </v-row>
+          <v-row class="justify-space-around mx-2 my-5">
+            <!-- <v-btn depressed color="error" @click="cancel">Cancel</v-btn> -->
+            <v-btn depressed color="primary pl-16 pr-16" @click="setup" :loading="isLoading">Save</v-btn>
+          </v-row>
+
+        </v-container>
+      </v-form>
+      <v-container class="grey--text text--darken-1">
+        <v-col>
+          <h4 class="text-center">Payment FAQs</h4>
+        </v-col>
+        <v-col>
+          <b>Q: Why do we need your Bank Info ?</b>
+          <br>
+          A: We require your bank info to send you payments after a customer places an order
+        </v-col>
+        <v-col>
+          <b>Q: Can I provide my bank info later?</b>
+          <br>
+          A: Sure, you can login again and provide this info. However, you will no be able to publish a product for
+          selling until your bank info is setup. We do this to make sure we can pay you out as quickly as possible
+        </v-col>
+        <v-col>
+          <b>Q: How quickly will I get paid ?</b>
+          <br>
+          A: It should take 2-3 buisness days
+        </v-col>
+      </v-container>
     </div>
     <div v-else>
       <v-card outlined class="my-2 rounded-lg">
@@ -65,9 +66,9 @@
           </p>
         </v-card-text>
         <v-card-actions>
-          <v-btn icon @click="delete_account"
-            ><v-icon>mdi-delete</v-icon></v-btn
-          >
+          <v-btn icon @click="delete_account">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -77,16 +78,28 @@
 
 <script>
   import axios from "axios"
-  import {config, fireDb, analytics} from "~/plugins/firebase.js"
-  import {isRequired, isInt} from "~/plugins/validation.js"
+  import {
+    config,
+    fireDb,
+    analytics
+  } from "~/plugins/firebase.js"
+  import {
+    isRequired,
+    isInt
+  } from "~/plugins/validation.js"
   import moment from "moment"
   export default {
     data() {
       return {
-        rules: {isRequired, isInt},
+        rules: {
+          isRequired,
+          isInt
+        },
+        account_holder_name: "",
         routing_number: null,
         account_number: null,
-        isLoading:false
+        confirm_account_number: null,
+        isLoading: false
       }
     },
     middleware: "router-auth",
@@ -99,19 +112,24 @@
           const stripe_get_account_url = config.apiUrl + "/stripe"
           // console.log(stripe_get_account_url)
           const res = await axios.get(stripe_get_account_url, {
-            params: {stripe_id},
+            params: {
+              stripe_id
+            },
           })
           bank_account_info = res.data
         } else {
           bank_account_info = null
         }
         // console.log(bank_account_info)
-        return {stripe_id, bank_account_info}
+        return {
+          stripe_id,
+          bank_account_info
+        }
       } else {
         return context.redirect("/")
       }
     },
-    mounted(){
+    mounted() {
       analytics().logEvent('page_view', {
         referrer: document.referrer,
         page_title: 'payment_setup',
@@ -122,26 +140,30 @@
     methods: {
       async setup() {
         try {
-          if(!this.$refs.form.validate()){
+          if (!this.$refs.form.validate()) {
             return
           }
-          this.isLoading =true
+          this.isLoading = true
           // Generate IP and date for TOS acceptance
           var date = Math.floor(Date.now() / 1000)
           // console.log(date)
           const getIpUrl = config.apiUrl + "/ip"
           var res = await axios.get(getIpUrl)
           var ip = res.data.split(",")[0]
-          var tos_acceptance = {date, ip}
+          var tos_acceptance = {
+            date,
+            ip
+          }
 
           // Generate a token for bank account
           const account_holder_type = "individual"
-          const account_holder_name =
-            this.$store.state.stripeSetup.individual.first_name +
-            " " +
-            this.$store.state.stripeSetup.individual.last_name
+          // const account_holder_name =
+          //   this.$store.state.stripeSetup.individual.first_name +
+          //   " " +
+          //   this.$store.state.stripeSetup.individual.last_name
           // const routing_number = this.$store.state.paymentSetup.routing_number
           // const account_number = this.$store.state.paymentSetup.account_number
+          const account_holder_name = this.account_holder_name
           const routing_number = this.routing_number
           const account_number = this.account_number
           const country = "US"
@@ -161,7 +183,7 @@
             "bank_account",
             bank_account_params
           )
-          if(account_result.error){
+          if (account_result.error) {
             throw Error(account_result.error.message)
           }
 
@@ -171,7 +193,11 @@
             product_description: "Artists Supply and Craft Shops.",
           }
           const business_type = "individual"
-          const capabilities = {transfers: {requested: true}}
+          const capabilities = {
+            transfers: {
+              requested: true
+            }
+          }
 
           const external_account = account_result.token.id
           const individual = {
@@ -190,7 +216,7 @@
             individual,
             tos_acceptance,
           })
-            const user = {
+          const user = {
             ...this.$store.state.user,
             stripe_id: stripe_account.data.id,
           }
@@ -205,11 +231,18 @@
           var uid = query_snapshot.docs[0].id
           await fireDb.collection("users").doc(uid).set(user)
           this.isLoading = false
-          if(this.$store.state.firstTime){
-            this.$router.push("/seller/products/create")
+          this.$store.commit("SET_TOAST", {message: "Account Updated Successfully!"})
+          if (this.$store.state.firstTime) {
+            let that = this
+            setTimeout(() => {
+              that.$router.push("/seller/products/create")
+            }, 2000)
             return
           }
-          this.$nuxt.refresh()
+          setTimeout(() => {
+            this.$nuxt.refresh()
+          }, 2000)
+
         } catch (err) {
           this.isLoading = false
           this.$store.commit("SET_TOAST", err)
@@ -221,8 +254,15 @@
       async delete_account() {
         const stripe_id = this.$store.state.user.stripe_id
         const stripe_delete_url = config.apiUrl + "/stripe"
-        await axios.delete(stripe_delete_url, {params: {stripe_id}})
-        const user = {...this.$store.state.user, stripe_id: null}
+        await axios.delete(stripe_delete_url, {
+          params: {
+            stripe_id
+          }
+        })
+        const user = {
+          ...this.$store.state.user,
+          stripe_id: null
+        }
         // console.log(stripe_account.data.id)
         this.$store.commit("SET_USER", user)
         // Update the value of stripe_id for the user
@@ -232,11 +272,12 @@
           .get()
         var uid = query_snapshot.docs[0].id
         await fireDb.collection("users").doc(uid).set(user)
-        this.routing_number = null
-        ;(this.account_number = null), this.$nuxt.refresh()
+        this.routing_number = null;
+        (this.account_number = null), this.$nuxt.refresh()
       },
     },
   }
+
 </script>
 
 <style scoped>
