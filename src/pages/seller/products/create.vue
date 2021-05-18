@@ -121,7 +121,11 @@
             var docRef = fireDb.collection("products").doc()
             await docRef.set(productDetails)
             this.$store.commit("SET_PRODUCT_ID", docRef.id)
-            this.$router.push("/seller/products")
+            this.$store.commit("SET_TOAST", "Congratulations, Product Published!")
+            let that = this
+            setTimeout(() => {
+              that.$router.push("/seller/products")
+            }, 2000)
         } catch (err) {
           this.isLoading = false
           this.$store.commit("SET_TOAST", err)
