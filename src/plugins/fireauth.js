@@ -8,18 +8,20 @@ export default (context) => {
   return new Promise((resolve, reject) => {
     fireAuth.onAuthStateChanged(async (user) => {
       let user_display
+      console.log("users logged in" , user)
       if (user) {
         user_display = _.pick(user, ["displayName", "email", "uid"])
         user_display["display_name"] = user_display["displayName"]
         delete user_display["displayName"]
         var querySnapshot = await fireDb
           .collection("users")
-          .where("uid", "==", user.uid)
+          .doc(user.uid)
           .get()
-        if (querySnapshot.docs.length >= 1) {
-          user_display = querySnapshot.docs[0].data()
+
+        if (Object.keys(querySnapshot.data()) ) {
+          user_display = querySnapshot.data()
         } else {
-          var docRef = fireDb.collection("users").doc()
+          var docRef = await fireDb.collection("users").doc(user.uid)
           user_display = {...user_display, stripe_id: null}
           await docRef.set(user_display)
         }
