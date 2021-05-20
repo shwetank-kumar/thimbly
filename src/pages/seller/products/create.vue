@@ -41,7 +41,7 @@
           >
           Next: Add Bank info</v-btn
         >
-        <v-subheader class="caption">
+        <v-subheader class="caption pt-10">
           We need your bank information to send you payments for purchased items.
         </v-subheader>
         </v-col>
