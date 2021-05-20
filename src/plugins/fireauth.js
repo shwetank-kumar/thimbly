@@ -17,9 +17,9 @@ export default (context) => {
           .collection("users")
           .doc(user.uid)
           .get()
-
-        if (Object.keys(querySnapshot.data()) ) {
-          user_display = querySnapshot.data()
+        let userData = querySnapshot.data();
+        if ( userData != null && Object.keys(userData) ) {
+          user_display = userData
         } else {
           var docRef = await fireDb.collection("users").doc(user.uid)
           user_display = {...user_display, stripe_id: null}

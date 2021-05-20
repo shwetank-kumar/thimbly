@@ -4,15 +4,15 @@
     <div class="sellercontainer">
       <v-row no-gutters>
         <v-card v-if="storeProducts.length" v-for="(product, index) in storeProducts" :key="index" width="100%"
-          height="200px" outlined class="my-2 rounded-lg">
+          height="200px" outlined class="my-2 rounded-lg"  @click="edit(index)">
           <v-card-title>{{ product.productTitle }}</v-card-title>
           <v-card-text>{{ product.productDescription }}</v-card-text>
           <v-card-actions class="d-flex justify-center">
-            <v-col>
+            <!-- <v-col>
               <v-btn depressed color="primary" @click="edit(index)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-            </v-col>
+            </v-col> -->
             <v-col>
               <v-btn depressed color="primary" @click="view(index)">
                 <v-icon>mdi-subdirectory-arrow-right</v-icon>
