@@ -29,8 +29,8 @@
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn depressed color="primary" @click="deleteProduct(index)">
-                <v-icon>mdi-delete</v-icon>
+              <v-btn depressed color="primary" @click="publishProduct(index)">
+                <v-icon>{{ (product.published) ? 'mdi-eye-outline': 'mdi-eye-off-outline'}}</v-icon>
               </v-btn>
             </v-col>
           </v-card-actions>
@@ -77,7 +77,6 @@
             productUrl: productUrl,
           })
         })
-
         return { storeProducts }
       } else {
         return context.redirect("/")
@@ -98,13 +97,11 @@
       })
     },
     methods: {
-      async deleteProduct(index) {
-        console.log("DELETE")
-        console.log(this.storeProducts[index])
+      async publishProduct(index) {
+        let published = (this.storeProducts[index].published) ? "unpublished" : "published";
         await fireDb
-          .collection("products").doc(this.storeProducts[index].product_id).delete().then(() => {
-          console.log("Document successfully deleted!");
-          this.$store.commit("SET_TOAST", {message: "Product Deleted Successfully!"})
+          .collection("products").doc(this.storeProducts[index].product_id).update({published: !this.storeProducts[index].published}).then(() => {
+          this.$store.commit("SET_TOAST", {message: `Product ${published}`})
           this.$nuxt.refresh()
         }).catch((error) => {
           this.$store.commit("SET_TOAST", {message: "Product Deleted Failed!"})
