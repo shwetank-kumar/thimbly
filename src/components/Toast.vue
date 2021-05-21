@@ -2,6 +2,7 @@
 
 <v-snackbar
     v-model="toast.show"
+    :timeout="3000"
 >
     {{ toast.message }}
 
