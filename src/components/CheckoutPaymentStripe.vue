@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card
-      ><v-card-title primary-title class="d-flex justify-center">
+    <v-card>
+      <v-card-title primary-title class="d-flex justify-center">
         Payment
       </v-card-title>
       <form id="payment-form">
@@ -9,18 +9,14 @@
           <!--Stripe.js injects the Card Element-->
         </div>
         <v-card-actions class="mt-5">
-          <v-btn color="primary" width="100%" 
-          @click="buy" 
-          :disabled="disabled"
-          elevation="5"
-            >Buy</v-btn
-          >
+          <v-btn color="primary" width="100%" @click="buy" :disabled="disabled" :loading="isLoading" elevation="5">Buy
+          </v-btn>
         </v-card-actions>
         <v-row class="mx-auto pt-4 d-flex justify-center">
-            <v-icon class="pr-2">mdi-lock</v-icon>
-            <span class="caption pt-1">All Payments are processed and secured by Stripe</span>
+          <v-icon class="pr-2">mdi-lock</v-icon>
+          <span class="caption pt-1">All Payments are processed and secured by Stripe</span>
         </v-row>
-      
+
         <p class="d-flex justify-center pt-6 red--text">
           {{ message }}
         </p>
@@ -30,7 +26,7 @@
 </template>
 
 <script>
-  import {config, fireDb, analytics} from "~/plugins/firebase.js"
+  import { config, fireDb, analytics } from "~/plugins/firebase.js"
   import axios from "axios"
   import _ from "lodash"
   export default {
@@ -52,7 +48,7 @@
             this.card_complete
           )
         },
-        set() {},
+        set() { },
       },
     },
 
@@ -75,7 +71,7 @@
       }
       this.stripe = await Stripe(config.stripeConfig.publicKey)
       let elements = this.stripe.elements()
-      this.card = elements.create("card", {style: style})
+      this.card = elements.create("card", { style: style })
       this.card.mount("#card-element")
       this.listenForErrors()
       // check if quantity available is > 0 else disable buy button
@@ -91,6 +87,7 @@
         stripe_error: null,
         card_complete: false,
         message: "",
+        isLoading: false,
         // disabled: true,
       }
     },
@@ -107,11 +104,13 @@
       toggleError: function (event) {
         if (event.error) {
           this.stripe_error = event.error.message
+          this.isLoading = false
         } else {
           this.stripe_error = ""
         }
       },
       async buy() {
+        this.isLoading = true
         var product_id = this.$store.state.product_id
 
         var product_ref = await fireDb
@@ -121,13 +120,14 @@
 
         var productDetails = {}
         if (product_ref.data()) {
-          productDetails = {...product_ref.data()} //, productId: docId}
+          productDetails = { ...product_ref.data() } //, productId: docId}
           // context.store.commit("SET_PRODUCT_DETAILS", productDetails)
           // context.store.commit("SET_PRODUCT_ID", product_id)
           this.$store.commit("SET_PRODUCT_DETAILS", productDetails)
           this.$store.commit("SET_PRODUCT_ID", product_id)
         } else {
           // context.router.push("/error")
+          this.isLoading = false
           this.$router.push("/error")
           console.log("Does not exist.")
         }
@@ -137,19 +137,19 @@
           // const shipping = this.$store.state.productDetails.shipping
           const amount =
             Number(this.$store.state.productDetails.productPricing) *
-              Number(this.$store.state.order.quantity) +
+            Number(this.$store.state.order.quantity) +
             Number(this.$store.state.productDetails.shipping)
 
           const stripe_id = this.$store.state.seller.stripe_id
           // console.log(config.apiUrl)
           var res = await axios.get(config.apiUrl + "/payment", {
-            params: {stripe_id, amount},
+            params: { stripe_id, amount },
           })
           this.payment_token = res.data
           const order = this.$store.state.order
 
           var seller_id = this.$store.state.productDetails.seller_id
-          const order_details = {product_id, seller_id, ...order}
+          const order_details = { product_id, seller_id, ...order }
           let result = await this.stripe.confirmCardPayment(
             this.payment_token,
             {
@@ -158,12 +158,13 @@
               },
             }
           )
-          const result_intent = {paymentIntent: {status: "succeeded"}}
+          const result_intent = { paymentIntent: { status: "succeeded" } }
           console.log(result)
           // var message = ""
           if (result.error) {
             // Show error to your customer (e.g., insufficient funds)
             this.message = result.error.message
+            this.isLoading = false
           } else {
             if (result.paymentIntent.status === "succeeded") {
               // Show a success message to your customer
@@ -180,6 +181,7 @@
                 this.$store.commit("SET_ORDER_ID", order_ref.id)
                 this.message = "Order generated!"
               } catch (error) {
+                this.isLoading = false
                 this.message = "Order generation failed: " + error
                 // if order generation fails you should revert the funds back here
               }
@@ -197,6 +199,7 @@
                 await doc_ref.set(product_details)
                 // this.message = "Listing updated!"
               } catch (error) {
+                this.isLoading = false
                 // this.message = "Listing update failed: " + error
               }
               // 3. Send email out to buyer and seller - just involves writing to mail datastore
@@ -206,7 +209,7 @@
                 .get()
               var seller
               seller_ref.forEach((doc) => {
-                seller = {...doc.data()}
+                seller = { ...doc.data() }
               })
               var to = [order.shipping_details.email, seller.email]
               var subject =
@@ -223,8 +226,8 @@
               Thanks<br>
               ${seller.display_name}
               </p>`
-              var message = {subject, html}
-              var mail = {to, message}
+              var message = { subject, html }
+              var mail = { to, message }
               var mail_ref = fireDb.collection("mail").doc()
               await mail_ref.set(mail)
               analytics().logEvent('purchase_success', {
@@ -232,8 +235,8 @@
                 page_title: location.pathname,
                 title: location.pathname,
                 path: location.pathname,
-                order_total: order.total ,
-                order_quantity: order.quantity ,
+                order_total: order.total,
+                order_quantity: order.quantity,
                 product_id,
                 seller_id,
               })
@@ -241,14 +244,15 @@
               this.$router.push("/seller/order/" + order_ref.id + "/thankyou")
             }
           }
+          this.isLoading = false
         } else {
           analytics().logEvent('purchase_failed', {
             referrer: document.referrer,
             page_title: location.pathname,
             title: location.pathname,
             path: location.pathname,
-            order_total: order.total ,
-            order_quantity: order.quantity ,
+            order_total: order.total,
+            order_quantity: order.quantity,
             product_id,
             seller_id
           })
