@@ -7,29 +7,29 @@
           height="200px" outlined class="my-2 rounded-lg"  @click="edit(index)">
           <v-card-title>{{ product.productTitle }}</v-card-title>
           <v-card-text>{{ product.productDescription }}</v-card-text>
-          <v-card-actions class="d-flex justify-center">
+          <v-card-actions class="d-flex justify-center"  v-on:click.prevent>
             <!-- <v-col>
               <v-btn depressed color="primary" @click="edit(index)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
             </v-col> -->
             <v-col>
-              <v-btn depressed color="primary" @click="view(index)">
+              <v-btn depressed color="primary" @click.stop="view(index)">
                 <v-icon>mdi-subdirectory-arrow-right</v-icon>
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn depressed color="primary" @click="getUrl(index)">
+              <v-btn depressed color="primary" @click.stop="getUrl(index)">
                 <v-icon> mdi-link</v-icon>
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn depressed color="primary" @click="getPost(index)">
+              <v-btn depressed color="primary" @click.stop="getPost(index)">
                 <v-icon>mdi-share-variant</v-icon>
               </v-btn>
             </v-col>
             <v-col>
-              <v-btn depressed color="primary" @click="publishProduct(index)">
+              <v-btn depressed color="primary" @click.stop="publishProduct(index)">
                 <v-icon>{{ (product.published) ? 'mdi-eye-outline': 'mdi-eye-off-outline'}}</v-icon>
               </v-btn>
             </v-col>
