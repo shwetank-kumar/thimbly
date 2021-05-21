@@ -81,15 +81,21 @@
             idx < this.$store.state.productDetails.productPhotos.length;
             idx++
           ) {
-            var fname = uuidv4()
-            var fileRef = fireStorage.ref().child("images/" + fname)
 
-            let blob = await fetch(
-              this.$store.state.productDetails.productPhotos[idx]
-            ).then((r) => r.blob())
-            const snapshot = await fileRef.put(blob)
-            var tempvarUrl = await snapshot.ref.getDownloadURL()
-            downloadUrls.push(tempvarUrl)
+            const regex = /^blob:http[a-z:\/\-\.\%0-9]+$/gm;
+            if (regex.test(this.$store.state.productDetails.productPhotos[idx])) {
+              var fname = uuidv4()
+              var fileRef = fireStorage.ref().child("images/" + fname)
+
+              let blob = await fetch(
+                this.$store.state.productDetails.productPhotos[idx]
+              ).then((r) => r.blob())
+              const snapshot = await fileRef.put(blob)
+              var tempvarUrl = await snapshot.ref.getDownloadURL()
+              downloadUrls.push(tempvarUrl)
+              continue
+            }
+            downloadUrls.push(this.$store.state.productDetails.productPhotos[idx])
           }
 
           var productDetails = {
