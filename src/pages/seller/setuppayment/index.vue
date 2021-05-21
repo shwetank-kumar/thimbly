@@ -200,9 +200,14 @@
           }
 
           const external_account = account_result.token.id
+          // const individual = {
+          //   first_name: this.$store.state.stripeSetup.individual.first_name,
+          //   last_name: this.$store.state.stripeSetup.individual.last_name,
+          // }
+          let names = this.account_holder_name.split(" ")
           const individual = {
-            first_name: this.$store.state.stripeSetup.individual.first_name,
-            last_name: this.$store.state.stripeSetup.individual.last_name,
+            first_name: names[0],
+            last_name: (names.length > 1) ? names[names.length -1] : '',
           }
           // const tos_acceptance = {date:1547923073, ip:"172.18.80.19"}
           const stripe_setup_url = config.apiUrl + "/stripe"
