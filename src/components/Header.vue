@@ -45,7 +45,7 @@
           this.$router.push("/seller/products")
         } else if (item.text == "Logout") {
           this.$store.dispatch("SIGNOUT")
-          this.$router.push("/")
+          this.$router.push("/loginvtjrjjmndn")
         }
       },
     },
