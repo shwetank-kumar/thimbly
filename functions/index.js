@@ -32,11 +32,11 @@ app.get("/ip", async (req, res) => {
 // Get card payment intent
 app.get("/payment", async (req, res) => {
   try {
-
+    let application_fee_amount = 25 + Math.round(req.query.amount * 100 * 0.0025)
     const payment_intent = await stripe.paymentIntents.create({
       payment_method_types: ["card"],
-      amount: Math.round(req.query.amount * 100 * 0.95),
-      application_fee_amount: Math.round(req.query.amount * 100 * 0.05),
+      amount: Math.round(req.query.amount * 100 ) - application_fee_amount,
+      application_fee_amount,
       currency: "usd",
       transfer_data: {
         destination: req.query.stripe_id,
